@@ -132,58 +132,158 @@
             transform: translateY(-50%);
         }
 
-        /* --- MOBILE RESPONSIVENESS & SIDE MENU --- */
         @media (max-width: 768px) {
 
-            /* Menu ya kawaida inafichwa */
+            /* Menu ya kisasa ya kioo kinachoelea */
             .nav-links {
                 position: fixed;
                 right: -100%;
-                /* Inakaa pembeni kabisa */
-                top: 0;
-                width: 70%;
-                /* Inachukua 70% ya kioo */
-                height: 100vh;
-                background: rgba(0, 0, 0, 0.9);
-                backdrop-filter: blur(25px);
+                /* Imetoka nje ya kioo kwa madaha */
+                top: 80px;
+                /* Nafasi kutoka juu ya kioo */
+                width: 80%;
+                /* Menu inachukua sehemu kubwa ya upana */
+                max-width: 350px;
+                /* Lakini haizidi upana huu */
+                background: rgba(44, 19, 39, 0.7);
+                /* Rangi mnyama na yenye uwazi */
+                backdrop-filter: blur(15px);
+                /* Athari ya ukungu mzuri sana */
+                -webkit-backdrop-filter: blur(15px);
                 flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: 0.5s;
-                z-index: 2000;
-                border-left: 1px solid var(--glass-border);
+                /* Vitu vimejipanga kwenda chini */
+                padding: 50px 30px;
+                /* Nafasi nzuri ndani ya box */
+                gap: 25px;
+                /* Nafasi kubwa kati ya vitu */
+                border-radius: 20px 0 0 20px;
+                /* Kona za duara upande wa kushoto */
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                /* Mpaka mwembamba wa kioo */
+                box-shadow: -15px 15px 40px rgba(0, 0, 0, 0.6);
+                /* Kivuli kinachofanya menu ionekane inaelea */
+                transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+                /* Uhuishaji laini na wa kisasa */
+                z-index: 3000;
+                /* Inakaa juu ya vitu vyote */
+                display: flex;
+                opacity: 0;
+                pointer-events: none;
             }
 
+            /* Wakati menu inafunguliwa */
             .nav-links.active {
                 right: 0;
-                /* Inatokea pembeni */
+                /* Menu inateleza kwa madaha upande wa kulia */
+                opacity: 1;
+                /* Inajidhihirisha polepole */
+                pointer-events: auto;
             }
 
-            /* Kitufe cha kufungua menu (Hamburger) */
+            /* Uhuishaji wa vitu vya menu ili vionekane moja baada ya nyingine */
+            .nav-links li {
+                width: 100%;
+                opacity: 0;
+                transform: translateY(15px);
+                transition: all 0.5s ease-in-out;
+            }
+
+            /* Athari ya kutokea kwa kila kitu cha menu */
+            .nav-links.active li {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Kuweka mfuatano wa uhuishaji kwa kila kitu cha menu */
+            .nav-links li:nth-child(1) {
+                transition-delay: 0.1s;
+            }
+
+            .nav-links li:nth-child(2) {
+                transition-delay: 0.2s;
+            }
+
+            .nav-links li:nth-child(3) {
+                transition-delay: 0.3s;
+            }
+
+            .nav-links li:nth-child(4) {
+                transition-delay: 0.4s;
+            }
+
+            .nav-links li:nth-child(5) {
+                transition-delay: 0.5s;
+            }
+
+            /* Staili ya maandishi ya menu */
+            .nav-links li a {
+                font-size: 1.2rem;
+                width: 100%;
+                text-align: right;
+                /* Maandishi yamepangwa upande wa kulia */
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                /* Mstari wa chini mwembamba sana */
+                color: rgba(255, 255, 255, 0.9);
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            /* Kitufe cha 'Tuma Kazi' */
+            .nav-links li a[style*="background"] {
+                background-color: rgb(210, 50, 40) !important;
+                /* Rangi nyekundu nzuri */
+                color: white !important;
+                padding: 12px 25px !important;
+                border-radius: 50px !important;
+                margin-top: 20px;
+                box-shadow: 0 5px 15px rgba(210, 50, 40, 0.3);
+                /* Kivuli cha rangi */
+                justify-content: center !important;
+                text-align: center !important;
+                border-bottom: none !important;
+            }
+
+            /* Athari ya kitu cha menu kigusalwapo */
+            .nav-links li a:hover {
+                color: #ffcc00 !important;
+                /* Rangi ya dhahabu inayovutia */
+            }
+
+            /* Kitufe cha Hamburger kwa ajili ya simu */
             .menu-toggle {
-                display: block !important;
-                cursor: pointer;
-                font-size: 1.5rem;
+                display: flex !important;
+                flex-direction: column;
+                gap: 6px;
+                z-index: 4000;
+                padding: 10px;
+                border-radius: 10px;
             }
 
-            /* Zooming na Ukubwa wa Maandishi kwenye Simu */
-            .hero-text h1 {
-                font-size: 1.8rem;
+            /* Staili ya mstari wa Hamburger */
+            .menu-toggle span {
+                width: 25px;
+                height: 2.5px;
+                background-color: white;
+                border-radius: 5px;
+                transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             }
 
-            .page {
-                padding: 100px 20px 40px;
+            /* Uhuishaji wa Hamburger kuwa 'X' wakati menu inafunguliwa */
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(8.5px) rotate(45deg);
+                background-color: #ff3333;
             }
 
-            .slider-container {
-                height: 50vh;
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
             }
-        }
 
-        /* Kuficha Hamburger kwenye PC */
-        .menu-toggle {
-            display: none;
-            color: white;
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-8.5px) rotate(-45deg);
+                background-color: #ff3333;
+            }
         }
 
         /* --- SERVICES GRID --- */
@@ -272,7 +372,11 @@
     <nav>
         <div class="logo" onclick="showPage('home')">ZEPOX <span>CO</span></div>
 
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <div class="menu-toggle" id="mobileBtn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
         <ul class="nav-links" id="navLinks">
             <li><a href="#" onclick="showPage('home'); toggleMenu()">Nyumbani</a></li>
@@ -280,7 +384,7 @@
             <li><a href="#" onclick="showPage('ai-class'); toggleMenu()">AI Class 🎓</a></li>
             <li><a href="#" onclick="showPage('about'); toggleMenu()">Kuhusu Sisi</a></li>
             <li><a href="#" onclick="openUploadModal(); toggleMenu()"
-                    style="background: var(--red); padding: 5px 15px; border-radius: 20px;">Tuma Kazi 🚀</a></li>
+                    style="background: var(--red); border-radius: 50px; border: none;">Tuma Kazi 🚀</a></li>
         </ul>
     </nav>
     <div id="home" class="page active">
@@ -532,16 +636,17 @@
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
-        function toggleMenu() {
-            const nav = document.getElementById("navLinks");
-            nav.classList.toggle("active");
-        }
+        document.getElementById('mobileBtn').addEventListener('click', function () {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
 
-        // Hii inahakikisha picha na kila kitu kinajizoom vizuri (Scaling)
-        window.addEventListener('resize', function () {
-            if (window.innerWidth > 768) {
-                document.getElementById("navLinks").classList.remove("active");
-            }
+        // Funga menu endapo kitu chochote kitagusalwa
+        document.querySelectorAll('#navLinks a').forEach(item => {
+            item.addEventListener('click', function () {
+                document.getElementById('mobileBtn').classList.remove('active');
+                document.getElementById('navLinks').classList.remove('active');
+            });
         });
     </script>
 </body>
