@@ -453,23 +453,34 @@
             document.body.style.overflow = "auto";
         }
 
-        // 4. WhatsApp Logic
-        function sendToWhatsApp() {
+        function sendEmail() {
             const name = document.getElementById("custName").value;
             const service = document.getElementById("serviceType").value;
             const details = document.getElementById("workDetails").value;
-            const phone = "255747712469";
+            const emailTo = "zepoxkenny4@gmail.com";
 
             if (name === "" || details === "") {
                 alert("Tafadhali jaza Jina na Maelezo ya kazi yako.");
                 return;
             }
 
-            const message = `*Oda Mpya kutoka Zepox Co*%0A%0A*Jina:* ${name}%0A*Huduma:* ${service}%0A*Maelezo:* ${details}%0A%0A_Nimekubali kuwa malipo ni baada ya kazi na delivery ni bure._`;
+            // Kutengeneza Kichwa cha Email (Subject)
+            const subject = encodeURIComponent(`ODA MPYA: ${service} - Kutoka kwa ${name}`);
 
-            const whatsappURL = `https://wa.me/${phone}?text=${message}`;
+            // Kutengeneza Mwili wa Email (Body)
+            let bodyText = `Habari Zepox Co,\n\nMimi ni ${name}.\n\nNATAKA HUDUMA YA: ${service}\n\nMAELEZO YA KAZI:\n${details}\n\n`;
 
-            window.open(whatsappURL, '_blank');
+            if (service === "Book Printing") {
+                bodyText += `Oda hii inahusisha Free Delivery.\n\n`;
+            }
+
+            bodyText += `Malipo ni baada ya kazi kukamilika.\n\n(MUHIMU: Tafadhali usisahau kuambatanisha/ku-attach picha au sample ya kazi yako hapa chini kwenye hii email kabla ya kutuma.)`;
+
+            const mailtoURL = `mailto:${emailTo}?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+
+            // Fungua App ya Email
+            window.location.href = mailtoURL;
+
             closeUploadModal();
             showPage('thank-you');
         }
