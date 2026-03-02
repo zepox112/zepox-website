@@ -532,7 +532,17 @@
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
-        
+        function toggleMenu() {
+            const nav = document.getElementById("navLinks");
+            nav.classList.toggle("active");
+        }
+
+        // Hii inahakikisha picha na kila kitu kinajizoom vizuri (Scaling)
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                document.getElementById("navLinks").classList.remove("active");
+            }
+        });
     </script>
 </body>
 
