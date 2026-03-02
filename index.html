@@ -30,7 +30,7 @@
             overflow-x: hidden;
         }
 
-        /* --- NAVIGATION (SHORTCUTS) --- */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 0;
@@ -65,9 +65,8 @@
             color: white;
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 400;
-            transition: 0.3s;
             opacity: 0.8;
+            transition: 0.3s;
         }
 
         .nav-links li a:hover {
@@ -75,12 +74,70 @@
             color: var(--blue);
         }
 
-        /* --- PAGE STRUCTURE --- */
+        /* --- MOBILE MENU --- */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                width: 75%;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 40px;
+                border-radius: 20px 0 0 20px;
+                transition: 0.5s;
+                height: 100vh;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex !important;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+            }
+
+            .menu-toggle span {
+                width: 25px;
+                height: 3px;
+                background: white;
+                border-radius: 5px;
+                transition: 0.3s;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 6px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -6px);
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        /* --- PAGES --- */
         .page {
             display: none;
-            padding: 120px 50px 50px;
+            padding: 120px 20px 50px;
             min-height: 100vh;
             animation: fadeIn 0.5s;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .active {
@@ -103,19 +160,19 @@
             background: var(--glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 30px;
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 20px;
         }
 
-        /* --- HOME / SLIDER --- */
+        /* --- HERO --- */
         .hero-slider {
             width: 100%;
-            height: 60vh;
-            border-radius: 30px;
+            height: 40vh;
+            border-radius: 25px;
             overflow: hidden;
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .slider-img {
@@ -128,183 +185,30 @@
         .hero-text {
             position: absolute;
             top: 50%;
-            left: 10%;
+            left: 5%;
             transform: translateY(-50%);
         }
 
-        @media (max-width: 768px) {
-
-            /* Menu ya kisasa ya kioo kinachoelea */
-            .nav-links {
-                position: fixed;
-                right: -100%;
-                /* Imetoka nje ya kioo kwa madaha */
-                top: 80px;
-                /* Nafasi kutoka juu ya kioo */
-                width: 80%;
-                /* Menu inachukua sehemu kubwa ya upana */
-                max-width: 350px;
-                /* Lakini haizidi upana huu */
-                background: rgba(44, 19, 39, 0.7);
-                /* Rangi mnyama na yenye uwazi */
-                backdrop-filter: blur(15px);
-                /* Athari ya ukungu mzuri sana */
-                -webkit-backdrop-filter: blur(15px);
-                flex-direction: column;
-                /* Vitu vimejipanga kwenda chini */
-                padding: 50px 30px;
-                /* Nafasi nzuri ndani ya box */
-                gap: 25px;
-                /* Nafasi kubwa kati ya vitu */
-                border-radius: 20px 0 0 20px;
-                /* Kona za duara upande wa kushoto */
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                /* Mpaka mwembamba wa kioo */
-                box-shadow: -15px 15px 40px rgba(0, 0, 0, 0.6);
-                /* Kivuli kinachofanya menu ionekane inaelea */
-                transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-                /* Uhuishaji laini na wa kisasa */
-                z-index: 3000;
-                /* Inakaa juu ya vitu vyote */
-                display: flex;
-                opacity: 0;
-                pointer-events: none;
-            }
-
-            /* Wakati menu inafunguliwa */
-            .nav-links.active {
-                right: 0;
-                /* Menu inateleza kwa madaha upande wa kulia */
-                opacity: 1;
-                /* Inajidhihirisha polepole */
-                pointer-events: auto;
-            }
-
-            /* Uhuishaji wa vitu vya menu ili vionekane moja baada ya nyingine */
-            .nav-links li {
-                width: 100%;
-                opacity: 0;
-                transform: translateY(15px);
-                transition: all 0.5s ease-in-out;
-            }
-
-            /* Athari ya kutokea kwa kila kitu cha menu */
-            .nav-links.active li {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            /* Kuweka mfuatano wa uhuishaji kwa kila kitu cha menu */
-            .nav-links li:nth-child(1) {
-                transition-delay: 0.1s;
-            }
-
-            .nav-links li:nth-child(2) {
-                transition-delay: 0.2s;
-            }
-
-            .nav-links li:nth-child(3) {
-                transition-delay: 0.3s;
-            }
-
-            .nav-links li:nth-child(4) {
-                transition-delay: 0.4s;
-            }
-
-            .nav-links li:nth-child(5) {
-                transition-delay: 0.5s;
-            }
-
-            /* Staili ya maandishi ya menu */
-            .nav-links li a {
-                font-size: 1.2rem;
-                width: 100%;
-                text-align: right;
-                /* Maandishi yamepangwa upande wa kulia */
-                padding: 10px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                /* Mstari wa chini mwembamba sana */
-                color: rgba(255, 255, 255, 0.9);
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-            }
-
-            /* Kitufe cha 'Tuma Kazi' */
-            .nav-links li a[style*="background"] {
-                background-color: rgb(210, 50, 40) !important;
-                /* Rangi nyekundu nzuri */
-                color: white !important;
-                padding: 12px 25px !important;
-                border-radius: 50px !important;
-                margin-top: 20px;
-                box-shadow: 0 5px 15px rgba(210, 50, 40, 0.3);
-                /* Kivuli cha rangi */
-                justify-content: center !important;
-                text-align: center !important;
-                border-bottom: none !important;
-            }
-
-            /* Athari ya kitu cha menu kigusalwapo */
-            .nav-links li a:hover {
-                color: #ffcc00 !important;
-                /* Rangi ya dhahabu inayovutia */
-            }
-
-            /* Kitufe cha Hamburger kwa ajili ya simu */
-            .menu-toggle {
-                display: flex !important;
-                flex-direction: column;
-                gap: 6px;
-                z-index: 4000;
-                padding: 10px;
-                border-radius: 10px;
-            }
-
-            /* Staili ya mstari wa Hamburger */
-            .menu-toggle span {
-                width: 25px;
-                height: 2.5px;
-                background-color: white;
-                border-radius: 5px;
-                transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            }
-
-            /* Uhuishaji wa Hamburger kuwa 'X' wakati menu inafunguliwa */
-            .menu-toggle.active span:nth-child(1) {
-                transform: translateY(8.5px) rotate(45deg);
-                background-color: #ff3333;
-            }
-
-            .menu-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .menu-toggle.active span:nth-child(3) {
-                transform: translateY(-8.5px) rotate(-45deg);
-                background-color: #ff3333;
-            }
-        }
-
-        /* --- SERVICES GRID --- */
+        /* --- GRID --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
         }
 
         .card {
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
+            padding: 20px;
             border-radius: 20px;
             border: 1px solid var(--glass-border);
             transition: 0.3s;
             cursor: pointer;
+            text-align: center;
         }
 
         .card:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
             border-color: var(--blue);
         }
 
@@ -313,15 +217,23 @@
             margin-bottom: 10px;
         }
 
-        /* --- AI CLASS SPECIAL SECTION --- */
-        .ai-badge {
-            background: var(--blue);
+        /* --- FORM ELEMENTS --- */
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            display: inline-block;
-            margin-bottom: 10px;
+            outline: none;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
         }
 
         .btn {
@@ -331,8 +243,15 @@
             border-radius: 50px;
             text-decoration: none;
             display: inline-block;
-            margin-top: 15px;
             font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 62, 62, 0.4);
         }
 
         /* --- MODAL --- */
@@ -346,16 +265,23 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(15px);
+            overflow-y: auto;
+            padding: 20px;
         }
 
         .modal-content {
-            margin: 10% auto;
-            padding: 40px;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 25px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
+            margin: 5% auto;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: white;
         }
 
         footer {
@@ -371,283 +297,175 @@
 
     <nav>
         <div class="logo" onclick="showPage('home')">ZEPOX <span>CO</span></div>
-
-        <div class="menu-toggle" id="mobileBtn" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="menu-toggle" id="mobileBtn">
+            <span></span><span></span><span></span>
         </div>
-
         <ul class="nav-links" id="navLinks">
-            <li><a href="#" onclick="showPage('home'); toggleMenu()">Nyumbani</a></li>
-            <li><a href="#" onclick="showPage('services'); toggleMenu()">Huduma</a></li>
-            <li><a href="#" onclick="showPage('ai-class'); toggleMenu()">AI Class 🎓</a></li>
-            <li><a href="#" onclick="showPage('about'); toggleMenu()">Kuhusu Sisi</a></li>
-            <li><a href="#" onclick="openUploadModal(); toggleMenu()"
-                    style="background: var(--red); border-radius: 50px; border: none;">Tuma Kazi 🚀</a></li>
+            <li><a href="#" onclick="showPage('home')">Nyumbani</a></li>
+            <li><a href="#" onclick="showPage('services')">Huduma</a></li>
+            <li><a href="#" onclick="showPage('ai-class')">AI Class 🎓</a></li>
+            <li><a href="#" onclick="showPage('about')">Kuhusu Sisi</a></li>
+            <li><a href="#" onclick="openUploadModal()"
+                    style="background: var(--red); border-radius: 50px; padding: 8px 20px;">Tuma Kazi 🚀</a></li>
         </ul>
     </nav>
+
     <div id="home" class="page active">
         <div class="hero-slider">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" class="slider-img"
-                id="slideImg">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" class="slider-img">
             <div class="hero-text">
-                <h1 id="slideTitle">Karibu Zepox Co.</h1>
-                <p id="slideSub">Ubora wa Kidijitali bila mipaka.</p>
+                <h1>Karibu Zepox Co.</h1>
+                <p>Ubora wa Kidijitali bila mipaka.</p>
                 <a href="#" class="btn" onclick="showPage('services')">Anza Sasa</a>
             </div>
         </div>
         <div class="glass-card">
             <h2>Kwanini Utuchague?</h2>
-            <p>Tunatumia teknolojia ya 2026 kuhakikisha kazi zako zinafanyika kwa kasi ya ajabu kupitia Online Cloud
-                Servers.</p>
+            <p>Tunatumia teknolojia ya kisasa kuhakikisha kazi zako zinafanyika kwa kasi ya ajabu. Malipo yote ni baada
+                ya kazi kukamilika!</p>
         </div>
     </div>
 
     <div id="services" class="page">
-        <h2 style="margin-bottom: 30px; text-align: center;">Huduma Zetu za Kitaalamu</h2>
+        <h2 style="margin-bottom: 30px; text-align: center;">Chagua Huduma</h2>
         <div class="grid">
-            <div class="card" onclick="openInfo('web')">
+            <div class="card" onclick="openUploadModal('Website Design')">
                 <h3>🌐 Website Design</h3>
-                <p>Website za kisasa zenye Liquid Glass design.</p>
+                <p>Gusa hapa kutuma maelezo ya website unayotaka.</p>
             </div>
-            <div class="card" onclick="openInfo('video')">
+            <div class="card" onclick="openUploadModal('Video Editing')">
                 <h3>🎬 Video Editing</h3>
-                <p>Editing ya 4K kwa ajili ya YouTube na Reels.</p>
+                <p>Gusa hapa kutuma video au maelezo ya editing.</p>
             </div>
-            <div class="card" onclick="openInfo('photo')">
+            <div class="card" onclick="openUploadModal('Photo Restoration')">
                 <h3>📸 Photo Restoration</h3>
-                <p>Kufufua picha za zamani na kusafisha mpya.</p>
+                <p>Gusa hapa kutuma picha ya kufanyiwa kazi.</p>
             </div>
-            <div class="card" onclick="openInfo('print')">
+            <div class="card" onclick="openUploadModal('Book Printing')">
                 <h3>📚 Book Printing</h3>
-                <p>Photobooks na Yearbooks zenye ubora wa juu.</p>
+                <p>Gusa hapa kutuma oda ya vitabu au majarida.</p>
             </div>
         </div>
     </div>
+
     <div id="uploadModal" class="modal">
         <div class="modal-content glass-card">
             <span class="close-btn" onclick="closeUploadModal()">&times;</span>
-            <h2 style="color: var(--blue);">Tuma Kazi Yako 🚀</h2>
-            <p style="font-size: 0.8rem; margin-bottom: 20px; color: #ccc;">Jaza taarifa zako hapa chini kuanza
-                mchakato.</p>
+            <h2 id="formTitle" style="color: var(--blue); margin-bottom: 10px;">Tuma Kazi Yako</h2>
+            <p style="font-size: 0.8rem; margin-bottom: 20px; opacity: 0.7;">Weka maelezo yako na picha/sample ya kazi.
+            </p>
 
-            <form id="uploadForm">
-                <input type="text" id="custName" placeholder="Jina Lako Kamili" required
-                    style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.1); color:white;">
-
-                <input type="tel" id="custPhone" placeholder="Namba ya WhatsApp" required
-                    style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.1); color:white;">
-
-                <select id="serviceType"
-                    style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--glass-border); background:rgba(0,0,0,0.5); color:white;">
-                    <option value="Website">Website Design</option>
-                    <option value="Video">Video Production</option>
-                    <option value="Photo">Photo Cleaning</option>
-                    <option value="Printing">Book Printing</option>
+            <form id="workForm">
+                <input type="text" id="custName" placeholder="Jina Lako" required>
+                <select id="serviceType">
+                    <option value="Website Design">Website Design</option>
+                    <option value="Video Editing">Video Editing</option>
+                    <option value="Photo Restoration">Photo Restoration</option>
+                    <option value="Book Printing">Book Printing</option>
+                    <option value="Social Media Branding">Social Media Branding</option>
                 </select>
+                <textarea id="workDetails" placeholder="Elezea unachotaka kifanyike kwenye kazi yako..."></textarea>
 
                 <div
-                    style="border: 2px dashed var(--glass-border); padding: 20px; text-align: center; border-radius: 15px; margin-bottom: 15px;">
-                    <p style="font-size: 0.9rem;">Upload Mafile (Picha/Video/Documents)</p>
-                    <input type="file" id="fileInput" multiple style="margin-top: 10px; font-size: 0.8rem;">
+                    style="border: 2px dashed var(--glass-border); padding: 15px; text-align: center; border-radius: 15px; margin-bottom: 15px;">
+                    <p style="font-size: 0.8rem;">Ambatisha Picha au Sample (Ukihitaji)</p>
+                    <input type="file" id="fileInput"
+                        style="margin-top: 10px; font-size: 0.8rem; background: transparent; border:none;">
                 </div>
 
                 <div
-                    style="background: rgba(0, 123, 255, 0.15); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--blue);">
-                    <p style="font-size: 0.85rem; color: #fff;">
-                        ✅ <b>Malipo:</b> Yanafanyika baada ya kazi kukamilika na wewe kuridhika.<br>
-                        🚚 <b>Delivery:</b> Ni BURE (Free Delivery) kwa kazi zote za printing.
-                    </p>
+                    style="background: rgba(0, 123, 255, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem;">
+                    ✅ <b>Malipo ni baada ya kazi.</b><br>
+                    🚚 <b>Delivery ni BURE (Free).</b>
                 </div>
 
                 <button type="button" class="btn" style="width: 100%; background: var(--blue);"
-                    onclick="submitJob()">TUMA KAZI SASA</button>
+                    onclick="sendToWhatsApp()">TUMA KWA WHATSAPP</button>
             </form>
         </div>
     </div>
 
     <div id="ai-class" class="page">
         <div class="glass-card" style="border-left: 10px solid var(--blue);">
-            <div class="ai-badge">NEW TECHNOLOGY</div>
             <h2>Zepox AI Academy 🎓</h2>
-            <p>Usibaki nyuma! Jiunge na madarasa yetu ya mtandaoni ujifunze kutumia Akili Mnemba (Artificial
-                Intelligence).</p>
+            <p>Jifunze kutumia AI kuboresha biashara yako. Madarasa yanaanza hivi karibuni!</p>
+            <center><a href="https://wa.me/255747712469" class="btn" style="margin-top:20px;">Jiunge na WhatsApp
+                    Group</a></center>
         </div>
-        <div class="grid">
-            <div class="card">
-                <div class="ai-badge">Level: Beginner</div>
-                <h3>AI kwa Wafanyabiashara</h3>
-                <p>Jifunze kutumia AI kutengeneza picha za bidhaa na maelezo ya mauzo.</p>
-            </div>
-            <div class="card">
-                <div class="ai-badge">Level: Pro</div>
-                <h3>AI Video Tools</h3>
-                <p>Jifunze kuedit video kwa kutumia AI ili kuokoa muda na RAM.</p>
-            </div>
-            <div class="card">
-                <div class="ai-badge">Coming Soon</div>
-                <h3>Prompt Engineering</h3>
-                <p>Siri ya kuongea na AI ili kupata matokeo unayotaka.</p>
-            </div>
-        </div>
-        <center><a href="https://wa.me/255XXXXXXXXX" class="btn" style="background:var(--blue)">Jiunge na Darasa la
-                WhatsApp</a></center>
     </div>
 
     <div id="about" class="page">
         <div class="glass-card">
-            <h2>Kuhusu Zepox Co.</h2>
-            <p>Zepox Co ni kampuni ya IT iliyoanzishwa ikiwa na lengo la kurahisisha teknolojia kwa kila mtu nchini
-                Tanzania. Sisi hatuishii tu kutoa huduma, bali tunakuwezesha kupitia elimu ya AI Class.</p>
-            <br>
-            <h3>Tupate Hapa:</h3>
-            <p>📍 Arusha/Dar es Salaam, Tanzania</p>
-            <p>📧 info@zepoxco.com</p>
-            <p>📞 +255 XXX XXX XXX</p>
+            <h2>Kuhusu Sisi</h2>
+            <p>Zepox Co ni timu ya wataalamu wa IT na Media wenye lengo la kutoa huduma bora Tanzania.</p>
+            <p style="margin-top:15px;">📍 Arusha, Tanzania<br>📞 0747712469</p>
         </div>
     </div>
 
-    <div id="serviceModal" class="modal">
-        <div class="modal-content">
-            <h2 id="modalTitle" style="color: var(--red);"></h2>
-            <p id="modalBody" style="margin: 20px 0; line-height: 1.8;"></p>
-            <button class="btn" onclick="closeModal()">Funga</button>
-            <a href="https://wa.me/255XXXXXXXXX" class="btn" style="background:#25d366">Agiza Sasa</a>
-        </div>
-    </div>
     <div id="thank-you" class="page">
-        <div class="glass-card" style="text-align: center; border: 2px solid var(--blue);">
-            <div style="font-size: 5rem;">✅</div>
-            <h2 style="color: var(--blue); font-size: 2.5rem;">Asante Sana!</h2>
-            <p style="font-size: 1.2rem; margin: 20px 0;">Tumepokea taarifa zako za kazi. Fundi wetu atakucheki WhatsApp
-                sasa hivi kwa ajili ya kupokea mafile.</p>
-
-            <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-bottom: 30px;">
-                <p>📌 <b>Kumbuka:</b> Malipo ni baada ya kazi kukamilika.</p>
-                <p>🚚 <b>Delivery:</b> Ni bure (Free Delivery) kwa wateja wetu wote.</p>
-            </div>
-
-            <a href="#" class="btn" onclick="showPage('home')">Rudi Nyumbani</a>
+        <div class="glass-card" style="text-align: center;">
+            <div style="font-size: 4rem;">🚀</div>
+            <h2>Imetuma!</h2>
+            <p>Maelezo yako yameshapakiwa. Maliza mchakato kwa kubonyeza 'Send' kule WhatsApp.</p>
+            <a href="#" class="btn" onclick="showPage('home')" style="margin-top:20px;">Rudi Mwanzo</a>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Zepox Co. | Modern Digital Solutions</p>
+        <p>&copy; 2026 Zepox Co. under Zephania Kenedy| Modern Digital Solutions</p>
     </footer>
 
     <script>
-        // 1. PAGE NAVIGATION LOGIC
+        // 1. Navigation
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
+            document.getElementById('navLinks').classList.remove('active');
+            document.getElementById('mobileBtn').classList.remove('active');
             window.scrollTo(0, 0);
         }
 
-        // 2. SLIDER LOGIC (Inabadilisha picha kila sekunde 5)
-        const slides = [
-            { img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200", title: "Modern Web Design", sub: "Tengeneza website yenye kasi." },
-            { img: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1200", title: "Video Production", sub: "Editing ya 4K ukitumia Cloud." },
-            { img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200", title: "AI Learning", sub: "Jiunge na AI Class sasa." }
-        ];
-        let currentSlide = 0;
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            document.getElementById('slideImg').src = slides[currentSlide].img;
-            document.getElementById('slideTitle').innerText = slides[currentSlide].title;
-            document.getElementById('slideSub').innerText = slides[currentSlide].sub;
-        }, 5000);
-
-        // 3. MODAL / DETAILED INFO
-        const serviceData = {
-            'web': "Tunatengeneza website kwa kutumia teknolojia ya Cloud Hosting. Website hizi ni nyepesi (Fast Loading), zina SSL security, na muonekano wa kisasa wa Liquid Glass. RAM ya kompyuta yako haitahusika wakati wa ujenzi.",
-            'video': "Tunafanya editing ya video za harusi, matangazo, na maudhui ya YouTube. Tunatumia Online Rendering Servers kufanya kazi nzito, hivyo tunatoa kazi kwa haraka zaidi.",
-            'photo': "Kusafisha picha kwa AI (AI Photo Enhancing), kurejesha rangi picha za kizamani, na kuondoa background kitaalamu.",
-            'print': "Tunachapa Photobooks za kisasa, Yearbooks za shule, na kadi za biashara zenye viwango vya kimataifa."
-        };
-
-        function openInfo(key) {
-            document.getElementById('modalTitle').innerText = key.toUpperCase();
-            document.getElementById('modalBody').innerText = serviceData[key];
-            document.getElementById('serviceModal').style.display = "block";
-        }
-
-        function closeModal() {
-            document.getElementById('serviceModal').style.display = "none";
-        }
-        // Fungua Modal ya Upload
-        function openUploadModal() {
-            document.getElementById("uploadModal").style.display = "block";
-            document.body.style.overflow = "hidden";
-        }
-
-        // Funga Modal ya Upload
-        function closeUploadModal() {
-            document.getElementById("uploadModal").style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-
-        // Logic ya Kutuma Kazi
-        function submitJob() {
-            const name = document.getElementById("custName").value;
-            const phone = document.getElementById("custPhone").value;
-            const service = document.getElementById("serviceType").value;
-
-            if (name == "" || phone == "") {
-                alert("Tafadhali jaza Jina na Namba ya Simu!");
-                return;
-            }
-
-            // Ujumbe utakaotumwa WhatsApp kwako moja kwa moja
-            const message = `Habari Zepox Co, mimi ni *${name}* (${phone}). \n\nNataka huduma ya: *${service}* \n\nNimekubali kuwa malipo ni baada ya kazi na delivery ni bure. Nasubiri maelekezo ya wapi nipakie mafile yangu.`;
-
-            const whatsappURL = `https://wa.me/255XXXXXXXXX?text=${encodeURIComponent(message)}`;
-
-            // Fungua WhatsApp
-            window.open(whatsappURL, '_blank');
-            alert("Asante " + name + "! Taarifa zako zimepokelewa. Fungua WhatsApp kutuma mafile yako.");
-            closeUploadModal();
-        }
-        function submitJob() {
-            const name = document.getElementById("custName").value;
-            const phone = document.getElementById("custPhone").value;
-            const service = document.getElementById("serviceType").value;
-
-            if (name === "" || phone === "") {
-                alert("Tafadhali jaza Jina na Namba ya Simu!");
-                return;
-            }
-
-            // 1. Kutengeneza Ujumbe wa WhatsApp
-            const message = `Habari Zepox Co, mimi ni *${name}* (${phone}). \n\nNataka huduma ya: *${service}* \n\nNimekubali kuwa malipo ni baada ya kazi na delivery ni bure. Nasubiri maelekezo ya wapi nipakie mafile yangu kupitia cloud.`;
-            const whatsappURL = `https://wa.me/255XXXXXXXXX?text=${encodeURIComponent(message)}`;
-
-            // 2. Fungua WhatsApp kwenye window nyingine
-            window.open(whatsappURL, '_blank');
-
-            // 3. Funga Modal na onyesha Thank You Page
-            closeUploadModal();
-            showPage('thank-you');
-        }
-
-        // Function ya ziada kuhakikisha showPage inafanya kazi vizuri
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
+        // 2. Mobile Menu Toggle
         document.getElementById('mobileBtn').addEventListener('click', function () {
             this.classList.toggle('active');
             document.getElementById('navLinks').classList.toggle('active');
         });
 
-        // Funga menu endapo kitu chochote kitagusalwa
-        document.querySelectorAll('#navLinks a').forEach(item => {
-            item.addEventListener('click', function () {
-                document.getElementById('mobileBtn').classList.remove('active');
-                document.getElementById('navLinks').classList.remove('active');
-            });
-        });
+        // 3. Modal Controls
+        function openUploadModal(serviceName = "") {
+            document.getElementById("uploadModal").style.display = "block";
+            if (serviceName !== "") {
+                document.getElementById("serviceType").value = serviceName;
+                document.getElementById("formTitle").innerText = "Agiza " + serviceName;
+            }
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeUploadModal() {
+            document.getElementById("uploadModal").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // 4. WhatsApp Logic
+        function sendToWhatsApp() {
+            const name = document.getElementById("custName").value;
+            const service = document.getElementById("serviceType").value;
+            const details = document.getElementById("workDetails").value;
+            const phone = "255747712469";
+
+            if (name === "" || details === "") {
+                alert("Tafadhali jaza Jina na Maelezo ya kazi yako.");
+                return;
+            }
+
+            const message = `*Oda Mpya kutoka Zepox Co*%0A%0A*Jina:* ${name}%0A*Huduma:* ${service}%0A*Maelezo:* ${details}%0A%0A_Nimekubali kuwa malipo ni baada ya kazi na delivery ni bure._`;
+
+            const whatsappURL = `https://wa.me/${phone}?text=${message}`;
+
+            window.open(whatsappURL, '_blank');
+            closeUploadModal();
+            showPage('thank-you');
+        }
     </script>
 </body>
 
