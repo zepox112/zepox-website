@@ -357,13 +357,15 @@
 
             <form id="workForm">
                 <input type="text" id="custName" placeholder="Jina Lako" required>
-                <select id="serviceType">
+
+                <select id="serviceType" onchange="checkService()">
                     <option value="Website Design">Website Design</option>
                     <option value="Video Editing">Video Editing</option>
                     <option value="Photo Restoration">Photo Restoration</option>
                     <option value="Book Printing">Book Printing</option>
                     <option value="Social Media Branding">Social Media Branding</option>
                 </select>
+
                 <textarea id="workDetails" placeholder="Elezea unachotaka kifanyike kwenye kazi yako..."></textarea>
 
                 <div
@@ -373,10 +375,15 @@
                         style="margin-top: 10px; font-size: 0.8rem; background: transparent; border:none;">
                 </div>
 
-                <div
-                    style="background: rgba(0, 123, 255, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem;">
+                <div id="deliveryNote"
+                    style="display: none; background: rgba(0, 123, 255, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; border-left: 4px solid var(--blue);">
                     ✅ <b>Malipo ni baada ya kazi.</b><br>
-                    🚚 <b>Delivery ni BURE (Free).</b>
+                    🚚 <b>Delivery ni BURE (Free) kwa Printing.</b>
+                </div>
+
+                <div id="standardNote"
+                    style="background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem;">
+                    ✅ <b>Malipo ni baada ya kazi kukamilika.</b>
                 </div>
 
                 <button type="button" class="btn" style="width: 100%; background: var(--blue);"
@@ -459,6 +466,58 @@
             }
 
             const message = `*Oda Mpya kutoka Zepox Co*%0A%0A*Jina:* ${name}%0A*Huduma:* ${service}%0A*Maelezo:* ${details}%0A%0A_Nimekubali kuwa malipo ni baada ya kazi na delivery ni bure._`;
+
+            const whatsappURL = `https://wa.me/${phone}?text=${message}`;
+
+            window.open(whatsappURL, '_blank');
+            closeUploadModal();
+            showPage('thank-you');
+        }
+        // Function ya kuangalia kama ni Printing au la
+        function checkService() {
+            const service = document.getElementById("serviceType").value;
+            const deliveryNote = document.getElementById("deliveryNote");
+            const standardNote = document.getElementById("standardNote");
+
+            if (service === "Book Printing") {
+                deliveryNote.style.display = "block";
+                standardNote.style.display = "none";
+            } else {
+                deliveryNote.style.display = "none";
+                standardNote.style.display = "block";
+            }
+        }
+
+        // Boresha pia openUploadModal ili iitupie hiyo checkService
+        function openUploadModal(serviceName = "") {
+            document.getElementById("uploadModal").style.display = "block";
+            if (serviceName !== "") {
+                document.getElementById("serviceType").value = serviceName;
+                document.getElementById("formTitle").innerText = "Agiza " + serviceName;
+            }
+            checkService(); // Hii itahakikisha note inatokea kama ni printing
+            document.body.style.overflow = "hidden";
+        }
+
+        // Function ya kutuma WhatsApp iliyoboreshwa
+        function sendToWhatsApp() {
+            const name = document.getElementById("custName").value;
+            const service = document.getElementById("serviceType").value;
+            const details = document.getElementById("workDetails").value;
+            const phone = "255747712469";
+
+            if (name === "" || details === "") {
+                alert("Tafadhali jaza Jina na Maelezo ya kazi yako.");
+                return;
+            }
+
+            // Logic ya ujumbe wa delivery kwenye WhatsApp
+            let deliveryText = "";
+            if (service === "Book Printing") {
+                deliveryText = "%0A🚚 _Delivery: Bure (Free)_";
+            }
+
+            const message = `*Oda Mpya kutoka Zepox Co*%0A%0A*Jina:* ${name}%0A*Huduma:* ${service}%0A*Maelezo:* ${details}${deliveryText}%0A%0A_Nimekubali kuwa malipo ni baada ya kazi._`;
 
             const whatsappURL = `https://wa.me/${phone}?text=${message}`;
 
