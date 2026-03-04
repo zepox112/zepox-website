@@ -55,6 +55,99 @@
             color: var(--red);
         }
 
+        :root {
+            /* Glass Effect yenye muonekano wa 'Liquid' */
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-blur: blur(15px);
+        }
+
+        /* NAVIGATION YA KIOO */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--glass);
+            /* Liquid Transparent */
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        /* HAMBURGER MENU (Itaonekana kwenye simu tu) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        /* NAV LINKS KWA DESKTOP NA MOBILE */
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            transition: 0.4s ease-in-out;
+        }
+
+        /* RESPONSIVE DESIGN (KWA SIMU) */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+                /* Inaonekana kwenye simu pekee */
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                /* Inajificha kulia */
+                top: 0;
+                height: 100vh;
+                width: 70%;
+                background: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(25px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                border-left: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                right: 0;
+                /* Inatokea ikibonyezwa */
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+        }
+
+        /* Glass Card ya 'More Liquid' */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            /* Transparent zaidi */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+        }
+
         .nav-links {
             display: flex;
             gap: 25px;
@@ -500,6 +593,20 @@
 
                 const whatsappURL = `https://wa.me/${myNumber}?text=${message}`;
                 window.open(whatsappURL, '_blank');
+            }
+            // Function ya kufungua/kufunga menu kwenye simu
+            const menu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-list');
+
+            menu.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+                // Optional: Animation ya hamburger kugeuka X
+                this.classList.toggle('is-active');
+            });
+
+            // Function ya kufunga menu mteja akibonyeza link
+            function closeMenu() {
+                navLinks.classList.remove('active');
             }
         </script>
 </body>
