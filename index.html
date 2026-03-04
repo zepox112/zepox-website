@@ -323,37 +323,53 @@
         <div class="glass-card" style="border-left: 10px solid var(--blue); margin-bottom: 30px;">
             <h2 style="color: var(--blue);">Zepox AI Academy 🎓</h2>
             <p>Jifunze teknolojia ya kisasa. Chagua kozi unayotaka na uanze safari yako ya kuwa mtaalamu wa AI.</p>
+
             <div
-                style="margin-top: 15px; background: rgba(0, 123, 255, 0.1); padding: 10px; border-radius: 10px; font-size: 0.85rem; border: 1px solid var(--blue);">
-                🔥 <b>OFFER:</b> Punguzo la 1,000/= kwa mwezi na 10,000/= kwa Full Course!
+                style="margin-top: 15px; background: rgba(255, 62, 62, 0.1); padding: 15px; border-radius: 10px; font-size: 0.9rem; border: 1px solid var(--red);">
+                🎁 <b>OFA MAALUM:</b> Kuna punguzo la ziada kwa <b>Wanafunzi 2 wa Kwanza</b> watakaojisajili kwenye kila
+                kozi! Wahi nafasi yako sasa.
+            </div>
+
+            <div
+                style="margin-top: 10px; background: rgba(0, 123, 255, 0.1); padding: 10px; border-radius: 10px; font-size: 0.85rem; border: 1px solid var(--blue);">
+                🔥 <b>BEI ZA KAWAIDA:</b> Punguzo la 1,000/= kwa mwezi na 10,000/= kwa Full Course!
             </div>
         </div>
 
         <div class="glass-card">
-            <form action="https://formspree.io/f/zepoxkenny4@gmail.com" method="POST">
+            <form onsubmit="sendAcademyToWhatsApp(event)">
                 <h3 style="margin-bottom: 20px; color: var(--red);">Fomu ya Usajili</h3>
 
                 <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                     <div>
                         <label style="font-size: 0.8rem; opacity: 0.7;">Majina Yako Kamili:</label>
-                        <input type="text" name="Jina_Mwanafunzi" placeholder="Mf. Zephania Kenedy" required>
+                        <input type="text" id="ac_name" placeholder="Mf. Zephania Kenedy" required>
                     </div>
                     <div>
                         <label style="font-size: 0.8rem; opacity: 0.7;">Umri Wako:</label>
-                        <input type="number" name="Umri" placeholder="Mf. 20" required>
+                        <input type="number" id="ac_age" placeholder="Mf. 20" required>
                     </div>
                 </div>
 
+                <label style="font-size: 0.8rem; opacity: 0.7;">Unasajili kama nani?</label>
+                <select id="ac_type" style="border: 1px solid var(--red); background: rgba(255, 62, 62, 0.05);"
+                    required>
+                    <option value="Anawania Ofa (Wanafunzi 2 wa kwanza)">Nawania Ofa ya Wanafunzi 2 wa kwanza 🎁
+                    </option>
+                    <option value="Mwanafunzi wa Kawaida (Kulipia Moja kwa Moja)">Nataka Kulipia na Kuanza Sasa ✅
+                    </option>
+                </select>
+
                 <label style="font-size: 0.8rem; opacity: 0.7;">Kiwango chako cha ujuzi wa sasa:</label>
-                <select name="Ujuzi_wa_Sasa" required>
+                <select id="ac_skill" required>
                     <option value="Sina Ujuzi Kabisa">Sina Ujuzi Kabisa (Beginner)</option>
                     <option value="Nina Ujuzi Kidogo">Nina Ujuzi Kidogo (Intermediate)</option>
                     <option value="Nina Ujuzi wa Kutosha">Nina Ujuzi wa Kutosha (Advanced)</option>
                 </select>
 
                 <label style="font-size: 0.8rem; opacity: 0.7;">Chagua kozi unayotaka (Base):</label>
-                <select name="Sehemu_ya_Kusoma" required>
-                    <option value="AI Prompt Engineering">AI Prompt Engineering (Sanaa ya Kuamuru AI) 🔥</option>
+                <select id="ac_course" required>
+                    <option value="AI Prompt Engineering">AI Prompt Engineering 🔥</option>
                     <option value="AI in Graphic Design">AI kwenye Graphics & Picha</option>
                     <option value="AI in Video Editing">AI kwenye Video Editing</option>
                     <option value="AI in Coding/Web">AI kwenye Coding & Website</option>
@@ -361,134 +377,131 @@
                 </select>
 
                 <label style="font-size: 0.8rem; opacity: 0.7;">Muda wa Masomo & Gharama:</label>
-                <select name="Muda_na_Gharama" required>
+                <select id="ac_plan" required>
                     <option value="Wiki Mbili - TZS 20,000">Wiki Mbili — TZS 20,000/=</option>
-                    <option value="Mwezi Mmoja - TZS 39,000">Mwezi Mmoja — TZS 39,000/= (Punguzo 1k)</option>
+                    <option value="Mwezi Mmoja - TZS 39,000">Mwezi Mmoja — TZS 39,000/=</option>
                     <option value="Miezi Miwili - TZS 80,000">Miezi Miwili — TZS 80,000/=</option>
-                    <option value="Miezi Mitatu - TZS 110,000">Miezi Mitatu (Full Course) — TZS 110,000/= (Punguzo 10k)
-                    </option>
+                    <option value="Miezi Mitatu - TZS 110,000">Miezi Mitatu (Full Course) — TZS 110,000/=</option>
                 </select>
 
-                <label style="font-size: 0.8rem; opacity: 0.7;">Namba yako ya WhatsApp:</label>
-                <input type="tel" name="Simu" placeholder="255 XXX XXX XXX" required>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div>
+                        <label style="font-size: 0.8rem; opacity: 0.7;">Namba yako ya WhatsApp:</label>
+                        <input type="tel" id="ac_whatsapp" placeholder="255 XXX XXX XXX" required>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.8rem; opacity: 0.7;">Mahali Unapoishi:</label>
+                        <input type="text" id="ac_location" placeholder="Mf. Arusha, Tanzania" required>
+                    </div>
+                </div>
 
-                <textarea name="Malengo" placeholder="Elezea malengo yako ya kusoma kozi hii..."></textarea>
+                <textarea id="ac_goals" placeholder="Elezea malengo yako ya kusoma kozi hii..."></textarea>
 
                 <button type="submit" class="btn"
-                    style="width: 100%; margin-top: 10px; background: var(--blue);">WASILISHA MAOMBI 🚀</button>
+                    style="width: 100%; margin-top: 10px; background: #25D366; border:none;">
+                    WASILISHA MAOMBI WHATSAPP 🚀
+                </button>
             </form>
         </div>
-    </div>
 
-    <div id="uploadModal" class="modal">
-        <div class="modal-content glass-card">
-            <span class="close-btn" onclick="closeUploadModal()">&times;</span>
-            <h2 id="formTitle" style="color: var(--blue); margin-bottom: 10px;">Tuma Kazi Yako</h2>
-            <p style="font-size: 0.8rem; margin-bottom: 20px; opacity: 0.7;">Taarifa zako zitatumwa moja kwa moja
-                WhatsApp kwa ajili ya kuanza kazi.</p>
+        <script>
+            function sendToWhatsApp(event) {
+                event.preventDefault(); // Inazuia fomu isirefresh page
 
-            <form onsubmit="sendToWhatsApp(event)">
-                <input type="text" id="wa_name" placeholder="Jina Lako Kamili" required>
-                <input type="tel" id="wa_phone" placeholder="Namba yako ya WhatsApp" required>
+                // Kuchukua data kutoka kwenye fomu
+                const name = document.getElementById('wa_name').value;
+                const phone = document.getElementById('wa_phone').value;
+                const service = document.getElementById('serviceType').value;
+                const address = document.getElementById('wa_address').value;
+                const description = document.getElementById('wa_desc').value;
 
-                <select id="serviceType" onchange="checkService()">
-                    <option value="Website Design">Website Design</option>
-                    <option value="Video Editing">Video Editing</option>
-                    <option value="Photo Restoration">Photo Restoration</option>
-                    <option value="Book Printing">Book Printing</option>
-                </select>
+                // Namba yako ya simu
+                const myNumber = "255747712469";
 
-                <div id="addressBox" style="display: none;">
-                    <input type="text" id="wa_address" placeholder="Mahali unapoishi (Kwa ajili ya Delivery)">
-                </div>
+                // Kutengeneza ujumbe
+                let message = `*MPYA: ODA KUTOKA WEBSITE*%0A%0A`;
+                message += `*Jina:* ${name}%0A`;
+                message += `*Simu:* ${phone}%0A`;
+                message += `*Huduma:* ${service}%0A`;
 
-                <textarea id="wa_desc" placeholder="Elezea kwa ufupi unachotaka kifanyike..." required></textarea>
+                if (service === "Book Printing") {
+                    message += `*Anwani:* ${address}%0A`;
+                }
 
-                <div
-                    style="border: 2px dashed var(--glass-border); padding: 15px; text-align: center; border-radius: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.02);">
-                    <p style="font-size: 0.8rem; color: var(--red);">Kumbuka: Uta-attach picha/video kama unayo ndani ya WhatsApp
-                        baada ya kubonyeza kitufe hapa chini.</p>
-                </div>
+                message += `*Maelezo:* ${description}%0A%0A`;
+                message += `_Nipo tayari kutuma sample/faili hapa WhatsApp._`;
 
-                <div id="deliveryNote"
-                    style="display: none; background: rgba(0, 123, 255, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; border-left: 4px solid var(--blue);">
-                    ✅ <b>Delivery:</b> BURE kwa Printing!
-                </div>
-
-                <button type="submit" class="btn" style="width: 100%; background: #25D366; border: none;">TUMA WHATSAPP
-                    🚀</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function sendToWhatsApp(event) {
-            event.preventDefault(); // Inazuia fomu isirefresh page
-
-            // Kuchukua data kutoka kwenye fomu
-            const name = document.getElementById('wa_name').value;
-            const phone = document.getElementById('wa_phone').value;
-            const service = document.getElementById('serviceType').value;
-            const address = document.getElementById('wa_address').value;
-            const description = document.getElementById('wa_desc').value;
-
-            // Namba yako ya simu
-            const myNumber = "255747712469";
-
-            // Kutengeneza ujumbe
-            let message = `*MPYA: ODA KUTOKA WEBSITE*%0A%0A`;
-            message += `*Jina:* ${name}%0A`;
-            message += `*Simu:* ${phone}%0A`;
-            message += `*Huduma:* ${service}%0A`;
-
-            if (service === "Book Printing") {
-                message += `*Anwani:* ${address}%0A`;
+                // Kufungua WhatsApp
+                const whatsappURL = `https://wa.me/${myNumber}?text=${message}`;
+                window.open(whatsappURL, '_blank');
             }
 
-            message += `*Maelezo:* ${description}%0A%0A`;
-            message += `_Nipo tayari kutuma sample/faili hapa WhatsApp._`;
-
-            // Kufungua WhatsApp
-            const whatsappURL = `https://wa.me/${myNumber}?text=${message}`;
-            window.open(whatsappURL, '_blank');
-        }
-
-        // Hakikisha hizi function zako za mwanzo bado zipo
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function openUploadModal(serviceName = "") {
-            document.getElementById("uploadModal").style.display = "block";
-            if (serviceName !== "") {
-                document.getElementById("serviceType").value = serviceName;
-                document.getElementById("formTitle").innerText = "Agiza " + serviceName;
+            // Hakikisha hizi function zako za mwanzo bado zipo
+            function showPage(pageId) {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                window.scrollTo(0, 0);
             }
-            checkService();
-            document.body.style.overflow = "hidden";
-        }
 
-        function closeUploadModal() {
-            document.getElementById("uploadModal").style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-
-        function checkService() {
-            const service = document.getElementById("serviceType").value;
-            const addressBox = document.getElementById("addressBox");
-            const deliveryNote = document.getElementById("deliveryNote");
-
-            if (service === "Book Printing") {
-                addressBox.style.display = "block";
-                deliveryNote.style.display = "block";
-            } else {
-                addressBox.style.display = "none";
-                deliveryNote.style.display = "none";
+            function openUploadModal(serviceName = "") {
+                document.getElementById("uploadModal").style.display = "block";
+                if (serviceName !== "") {
+                    document.getElementById("serviceType").value = serviceName;
+                    document.getElementById("formTitle").innerText = "Agiza " + serviceName;
+                }
+                checkService();
+                document.body.style.overflow = "hidden";
             }
-        }
-    </script>
+
+            function closeUploadModal() {
+                document.getElementById("uploadModal").style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+
+            function checkService() {
+                const service = document.getElementById("serviceType").value;
+                const addressBox = document.getElementById("addressBox");
+                const deliveryNote = document.getElementById("deliveryNote");
+
+                if (service === "Book Printing") {
+                    addressBox.style.display = "block";
+                    deliveryNote.style.display = "block";
+                } else {
+                    addressBox.style.display = "none";
+                    deliveryNote.style.display = "none";
+                }
+            }
+            function sendAcademyToWhatsApp(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('ac_name').value;
+                const age = document.getElementById('ac_age').value;
+                const type = document.getElementById('ac_type').value;
+                const skill = document.getElementById('ac_skill').value;
+                const course = document.getElementById('ac_course').value;
+                const plan = document.getElementById('ac_plan').value;
+                const whatsapp = document.getElementById('ac_whatsapp').value;
+                const location = document.getElementById('ac_location').value; // Inachukua eneo
+                const goals = document.getElementById('ac_goals').value;
+
+                const myNumber = "255747712469";
+
+                // Ujenzi wa ujumbe
+                let message = `*USAJILI MPYA: AI ACADEMY* 🎓%0A%0A`;
+                message += `*AINA YA MAOMBI:* ${type}%0A%0A`;
+                message += `*Jina:* ${name}%0A`;
+                message += `*Umri:* ${age}%0A`;
+                message += `*Mahali:* ${location}%0A`; // Taarifa ya eneo
+                message += `*Ujuzi:* ${skill}%0A`;
+                message += `*Kozi:* ${course}%0A`;
+                message += `*Mpango:* ${plan}%0A`;
+                message += `*WhatsApp:* ${whatsapp}%0A`;
+                message += `*Malengo:* ${goals}`;
+
+                const whatsappURL = `https://wa.me/${myNumber}?text=${message}`;
+                window.open(whatsappURL, '_blank');
+            }
+        </script>
 </body>
 
 </html>
