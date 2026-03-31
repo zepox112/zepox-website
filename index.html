@@ -42,6 +42,9 @@
             color: var(--text-white);
             overflow-x: hidden;
             perspective: 1000px;
+            /* 1. MAREKEBISHO: Muhimu kwa Sticky Positioning kufanya kazi */
+            height: 100%;
+            position: relative;
         }
 
         /* --- SNEAKERS ANIMATION (Kushoto na Kulia) --- */
@@ -143,188 +146,6 @@
             align-items: center;
             border-bottom: 1px solid var(--glass-border);
         }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            cursor: pointer;
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: var(--primary-pink);
-            text-shadow: 0 0 15px var(--primary-pink);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            list-style: none;
-        }
-
-        .nav-links li a {
-            color: var(--text-white);
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 8px 18px;
-            border-radius: 50px;
-            transition: 0.4s;
-            border: 1px solid transparent;
-        }
-
-        .nav-links li a:hover,
-        .nav-links li a.active {
-            background: rgba(255, 0, 127, 0.1);
-            border-color: rgba(255, 0, 127, 0.3);
-            color: var(--primary-pink);
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
-        }
-
-        /* --- SECTIONS --- */
-        section {
-            min-height: 100vh;
-            padding: 120px 5% 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        h2.section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 60px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, var(--text-white), var(--primary-pink), var(--text-white));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-        }
-
-        h2.section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--primary-pink);
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--primary-pink);
-        }
-
-        /* --- GLASS CARDS --- */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: var(--liquid-blur) saturate(200%);
-            -webkit-backdrop-filter: var(--liquid-blur) saturate(200%);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transform-style: preserve-3d;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card:hover {
-            box-shadow: 0 35px 80px -12px rgba(255, 0, 127, 0.2);
-        }
-
-        /* --- HERO SECTION --- */
-        .home-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            width: 100%;
-        }
-
-        #home h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        /* --- FORM STYLES --- */
-        input,
-        select,
-        textarea {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.07) !important;
-            border: 1px solid var(--glass-border) !important;
-            border-radius: 12px !important;
-            padding: 12px 15px !important;
-            color: white !important;
-            outline: none;
-        }
-
-        .btn {
-            background: linear-gradient(45deg, var(--deep-pink), var(--primary-pink));
-            color: var(--text-white);
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(255, 0, 127, 0.5);
-        }
-
-        /* --- RESPONSIVE (MOBILE) --- */
-        @media (max-width: 900px) {
-            nav {
-                padding: 10px 5%;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            /* Hide on small screens for clean look */
-
-            .home-container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            #home h1 {
-                font-size: 2.8rem;
-            }
-
-            h2.section-title {
-                font-size: 2.2rem;
-            }
-
-            .glass-card {
-                padding: 25px;
-            }
-
-            .sneaker {
-                width: 80px;
-            }
-
-            /* Smaller sneakers on mobile */
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .home-slider {
-                width: 100%;
-                height: 250px;
-            }
-        }
-
 
         .logo {
             font-size: 1.8rem;
@@ -1233,59 +1054,59 @@
          * 11. INITIAL DATA: Maoni ya mfano unapoingia kwenye website
          */
         const initialReviews = [
-    { n: "Kenedy", t: "Website ni ya moto sana!", s: 5 },
-    { n: "Anna", t: "Huduma ya AI imetusaidia sana.", s: 4 },
-    { n: "Juma", t: "Inafanya kazi vizuri, napenda UI yake.", s: 5 },
-    { n: "Sarah", t: "Sijajua jinsi ya kutumia feature fulani, ila ni nzuri.", s: 3 },
-    { n: "Musa", t: "Best tech solution in town!", s: 5 },
-    { n: "Neema", t: "Inarahisisha kazi zangu za kila siku.", s: 4 },
-    { n: "David", t: "Excellent work, very professional.", s: 5 },
-    { n: "Grace", t: "Kuna sehemu inachelewa kidogo kuload, ila iko sawa.", s: 3 },
-    { n: "Peter", t: "Hii ndio future ya web apps.", s: 5 },
-    { n: "Zahara", t: "Nimevutiwa na jinsi inavyojibu haraka.", s: 4 },
-    { n: "Kelvin", t: "Iko vizuri sana, naipendekeza kwa wote.", s: 5 },
-    { n: "Aisha", t: "Graphics ni nzuri sana.", s: 4 },
-    { n: "Emmanuel", t: "Nimepata changamoto kidogo kwenye simu yangu.", s: 3 },
-    { n: "Loveness", t: "Ni rahisi kutumia hata kwa mgeni.", s: 5 },
-    { n: "Baraka", t: "I'm impressed with the AI integration.", s: 5 },
-    { n: "Rehema", t: "Huduma kwa wateja ni nzuri.", s: 4 },
-    { n: "Thomas", t: "Safi sana, endeleeni hivi hivi.", s: 5 },
-    { n: "Catherine", t: "Ina kila kitu ninachohitaji kwa sasa.", s: 4 },
-    { n: "Frank", t: "Naisubiri update nyingine nione mapya.", s: 3 },
-    { n: "Happiness", t: "Super fast and reliable.", s: 5 },
-    { n: "Iddi", t: "Ubunifu wa hali ya juu.", s: 5 },
-    { n: "Zainabu", t: "Inasaidia sana kwenye usimamizi wa biashara.", s: 4 },
-    { n: "Oscar", t: "Professional service, well done!", s: 5 },
-    { n: "Maria", t: "Naona kama kuna vitu vingi sana kwenye screen moja.", s: 3 },
-    { n: "George", t: "The best experience so far.", s: 5 },
-    { n: "Doreen", t: "Nimeipenda sana rangi na muonekano.", s: 4 },
-    { n: "Erick", t: "Hii imekuja muda sahihi.", s: 5 },
-    { n: "Irene", t: "Kuna baadhi ya maneno sijaelewa vizuri.", s: 3 },
-    { n: "Salum", t: "Ni kiboko ya website zote nilizowahi tumia.", s: 5 },
-    { n: "Rose", t: "Very user-friendly and intuitive.", s: 4 },
-    { n: "Ally", t: "Nimeanza kuitumia leo na nimeielewa.", s: 4 },
-    { n: "Vanessa", t: "Perfect tool for modern entrepreneurs.", s: 5 },
-    { n: "Rajabu", t: "Sijaona makosa yoyote makubwa.", s: 4 },
-    { n: "Sophia", t: "Mchakato wa kujisajili ni mrefu kidogo.", s: 3 },
-    { n: "Brian", t: "Top notch quality!", s: 5 },
-    { n: "Linda", t: "Imenisaidia kuokoa muda mwingi.", s: 5 },
-    { n: "Yusuph", t: "Inafanya kazi vizuri hata kwenye internet ndogo.", s: 4 },
-    { n: "Monica", t: "Amazing design and features.", s: 5 },
-    { n: "Saimoni", t: "Nahitaji maelekezo zaidi ya video.", s: 3 },
-    { n: "Fatma", t: "Ni bora zaidi ya nilivyotegemea.", s: 5 },
-    { n: "Jackson", t: "Great customer support team.", s: 4 },
-    { n: "Tausi", t: "Nimefurahishwa na usalama wa data zangu.", s: 5 },
-    { n: "Ismail", t: "Inarahisisha mawasiliano na timu yangu.", s: 4 },
-    { n: "Lucy", t: "Kuna wakati inajizima, sijui kwanini.", s: 3 },
-    { n: "Hassan", t: "Highly recommended for startups.", s: 5 },
-    { n: "Pili", t: "Inapendeza na inafanya kazi.", s: 4 },
-    { n: "Said", t: "Nimependa jinsi inavyojibu maswali ya AI.", s: 5 },
-    { n: "Anita", t: "Huduma ni nzuri japo bei inaweza kupungua.", s: 3 },
-    { n: "Godfrey", t: "Hatua kubwa sana kwa teknolojia yetu.", s: 5 },
-    { n: "Halima", t: "Asante sana, nimevutiwa!", s: 4 }
-];
+            { n: "Kenedy", t: "Website ni ya moto sana!", s: 5 },
+            { n: "Anna", t: "Huduma ya AI imetusaidia sana.", s: 4 },
+            { n: "Juma", t: "Inafanya kazi vizuri, napenda UI yake.", s: 5 },
+            { n: "Sarah", t: "Sijajua jinsi ya kutumia feature fulani, ila ni nzuri.", s: 3 },
+            { n: "Musa", t: "Best tech solution in town!", s: 5 },
+            { n: "Neema", t: "Inarahisisha kazi zangu za kila siku.", s: 4 },
+            { n: "David", t: "Excellent work, very professional.", s: 5 },
+            { n: "Grace", t: "Kuna sehemu inachelewa kidogo kuload, ila iko sawa.", s: 3 },
+            { n: "Peter", t: "Hii ndio future ya web apps.", s: 5 },
+            { n: "Zahara", t: "Nimevutiwa na jinsi inavyojibu haraka.", s: 4 },
+            { n: "Kelvin", t: "Iko vizuri sana, naipendekeza kwa wote.", s: 5 },
+            { n: "Aisha", t: "Graphics ni nzuri sana.", s: 4 },
+            { n: "Emmanuel", t: "Nimepata changamoto kidogo kwenye simu yangu.", s: 3 },
+            { n: "Loveness", t: "Ni rahisi kutumia hata kwa mgeni.", s: 5 },
+            { n: "Baraka", t: "I'm impressed with the AI integration.", s: 5 },
+            { n: "Rehema", t: "Huduma kwa wateja ni nzuri.", s: 4 },
+            { n: "Thomas", t: "Safi sana, endeleeni hivi hivi.", s: 5 },
+            { n: "Catherine", t: "Ina kila kitu ninachohitaji kwa sasa.", s: 4 },
+            { n: "Frank", t: "Naisubiri update nyingine nione mapya.", s: 3 },
+            { n: "Happiness", t: "Super fast and reliable.", s: 5 },
+            { n: "Iddi", t: "Ubunifu wa hali ya juu.", s: 5 },
+            { n: "Zainabu", t: "Inasaidia sana kwenye usimamizi wa biashara.", s: 4 },
+            { n: "Oscar", t: "Professional service, well done!", s: 5 },
+            { n: "Maria", t: "Naona kama kuna vitu vingi sana kwenye screen moja.", s: 3 },
+            { n: "George", t: "The best experience so far.", s: 5 },
+            { n: "Doreen", t: "Nimependa sana rangi na muonekano.", s: 4 },
+            { n: "Erick", t: "Hii imekuja muda sahihi.", s: 5 },
+            { n: "Irene", t: "Kuna baadhi ya maneno sijaelewa vizuri.", s: 3 },
+            { n: "Salum", t: "Ni kiboko ya website zote nilizowahi tumia.", s: 5 },
+            { n: "Rose", t: "Very user-friendly and intuitive.", s: 4 },
+            { n: "Ally", t: "Nimeanza kuitumia leo na nimeielewa.", s: 4 },
+            { n: "Vanessa", t: "Perfect tool for modern entrepreneurs.", s: 5 },
+            { n: "Rajabu", t: "Sijaona makosa yoyote makubwa.", s: 4 },
+            { n: "Sophia", t: "Mchakato wa kujisajili ni mrefu kidogo.", s: 3 },
+            { n: "Brian", t: "Top notch quality!", s: 5 },
+            { n: "Linda", t: "Imenisaidia kuokoa muda mwingi.", s: 5 },
+            { n: "Yusuph", t: "Inafanya kazi vizuri hata kwenye internet ndogo.", s: 4 },
+            { n: "Monica", t: "Amazing design and features.", s: 5 },
+            { n: "Saimoni", t: "Nahitaji maelekezo zaidi ya video.", s: 3 },
+            { n: "Fatma", t: "Ni bora zaidi ya nilivyotegemea.", s: 5 },
+            { n: "Jackson", t: "Great customer support team.", s: 4 },
+            { n: "Tausi", t: "Nimefurahishwa na usalama wa data zangu.", s: 5 },
+            { n: "Ismail", t: "Inarahisisha mawasiliano na timu yangu.", s: 4 },
+            { n: "Lucy", t: "Kuna wakati inajizima, sijui kwanini.", s: 3 },
+            { n: "Hassan", t: "Highly recommended for startups.", s: 5 },
+            { n: "Pili", t: "Inapendeza na inafanya kazi.", s: 4 },
+            { n: "Said", t: "Nimependa jinsi inavyojibu maswali ya AI.", s: 5 },
+            { n: "Anita", t: "Huduma ni nzuri japo bei inaweza kupungua.", s: 3 },
+            { n: "Godfrey", t: "Hatua kubwa sana kwa teknolojia yetu.", s: 5 },
+            { n: "Halima", t: "Asante sana, nimevutiwa!", s: 4 }
+        ];
 
-initialReviews.forEach(r => createReview(r.n, r.t, r.s));
+        initialReviews.forEach(r => createReview(r.n, r.t, r.s));
 
         /**
          * 12. TILT EFFECT: Inaanzisha madoido ya 3D yanayofuata mouse kwenye kadi
@@ -1324,6 +1145,70 @@ initialReviews.forEach(r => createReview(r.n, r.t, r.s));
             if (event.target == modal) closeUploadModal();
         };
     </script>
+    <style>
+        /* 1. MAREKEBISHO YA CSS: Tunafanya Chatbase iwe Sticky */
+        #chatbase-bubble-button {
+            /* Hapa tunatumia 'sticky' badala ya 'fixed' ili ionekane kama 'ina-flow' */
+            position: sticky !important;
+            bottom: 25px !important;
+            /* Huu ni ufunguo: Lazima right iwe kubwa ili ijibonyeze kando */
+            margin-right: 25px !important;
+            margin-bottom: 25px !important;
+            /* Tunaiambia Chatbase ianze mwanzo kabisa na iendele mpaka mwisho */
+            float: right !important;
+            z-index: 2147483647 !important;
+
+            /* Sijaondoa chochote cha asili, nimeongeza tu sticky logic hapo juu */
+            width: 65px !important;
+            height: 65px !important;
+            background: transparent !important;
+            border: none !important;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.6)) !important;
+            cursor: pointer !important;
+            display: flex !important;
+        }
+
+        #chatbase-bubble-button img {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 15px !important;
+        }
+
+        /* Dirisha la chati likifunguka lazima libaki fixed ili lisipotee */
+        #chatbase-bubble-window {
+            position: fixed !important;
+            z-index: 2147483647 !important;
+            bottom: 100px !important;
+            right: 25px !important;
+        }
+    </style>
+
+    <script>
+        (function () {
+            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => {
+                    if (!window.chatbase.q) { window.chatbase.q = [] }
+                    window.chatbase.q.push(arguments)
+                };
+                window.chatbase = new Proxy(window.chatbase, {
+                    get(target, prop) {
+                        if (prop === "q") { return target.q }
+                        return (...args) => target(prop, ...args)
+                    }
+                })
+            }
+            const onLoad = function () {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "cDzPuc-kHsOBV21J4pLKh";
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script)
+            };
+            if (document.readyState === "complete") { onLoad() }
+            else { window.addEventListener("load", onLoad) }
+        })();
+    </script>
+
 </body>
 
 </html>
