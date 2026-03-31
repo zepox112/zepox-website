@@ -4,15 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zepox Co | IT, Media & AI Academy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Zepox Co | Advanced 3D Liquid Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --red: #ff3e3e;
-            --blue: #007bff;
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            /* RANGI MPYA: Pink na Grey */
+            --primary-pink: #ff007f;
+            --deep-pink: #ff0055;
+            --bg-grey: #1a1a1a;
+            --card-grey: #2d2d2d;
+            --text-white: #ffffff;
+            --text-grey: #b0b0b0;
+
+            /* Liquid Glass Madoido */
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --liquid-blur: blur(20px);
+
+            /* Additional Neon Colors */
+            --pink-neon: #ff2e7e;
+            --pink-glow: rgba(255, 46, 126, 0.3);
+            --dark-bg: #0d0d0d;
         }
 
         * {
@@ -24,10 +38,94 @@
         }
 
         body {
-            background: linear-gradient(135deg, #001f3f 0%, #4a0e0e 100%);
-            background-attachment: fixed;
-            color: var(--white);
+            background-color: var(--bg-grey);
+            color: var(--text-white);
             overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        /* --- SNEAKERS ANIMATION (Kushoto na Kulia) --- */
+        .sneaker-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .sneaker {
+            position: absolute;
+            width: 150px;
+            /* Ukubwa wa kiatu */
+            filter: drop-shadow(0 0 20px var(--primary-pink));
+            opacity: 0.7;
+        }
+
+        .sneaker-left {
+            top: 20%;
+            left: 5%;
+            animation: rotateLeft 12s linear infinite;
+        }
+
+        .sneaker-right {
+            bottom: 20%;
+            right: 5%;
+            animation: rotateRight 12s linear infinite;
+        }
+
+        @keyframes rotateLeft {
+            from {
+                transform: rotate(0deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(180deg) translateY(-30px);
+            }
+
+            to {
+                transform: rotate(360deg) translateY(0);
+            }
+        }
+
+        @keyframes rotateRight {
+            from {
+                transform: rotate(360deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(180deg) translateY(30px);
+            }
+
+            to {
+                transform: rotate(0deg) translateY(0);
+            }
+        }
+
+        /* --- BACKGROUND 3D ANIMATION --- */
+        #threed-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* --- CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary-pink), var(--deep-pink));
+            border-radius: 10px;
         }
 
         /* --- NAVIGATION --- */
@@ -36,96 +134,9 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .logo span {
-            color: var(--red);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
-
-        .nav-links li a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            transition: 0.3s;
-        }
-
-        .nav-links li a:hover {
-            opacity: 1;
-            color: var(--blue);
-        }
-
-        /* --- PAGES --- */
-        .page {
-            display: none;
-            padding: 120px 20px 50px;
-            min-height: 100vh;
-            animation: fadeIn 0.5s;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        :root {
-            /* Glass Effect yenye muonekano wa 'Liquid' */
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-blur: blur(15px);
-        }
-
-        /* NAVIGATION YA KIOO */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: var(--glass);
-            /* Liquid Transparent */
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
@@ -133,203 +144,606 @@
             border-bottom: 1px solid var(--glass-border);
         }
 
-        /* HAMBURGER MENU (Itaonekana kwenye simu tu) */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
             cursor: pointer;
-            z-index: 1001;
+            letter-spacing: -1px;
         }
 
-        .hero-slider {
-            position: relative;
-            width: 100%;
-            height: 45vh;
-            /* Urefu ulioboreshwa */
-            border-radius: 25px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .logo span {
+            color: var(--primary-pink);
+            text-shadow: 0 0 15px var(--primary-pink);
         }
 
-        .slider-track {
-            display: flex;
-            height: 100%;
-            will-change: transform;
-            /* Inaandaa browser kwa ajili ya mwendo */
-        }
-
-        .slider-img {
-            flex: 0 0 100%;
-            /* Kila picha inachukua 100% ya upana wa container */
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(45%) contrast(1.1);
-        }
-
-        .hero-text {
-            position: absolute;
-            top: 50%;
-            left: 5%;
-            transform: translateY(-50%);
-            z-index: 10;
-            /* Hakikisha maandishi yanakaa juu ya picha */
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        /* NAV LINKS KWA DESKTOP NA MOBILE */
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 15px;
             list-style: none;
-            transition: 0.4s ease-in-out;
         }
 
-        /* RESPONSIVE DESIGN (KWA SIMU) */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-                /* Inaonekana kwenye simu pekee */
-            }
-
-            .nav-links {
-                position: fixed;
-                right: -100%;
-                /* Inajificha kulia */
-                top: 0;
-                height: 100vh;
-                width: 70%;
-                background: rgba(0, 0, 0, 0.85);
-                backdrop-filter: blur(25px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-                border-left: 1px solid var(--glass-border);
-            }
-
-            .nav-links.active {
-                right: 0;
-                /* Inatokea ikibonyezwa */
-            }
-
-            .nav-links li {
-                margin: 20px 0;
-            }
+        .nav-links li a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 18px;
+            border-radius: 50px;
+            transition: 0.4s;
+            border: 1px solid transparent;
         }
 
-        /* Glass Card ya 'More Liquid' */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            /* Transparent zaidi */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            padding: 25px;
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            background: rgba(255, 0, 127, 0.1);
+            border-color: rgba(255, 0, 127, 0.3);
+            color: var(--primary-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
         }
 
-        /* --- TRENDS/NEWS STYLING --- */
-        .news-item {
-            border-bottom: 1px solid var(--glass-border);
-            padding: 20px 0;
+        /* --- SECTIONS --- */
+        section {
+            min-height: 100vh;
+            padding: 120px 5% 60px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            justify-content: center;
         }
 
-        .news-tag {
-            background: var(--red);
-            font-size: 0.7rem;
-            padding: 3px 10px;
-            border-radius: 5px;
-            display: inline-block;
-            width: fit-content;
-        }
-
-        /* --- HERO --- */
-        .hero-slider {
-            width: 100%;
-            height: 40vh;
-            border-radius: 25px;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .slider-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(40%);
-        }
-
-        .hero-text {
-            position: absolute;
-            top: 50%;
-            left: 5%;
-            transform: translateY(-50%);
-        }
-
-        /* --- GRID --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            transition: 0.3s;
-            cursor: pointer;
+        h2.section-title {
+            font-size: 3rem;
+            font-weight: 800;
             text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, var(--text-white), var(--primary-pink), var(--text-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
         }
 
-        .card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-            border-color: var(--blue);
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-pink);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--primary-pink);
         }
 
-        /* --- FORM --- */
+        /* --- GLASS CARDS --- */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: var(--liquid-blur) saturate(200%);
+            -webkit-backdrop-filter: var(--liquid-blur) saturate(200%);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 35px 80px -12px rgba(255, 0, 127, 0.2);
+        }
+
+        /* --- HERO SECTION --- */
+        .home-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            width: 100%;
+        }
+
+        #home h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        /* --- FORM STYLES --- */
         input,
         select,
         textarea {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
+            background: rgba(255, 255, 255, 0.07) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 12px !important;
+            padding: 12px 15px !important;
+            color: white !important;
             outline: none;
         }
 
         .btn {
-            background: var(--red);
-            color: white;
-            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--deep-pink), var(--primary-pink));
+            color: var(--text-white);
+            padding: 15px 35px;
             border-radius: 50px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 600;
+            font-weight: 700;
             border: none;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
         }
 
-        /* --- MODAL --- */
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 0, 127, 0.5);
+        }
+
+        /* --- RESPONSIVE (MOBILE) --- */
+        @media (max-width: 900px) {
+            nav {
+                padding: 10px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Hide on small screens for clean look */
+
+            .home-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            #home h1 {
+                font-size: 2.8rem;
+            }
+
+            h2.section-title {
+                font-size: 2.2rem;
+            }
+
+            .glass-card {
+                padding: 25px;
+            }
+
+            .sneaker {
+                width: 80px;
+            }
+
+            /* Smaller sneakers on mobile */
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .home-slider {
+                width: 100%;
+                height: 250px;
+            }
+        }
+
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--primary-pink);
+            text-shadow: 0 0 15px var(--primary-pink);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 18px;
+            border-radius: 50px;
+            transition: 0.4s;
+            border: 1px solid transparent;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            background: rgba(255, 0, 127, 0.1);
+            border-color: rgba(255, 0, 127, 0.3);
+            color: var(--primary-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            min-height: 100vh;
+            padding: 120px 5% 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2.section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, var(--text-white), var(--primary-pink), var(--text-white));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-pink);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--primary-pink);
+        }
+
+        /* --- GLASS CARDS --- */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: var(--liquid-blur) saturate(200%);
+            -webkit-backdrop-filter: var(--liquid-blur) saturate(200%);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 35px 80px -12px rgba(255, 0, 127, 0.2);
+        }
+
+        .pop-out {
+            transform: translateZ(50px);
+            display: block;
+        }
+
+        /* --- HERO SECTION --- */
+        .home-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .home-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        #home h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        #home h1 span {
+            color: var(--primary-pink);
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        .home-slider {
+            flex: 1;
+            position: relative;
+            height: 450px;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.2);
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1.5s ease;
+            transform: scale(1.1);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--primary-pink);
+            box-shadow: 0 0 10px var(--primary-pink);
+        }
+
+        /* --- SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.5));
+        }
+
+        .price-tag {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-top: 10px;
+        }
+
+        /* --- FORM STYLES --- */
+        label {
+            color: #e0e0e0;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.07) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 12px !important;
+            padding: 12px 15px !important;
+            color: white !important;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--pink-neon) !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 0 10px var(--pink-glow);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--deep-pink), var(--primary-pink));
+            color: var(--text-white);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            box-shadow: 0 15px 30px rgba(255, 0, 127, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* --- REVIEWS --- */
+        .review-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .floating-review {
+            position: absolute;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-grey);
+            width: 250px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: float3D 15s linear infinite;
+        }
+
+        @keyframes float3D {
+            0% {
+                transform: translateZ(-500px) translateY(100vh) rotateX(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateZ(200px) translateY(-100px) rotateX(20deg);
+                opacity: 0;
+            }
+        }
+
+        .star-rating .star {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #444;
+            transition: 0.3s;
+        }
+
+        .star-rating .star.active {
+            color: gold;
+            text-shadow: 0 0 10px gold;
+        }
+
+        /* --- TRENDS --- */
+        .news-item {
+            border-bottom: 1px solid var(--glass-border);
+            padding: 25px 0;
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .date-box {
+            background: var(--card-grey);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .day {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-pink);
+        }
+
+        .month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-grey);
+        }
+
+        /* --- FOOTER --- */
+        .main-footer {
+            background: linear-gradient(to bottom, transparent, #0a0a0a);
+            padding: 80px 5% 30px;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--text-grey);
+        }
+
+        .footer-links a {
+            color: var(--text-grey);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-pink);
+            padding-left: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            transition: 0.4s;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-pink);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--primary-pink);
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-grey);
+        }
+
+        /* MODAL STYLES */
         .modal {
             display: none;
             position: fixed;
@@ -338,14 +752,14 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            overflow-y: auto;
-            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
-            margin: 5% auto;
+            width: 90%;
             max-width: 500px;
             position: relative;
         }
@@ -354,192 +768,146 @@
             position: absolute;
             right: 20px;
             top: 20px;
-            font-size: 2rem;
+            font-size: 30px;
             cursor: pointer;
-            color: white;
+            color: var(--text-grey);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .home-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .home-text {
+                text-align: center;
+            }
+
+            .home-slider {
+                width: 100%;
+                height: 300px;
+            }
+
+            #home h1 {
+                font-size: 2.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
+
+    <div id="threed-bg"></div>
+
     <nav>
-        <div class="logo" onclick="showPage('home')">ZEPOX <span>CO</span></div>
-
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <ul class="nav-links" id="nav-list">
-            <li><a href="#" onclick="showPage('home'); closeMenu()">Nyumbani</a></li>
-            <li><a href="#" onclick="showPage('services'); closeMenu()">Huduma</a></li>
-            <li><a href="#" onclick="showPage('trends'); closeMenu()">Trends 🔥</a></li>
-            <li><a href="#" onclick="showPage('ai-class'); closeMenu()">AI Class 🎓</a></li>
+        <div class="logo" onclick="window.scrollTo(0,0)">ZEPOX <span>CO</span></div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#services">Huduma</a></li>
+            <li><a href="#trends">Trends</a></li>
+            <li><a href="#ai-class">AI Academy</a></li>
+            <li><a href="#reviews">Reviews</a></li>
         </ul>
     </nav>
 
-    <div id="home" class="page active">
-        <div class="hero-slider">
-            <div class="slider-track" id="sliderTrack">
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200" class="slider-img">
-                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200" class="slider-img">
-
-                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" class="slider-img">
-            </div>
-            <div class="hero-text">
-                <h1>Karibu Zepox Co.</h1>
-                <p>Ubora wa Kidijitali bila mipaka.</p>
-                <a href="#" class="btn" style="margin-top: 15px;" onclick="showPage('services')">Anza Sasa</a>
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <h2>Kwanini Utuchague?</h2>
-            <p>Tunatumia teknolojia ya kisasa kuhakikisha kazi zako zinafanyika kwa kasi ya ajabu. Malipo yote ni baada
-                ya kazi kukamilika!</p>
-        </div>
-    </div>
-    <div id="services" class="page">
-        <h2 style="margin-bottom: 30px; text-align: center;">Chagua Huduma</h2>
-        <div class="grid">
-            <div class="card" onclick="openUploadModal('Website Design')">
-                <h3>🌐 Website Design</h3>
-                <p>Tengeneza website ya kisasa na ya haraka.</p>
-                <div style="margin-top: 10px; font-weight: bold; color: var(--blue);">Kuanzia TZS 150,000/=</div>
-            </div>
-
-            <div class="card" onclick="openUploadModal('Video Editing')">
-                <h3>🎬 Video Editing</h3>
-                <p>Editing ya kitaalamu kwa YouTube & Reels.</p>
-                <div style="margin-top: 10px; font-weight: bold; color: var(--blue);">Kuanzia TZS 15,000/=</div>
-            </div>
-
-            <div class="card" onclick="openUploadModal('Photo Restoration')">
-                <h3>📸 Photo Restoration</h3>
-                <p>Rudisha ubora wa picha za zamani au zilizofifia.</p>
-                <div style="margin-top: 10px; font-weight: bold; color: var(--blue);">Kuanzia TZS 1,000/=</div>
-            </div>
-
-            <div class="card" onclick="openUploadModal('Book Printing')">
-                <h3>📚 Book Printing</h3>
-                <p>Tunachapa vitabu vyako kwa ubora wa juu.</p>
-                <div style="margin-top: 10px; font-weight: bold; color: var(--blue);">Kuanzia TZS 10,000/=</div>
-            </div>
-        </div>
-
-        <p style="text-align: center; margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">
-            * Bei inaweza kubadilika kulingana na ukubwa wa kazi.
-        </p>
-    </div>
-
-    <div id="trends" class="page">
-        <h2 style="margin-bottom: 30px;">Digital Trends & News 🔥</h2>
-        <div class="glass-card">
-            <div class="news-item">
-                <span class="news-tag">AI NEWS</span>
-                <h3>Deepseek-V3 yatikisa ulimwengu wa Coding</h3>
-                <p>Teknolojia mpya ya AI sasa inaweza kutengeneza website nzima ndani ya sekunde chache. Zepox Co tayari
-                    tumeanza kuitumia!</p>
-            </div>
-            <div class="news-item">
-                <span class="news-tag">TECH TRENDS</span>
-                <h3>Siri ya kuepuka PC kupata moto (RAM)</h3>
-                <p>Wataalamu wanashauri kutumia Online Server Processing badala ya kutumia RAM ya PC yako kwa kazi nzito
-                    za kuedit.</p>
-            </div>
-            <div class="news-item">
-                <span class="news-tag">ZEPOX UPDATE</span>
-                <h3>Free Delivery sasa imeboreshwa!</h3>
-                <p>Wateja wa Book Printing sasa watapata vitabu vyao ndani ya saa 24 kwa mikoa ya Arusha na Dar es
-                    Salaam.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="ai-class" class="page">
-        <div class="glass-card" style="border-left: 10px solid var(--blue); margin-bottom: 30px;">
-            <h2 style="color: var(--blue);">Zepox AI Academy 🎓</h2>
-            <p>Jifunze teknolojia ya kisasa. Chagua kozi unayotaka na uanze safari yako ya kuwa mtaalamu wa AI.</p>
-
-            <div
-                style="margin-top: 15px; background: rgba(255, 62, 62, 0.1); padding: 15px; border-radius: 10px; font-size: 0.9rem; border: 1px solid var(--red);">
-                🎁 <b>OFA MAALUM:</b> Kuna punguzo la ziada kwa <b>Wanafunzi 2 wa Kwanza</b> watakaojisajili kwenye kila
-                kozi! Wahi nafasi yako sasa.
-            </div>
-
-            <div
-                style="margin-top: 10px; background: rgba(0, 123, 255, 0.1); padding: 10px; border-radius: 10px; font-size: 0.85rem; border: 1px solid var(--blue);">
-                🔥 <b>BEI ZA KAWAIDA:</b> Punguzo la 1,000/= kwa mwezi na 10,000/= kwa Full Course!
-            </div>
-        </div>
-
-        <div class="glass-card">
-            <form onsubmit="sendAcademyToWhatsApp(event)">
-                <h3 style="margin-bottom: 20px; color: var(--red);">Fomu ya Usajili</h3>
-
-                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                    <div>
-                        <label style="font-size: 0.8rem; opacity: 0.7;">Majina Yako Kamili:</label>
-                        <input type="text" id="ac_name" placeholder="Mf. Zephania Kenedy" required>
-                    </div>
-                    <div>
-                        <label style="font-size: 0.8rem; opacity: 0.7;">Umri Wako:</label>
-                        <input type="number" id="ac_age" placeholder="Mf. 20" required>
+    <section id="home">
+        <div class="home-container">
+            <div class="home-text">
+                <div class="glass-card" data-tilt>
+                    <h1 class="pop-out">Karibu <span>Zepox Co.</span></h1>
+                    <p class="pop-out">Ubora wa Kidijitali katika uhalisia wa 3D. Tunajenga Website, Media, na Mifumo ya
+                        AI ya kesho.</p>
+                    <div class="pop-out">
+                        <a href="#services" class="btn">Anza Safari Sasa</a>
                     </div>
                 </div>
+            </div>
 
-                <label style="font-size: 0.8rem; opacity: 0.7;">Kiwango chako cha ujuzi wa sasa:</label>
-                <select id="ac_skill" required>
-                    <option value="Sina Ujuzi Kabisa">Sina Ujuzi Kabisa (Beginner)</option>
-                    <option value="Nina Ujuzi Kidogo">Nina Ujuzi Kidogo (Intermediate)</option>
-                    <option value="Nina Ujuzi wa Kutosha">Nina Ujuzi wa Kutosha (Advanced)</option>
-                </select>
-
-                <label style="font-size: 0.8rem; opacity: 0.7;">Chagua kozi unayotaka (Base):</label>
-                <select id="ac_course" required>
-                    <option value="AI Prompt Engineering">AI Prompt Engineering 🔥</option>
-                    <option value="AI in Graphic Design">AI kwenye Graphics & Picha</option>
-                    <option value="AI in Video Editing">AI kwenye Video Editing</option>
-                    <option value="AI in Coding/Web">AI kwenye Coding & Website</option>
-                    <option value="AI in Business Automation">AI kwenye Biashara (Automation)</option>
-                </select>
-
-                <label style="font-size: 0.8rem; opacity: 0.7;">Muda wa Masomo & Gharama:</label>
-                <select id="ac_plan" required>
-                    <option value="Wiki Mbili - TZS 20,000">Wiki Mbili — TZS 20,000/=</option>
-                    <option value="Mwezi Mmoja - TZS 39,000">Mwezi Mmoja — TZS 39,000/=</option>
-                    <option value="Miezi Miwili - TZS 80,000">Miezi Miwili — TZS 80,000/=</option>
-                    <option value="Miezi Mitatu - TZS 110,000">Miezi Mitatu (Full Course) — TZS 110,000/=</option>
-                </select>
-
-                <label style="font-size: 0.8rem; opacity: 0.7;">Namba yako ya WhatsApp:</label>
-                <input type="tel" id="ac_whatsapp" placeholder="255 XXX XXX XXX" required>
-
-                <textarea id="ac_goals" placeholder="Elezea malengo yako ya kusoma kozi hii..."></textarea>
-
-                <button type="submit" class="btn"
-                    style="width: 100%; margin-top: 10px; background: #25D366; border:none;">
-                    JIUNGE NA WANAFUNZI 2 WA KWANZA 🚀
-                </button>
-            </form>
+            <div class="home-slider">
+                <div class="slider-wrapper" id="slider">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800"
+                        class="slide active" alt="Tech 1">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800"
+                        class="slide" alt="Tech 2">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800"
+                        class="slide" alt="Tech 3">
+                    <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800"
+                        class="slide" alt="Tech 4">
+                    <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=800"
+                        class="slide" alt="Tech 5">
+                </div>
+                <div class="slider-dots" id="dots"></div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">Chagua Huduma</h2>
+
+        <div class="services-grid">
+            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
+                onclick="openOrderForm('Website Design')">
+                <div class="service-icon pop-out">🌐</div>
+                <h3 class="pop-out">Website Design</h3>
+                <p class="pop-out">Advanced, 3D, na Responsive websites zenye kuitikia mouse.</p>
+                <div class="price-tag pop-out">TZS 150,000/= +</div>
+            </div>
+
+            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
+                onclick="openOrderForm('Video Editing')">
+                <div class="service-icon pop-out">🎬</div>
+                <h3 class="pop-out">Video Editing</h3>
+                <p class="pop-out">Editing ya kitaalamu na Motion Graphics kwa ajili ya Brand yako.</p>
+                <div class="price-tag pop-out">TZS 15,000/= +</div>
+            </div>
+
+            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
+                onclick="openOrderForm('AI Solutions')">
+                <div class="service-icon pop-out">🤖</div>
+                <h3 class="pop-out">AI Solutions</h3>
+                <p class="pop-out">Mifumo ya AI, Chatbots, na Automation kwa biashara.</p>
+                <div class="price-tag pop-out">Anza Leo</div>
+            </div>
+
+            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
+                onclick="openOrderForm('Photo Restoration')">
+                <div class="service-icon pop-out">📸</div>
+                <h3 class="pop-out">Photo Restoration</h3>
+                <p class="pop-out">Rudisha ubora wa picha za zamani au zilizofifia.</p>
+                <div class="price-tag pop-out">TZS 1,000/= +</div>
+            </div>
+
+            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
+                onclick="openOrderForm('Book Printing')">
+                <div class="service-icon pop-out">📚</div>
+                <h3 class="pop-out">Book Printing</h3>
+                <p class="pop-out">Tunachapa vitabu vyako kwa ubora wa juu kabisa.</p>
+                <div class="price-tag pop-out">TZS 10,000/= +</div>
+            </div>
+        </div>
+    </section>
 
     <div id="uploadModal" class="modal">
         <div class="modal-content glass-card">
             <span class="close-btn" onclick="closeUploadModal()">&times;</span>
-            <h2 id="formTitle" style="color: var(--blue); margin-bottom: 10px;">Tuma Kazi Yako</h2>
-            <p style="font-size: 0.8rem; margin-bottom: 20px; opacity: 0.7;">Taarifa zako zitatumwa moja kwa moja
-                WhatsApp kwa ajili ya kuanza kazi.</p>
+            <h2 id="formTitle" style="color: var(--primary-pink); margin-bottom: 10px;">Tuma Kazi Yako</h2>
+            <p style="font-size: 0.8rem; margin-bottom: 20px; opacity: 0.7;">
+                Taarifa zako zitatumwa moja kwa moja WhatsApp kwa ajili ya kuanza kazi.
+            </p>
 
             <form onsubmit="sendToWhatsApp(event)">
                 <input type="text" id="wa_name" placeholder="Jina Lako Kamili" required>
@@ -548,6 +916,7 @@
                 <select id="serviceType" onchange="checkService()">
                     <option value="Website Design">Website Design</option>
                     <option value="Video Editing">Video Editing</option>
+                    <option value="AI Solutions">AI Solutions</option>
                     <option value="Photo Restoration">Photo Restoration</option>
                     <option value="Book Printing">Book Printing</option>
                 </select>
@@ -559,163 +928,401 @@
                 <textarea id="wa_desc" placeholder="Elezea kwa ufupi unachotaka kifanyike..." required></textarea>
 
                 <div
-                    style="border: 2px dashed var(--glass-border); padding: 15px; text-align: center; border-radius: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.02);">
-                    <p style="font-size: 0.8rem; color: var(--red);">Kumbuka: Uta-attach picha/video kama unayo ndani ya
-                        WhatsApp
-                        baada ya kubonyeza kitufe hapa chini.</p>
+                    style="border: 2px dashed rgba(255,255,255,0.1); padding: 15px; text-align: center; border-radius: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.02);">
+                    <p style="font-size: 0.8rem; color: #ff4d4d;">
+                        Kumbuka: Uta-attach picha/video kama unayo ndani ya WhatsApp baada ya kubonyeza kitufe hapa
+                        chini.
+                    </p>
                 </div>
 
                 <div id="deliveryNote"
-                    style="display: none; background: rgba(0, 123, 255, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; border-left: 4px solid var(--blue);">
+                    style="display: none; background: rgba(0, 123, 255, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; border-left: 4px solid var(--primary-pink);">
                     ✅ <b>Delivery:</b> BURE kwa Printing!
                 </div>
 
-                <button type="submit" class="btn" style="width: 100%; background: #25D366; border: none;">TUMA WHATSAPP
-                    🚀</button>
+                <button type="submit" class="btn"
+                    style="width: 100%; background: #25D366; border: none; font-weight: bold; cursor: pointer;">
+                    TUMA WHATSAPP 🚀
+                </button>
             </form>
         </div>
     </div>
 
+    <section id="trends">
+        <h2 class="section-title">Tech Trends 🔥</h2>
+        <div class="glass-card">
+            <div class="news-item">
+                <div class="date-box">
+                    <div class="day">15</div>
+                    <div class="month">Mei</div>
+                </div>
+                <div>
+                    <h3 style="color:var(--primary-pink)">Deepseek-V3 vs ChatGPT-5</h3>
+                    <p style="color:var(--text-grey); font-size:0.9rem">Vita vya AI vyaingia hatua mpya. Zepox Co yaanza
+                        kutumia Deepseek kwa coding ya haraka.</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="date-box">
+                    <div class="day">10</div>
+                    <div class="month">Mei</div>
+                </div>
+                <div>
+                    <h3 style="color:var(--primary-pink)">Web 3D is taking over</h3>
+                    <p style="color:var(--text-grey); font-size:0.9rem">Website zisizo na 3D sasa zinaonekana za
+                        kizamani. Jifunze jinsi ya kuboresha.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-class">
+        <h2 class="section-title">AI Academy</h2>
+        <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
+            <form onsubmit="sendAcademyToWhatsApp(event)">
+                <h3 style="margin-bottom: 20px; color: var(--pink-neon);">Fomu ya Usajili</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <label>Majina Yako Kamili:</label>
+                        <input type="text" id="ac_name" placeholder="Mf. Zephania Kenedy" required>
+                    </div>
+                    <div>
+                        <label>Umri Wako:</label>
+                        <input type="number" id="ac_age" placeholder="Mf. 20" required>
+                    </div>
+                </div>
+                <label>Kiwango chako cha ujuzi wa sasa:</label>
+                <select id="ac_skill" required>
+                    <option value="Sina Ujuzi Kabisa">Sina Ujuzi Kabisa (Beginner)</option>
+                    <option value="Nina Ujuzi Kidogo">Nina Ujuzi Kidogo (Intermediate)</option>
+                    <option value="Nina Ujuzi wa Kutosha">Nina Ujuzi wa Kutosha (Advanced)</option>
+                </select>
+                <label>Chagua kozi unayotaka:</label>
+                <select id="ac_course" required>
+                    <option value="AI Prompt Engineering">AI Prompt Engineering 🔥</option>
+                    <option value="AI in Graphic Design">AI kwenye Graphics & Picha</option>
+                    <option value="AI in Video Editing">AI kwenye Video Editing</option>
+                    <option value="AI in Coding/Web">AI kwenye Coding & Website</option>
+                    <option value="AI in Business Automation">AI kwenye Biashara (Automation)</option>
+                </select>
+                <label>Muda wa Masomo & Gharama:</label>
+                <select id="ac_plan" required>
+                    <option value="Wiki Mbili - TZS 20,000">Wiki Mbili — TZS 20,000/=</option>
+                    <option value="Mwezi Mmoja - TZS 39,000">Mwezi Mmoja — TZS 39,000/=</option>
+                    <option value="Miezi Miwili - TZS 80,000">Miezi Miwili — TZS 80,000/=</option>
+                    <option value="Miezi Mitatu - TZS 110,000">Miezi Mitatu (Full Course) — TZS 110,000/=</option>
+                </select>
+                <label>Namba yako ya WhatsApp:</label>
+                <input type="tel" id="ac_whatsapp" placeholder="255 XXX XXX XXX" required>
+                <label>Malengo Yako:</label>
+                <textarea id="ac_goals" placeholder="Elezea malengo yako..."></textarea>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px; background: #25D366;">
+                    JIUNGE NA WANAFUNZI 🚀
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <h2 class="section-title">Wateja Wanasemaje</h2>
+        <div class="glass-card" style="max-width: 500px; margin: 0 auto 40px; text-align: center;">
+            <h3 style="color: var(--primary-pink); margin-bottom: 15px;">Acha Maoni Yako</h3>
+            <input type="text" id="rev-name" placeholder="Jina lako" style="margin-bottom: 10px;">
+            <textarea id="rev-text" placeholder="Andika maoni hapa..." rows="2"></textarea>
+            <div class="star-rating" id="star-input" style="margin-bottom: 15px;">
+                <span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star"
+                    data-value="3">★</span><span class="star" data-value="4">★</span><span class="star"
+                    data-value="5">★</span>
+            </div>
+            <button class="btn" onclick="submitReview()" style="padding: 10px 25px;">Tuma</button>
+        </div>
+        <div class="review-container" id="review-space"></div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">ZEPOX <span>CO</span></div>
+                <p>Sisi ni kampuni ya teknolojia inayopatikana Arusha, Tanzania. Tunajikita katika uvumbuzi wa
+                    kidijitali.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Nyumbani</a></li>
+                    <li><a href="#services">Huduma</a></li>
+                    <li><a href="#trends">Teknolojia</a></li>
+                    <li><a href="#ai-class">AI Academy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Wasiliana Nasi</h4>
+                <ul class="footer-links">
+                    <li><i class="fas fa-phone" style="color:var(--primary-pink); margin-right: 10px;"></i> +255 747 712
+                        469</li>
+                    <li><i class="fas fa-envelope" style="color:var(--primary-pink); margin-right: 10px;"></i>
+                        info@zepox.co.tz</li>
+                    <li><i class="fas fa-map-marker-alt" style="color:var(--primary-pink); margin-right: 10px;"></i>
+                        Arusha, Tanzania</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Zepox Omni-Tech. Haki zote zimehifadhiwa. Imetengenezwa na Zephania Kenedy.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
     <script>
-        function sendToWhatsApp(event) {
-            event.preventDefault(); // Inazuia fomu isirefresh page
+        /**
+         * 1. INICIALIAZATION: Huandaa mandhari ya 3D kutumia Three.js
+         */
+        let scene, camera, renderer, particles;
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('threed-bg').appendChild(renderer.domElement);
 
-            // Kuchukua data kutoka kwenye fomu
-            const name = document.getElementById('wa_name').value;
-            const phone = document.getElementById('wa_phone').value;
-            const service = document.getElementById('serviceType').value;
-            const address = document.getElementById('wa_address').value;
-            const description = document.getElementById('wa_desc').value;
-
-            // Namba yako ya simu
-            const myNumber = "255747712469";
-
-            // Kutengeneza ujumbe
-            let message = `*MPYA: ODA KUTOKA WEBSITE*%0A%0A`;
-            message += `*Jina:* ${name}%0A`;
-            message += `*Simu:* ${phone}%0A`;
-            message += `*Huduma:* ${service}%0A`;
-
-            if (service === "Book Printing") {
-                message += `*Anwani:* ${address}%0A`;
-            }
-
-            message += `*Maelezo:* ${description}%0A%0A`;
-            message += `_Nipo tayari kutuma sample/faili hapa WhatsApp._`;
-
-            // Kufungua WhatsApp
-            const whatsappURL = `https://wa.me/${myNumber}?text=${message}`;
-            window.open(whatsappURL, '_blank');
+            const geo = new THREE.BufferGeometry();
+            const count = 1500;
+            const posArr = new Float32Array(count * 3);
+            for (let i = 0; i < count * 3; i++) posArr[i] = (Math.random() - 0.5) * 10;
+            geo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+            const mat = new THREE.PointsMaterial({ size: 0.005, color: 0xff007f });
+            particles = new THREE.Points(geo, mat);
+            scene.add(particles);
+            camera.position.z = 3;
         }
 
-        // Hakikisha hizi function zako za mwanzo bado zipo
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
+        /**
+         * 2. ANIMATION LOOP: Huendesha mzunguko wa chembechembe za 3D
+         */
+        function animate() {
+            requestAnimationFrame(animate);
+            particles.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        initThree();
+        animate();
+
+        /**
+         * 3. HERO SLIDER: Inasimamia ubadilishaji wa picha kwenye Hero Section
+         */
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dots');
+        let currentSlide = 0;
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        function goToSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.add('active');
         }
 
-        function openUploadModal(serviceName = "") {
-            document.getElementById("uploadModal").style.display = "block";
-            if (serviceName !== "") {
-                document.getElementById("serviceType").value = serviceName;
-                document.getElementById("formTitle").innerText = "Agiza " + serviceName;
-            }
+        setInterval(() => {
+            let next = (currentSlide + 1) % slides.length;
+            goToSlide(next);
+        }, 5000);
+
+        /**
+         * 4. ORDER MODAL CONTROL: Inafungua fomu ya agizo na kuandaa huduma iliyochaguliwa
+         */
+        function openOrderForm(serviceName) {
+            document.getElementById('uploadModal').style.display = 'flex';
+            const select = document.getElementById('serviceType');
+            select.value = serviceName;
             checkService();
-            document.body.style.overflow = "hidden";
         }
 
         function closeUploadModal() {
-            document.getElementById("uploadModal").style.display = "none";
-            document.body.style.overflow = "auto";
+            document.getElementById('uploadModal').style.display = 'none';
         }
 
+        /**
+         * 5. DYNAMIC FORM LOGIC: Inaonyesha sanduku la anwani kwa huduma za Printing tu
+         */
         function checkService() {
-            const service = document.getElementById("serviceType").value;
-            const addressBox = document.getElementById("addressBox");
-            const deliveryNote = document.getElementById("deliveryNote");
-
-            if (service === "Book Printing") {
-                addressBox.style.display = "block";
-                deliveryNote.style.display = "block";
-            } else {
-                addressBox.style.display = "none";
-                deliveryNote.style.display = "none";
-            }
+            const service = document.getElementById('serviceType').value;
+            const addressBox = document.getElementById('addressBox');
+            const deliveryNote = document.getElementById('deliveryNote');
+            const isPrinting = service === "Book Printing";
+            addressBox.style.display = isPrinting ? "block" : "none";
+            deliveryNote.style.display = isPrinting ? "block" : "none";
         }
+
+        /**
+         * 6. WHATSAPP INTEGRATION: Inachukua data za fomu na kuziweka kwenye link ya WhatsApp
+         */
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            const name = document.getElementById('wa_name').value;
+            const service = document.getElementById('serviceType').value;
+            const desc = document.getElementById('wa_desc').value;
+            const msg = `Agizo Jipya: ${service}\nMteja: ${name}\nMaelezo: ${desc}`;
+            window.open(`https://wa.me/255747712469?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        /**
+         * 7. ACADEMY REGISTRATION: Inasimamia usajili wa wanafunzi wa AI
+         */
         function sendAcademyToWhatsApp(event) {
             event.preventDefault();
-
             const name = document.getElementById('ac_name').value;
-            const age = document.getElementById('ac_age').value;
-            const skill = document.getElementById('ac_skill').value;
             const course = document.getElementById('ac_course').value;
-            const plan = document.getElementById('ac_plan').value;
-            const whatsapp = document.getElementById('ac_whatsapp').value;
-            const goals = document.getElementById('ac_goals').value;
-
-            const myNumber = "255747712469";
-
-            // Ujumbe umeboreshwa hapa
-            let message = `*USAJILI MPYA: AI ACADEMY* 🎓%0A`;
-            message += `_Naomba Ofa ya Wanafunzi 2 wa Kwanza!_%0A%0A`; // Taarifa ya ofa
-            message += `*Jina:* ${name}%0A`;
-            message += `*Umri:* ${age}%0A`;
-            message += `*Ujuzi:* ${skill}%0A`;
-            message += `*Kozi:* ${course}%0A`;
-            message += `*Mpango:* ${plan}%0A`;
-            message += `*WhatsApp:* ${whatsapp}%0A`;
-            message += `*Malengo:* ${goals}`;
-
-            const whatsappURL = `https://wa.me/${myNumber}?text=${message}`;
-            window.open(whatsappURL, '_blank');
+            const msg = `Usajili AI Academy:\nJina: ${name}\nKozi: ${course}`;
+            window.open(`https://wa.me/255747712469?text=${encodeURIComponent(msg)}`, '_blank');
         }
-        // Function ya kufungua/kufunga menu kwenye simu
-        const menu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-list');
 
-        menu.addEventListener('click', function () {
-            navLinks.classList.toggle('active');
-            // Optional: Animation ya hamburger kugeuka X
-            this.classList.toggle('is-active');
+        /**
+         * 8. RATING SYSTEM: Inaruhusu wateja kubonyeza nyota kutoa alama
+         */
+        let selectedRating = 0;
+        document.querySelectorAll('#star-input .star').forEach(star => {
+            star.addEventListener('click', (e) => {
+                selectedRating = e.target.dataset.value;
+                document.querySelectorAll('#star-input .star').forEach(s => {
+                    s.classList.toggle('active', s.dataset.value <= selectedRating);
+                });
+            });
         });
 
-        // Function ya kufunga menu mteja akibonyeza link
-        function closeMenu() {
-            navLinks.classList.remove('active');
+        /**
+         * 9. REVIEW SUBMISSION: Inahifadhi na kuonyesha maoni mapya ya wateja
+         */
+        function submitReview() {
+            const name = document.getElementById('rev-name').value || "Mteja";
+            const text = document.getElementById('rev-text').value;
+            if (!text) return alert("Andika maoni kwanza!");
+            createReview(name, text, selectedRating);
+            document.getElementById('rev-text').value = "";
         }
-        // Kutafuta elements
-        const track = document.getElementById('sliderTrack');
-        const slides = document.querySelectorAll('.slider-img');
-        let counter = 0;
-        const size = 100; // Tunatumia asilimia (%)
 
-        function moveSlider() {
-            counter++;
+        /**
+         * 10. FLOATING REVIEWS: Inatengeneza kadi zinazoelea za maoni ya wateja
+         */
+        function createReview(name, text, stars) {
+            const container = document.getElementById('review-space');
+            const card = document.createElement('div');
+            card.className = 'floating-review';
+            card.style.left = Math.random() * 70 + '%';
+            card.style.animationDelay = Math.random() * 5 + 's';
+            card.innerHTML = `<strong>${name}</strong><br>${text}<br>${'★'.repeat(stars)}`;
+            container.appendChild(card);
+        }
 
-            // Ongeza mwendo laini
-            track.style.transition = "transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)";
+        /**
+         * 11. INITIAL DATA: Maoni ya mfano unapoingia kwenye website
+         */
+        const initialReviews = [
+    { n: "Kenedy", t: "Website ni ya moto sana!", s: 5 },
+    { n: "Anna", t: "Huduma ya AI imetusaidia sana.", s: 4 },
+    { n: "Juma", t: "Inafanya kazi vizuri, napenda UI yake.", s: 5 },
+    { n: "Sarah", t: "Sijajua jinsi ya kutumia feature fulani, ila ni nzuri.", s: 3 },
+    { n: "Musa", t: "Best tech solution in town!", s: 5 },
+    { n: "Neema", t: "Inarahisisha kazi zangu za kila siku.", s: 4 },
+    { n: "David", t: "Excellent work, very professional.", s: 5 },
+    { n: "Grace", t: "Kuna sehemu inachelewa kidogo kuload, ila iko sawa.", s: 3 },
+    { n: "Peter", t: "Hii ndio future ya web apps.", s: 5 },
+    { n: "Zahara", t: "Nimevutiwa na jinsi inavyojibu haraka.", s: 4 },
+    { n: "Kelvin", t: "Iko vizuri sana, naipendekeza kwa wote.", s: 5 },
+    { n: "Aisha", t: "Graphics ni nzuri sana.", s: 4 },
+    { n: "Emmanuel", t: "Nimepata changamoto kidogo kwenye simu yangu.", s: 3 },
+    { n: "Loveness", t: "Ni rahisi kutumia hata kwa mgeni.", s: 5 },
+    { n: "Baraka", t: "I'm impressed with the AI integration.", s: 5 },
+    { n: "Rehema", t: "Huduma kwa wateja ni nzuri.", s: 4 },
+    { n: "Thomas", t: "Safi sana, endeleeni hivi hivi.", s: 5 },
+    { n: "Catherine", t: "Ina kila kitu ninachohitaji kwa sasa.", s: 4 },
+    { n: "Frank", t: "Naisubiri update nyingine nione mapya.", s: 3 },
+    { n: "Happiness", t: "Super fast and reliable.", s: 5 },
+    { n: "Iddi", t: "Ubunifu wa hali ya juu.", s: 5 },
+    { n: "Zainabu", t: "Inasaidia sana kwenye usimamizi wa biashara.", s: 4 },
+    { n: "Oscar", t: "Professional service, well done!", s: 5 },
+    { n: "Maria", t: "Naona kama kuna vitu vingi sana kwenye screen moja.", s: 3 },
+    { n: "George", t: "The best experience so far.", s: 5 },
+    { n: "Doreen", t: "Nimeipenda sana rangi na muonekano.", s: 4 },
+    { n: "Erick", t: "Hii imekuja muda sahihi.", s: 5 },
+    { n: "Irene", t: "Kuna baadhi ya maneno sijaelewa vizuri.", s: 3 },
+    { n: "Salum", t: "Ni kiboko ya website zote nilizowahi tumia.", s: 5 },
+    { n: "Rose", t: "Very user-friendly and intuitive.", s: 4 },
+    { n: "Ally", t: "Nimeanza kuitumia leo na nimeielewa.", s: 4 },
+    { n: "Vanessa", t: "Perfect tool for modern entrepreneurs.", s: 5 },
+    { n: "Rajabu", t: "Sijaona makosa yoyote makubwa.", s: 4 },
+    { n: "Sophia", t: "Mchakato wa kujisajili ni mrefu kidogo.", s: 3 },
+    { n: "Brian", t: "Top notch quality!", s: 5 },
+    { n: "Linda", t: "Imenisaidia kuokoa muda mwingi.", s: 5 },
+    { n: "Yusuph", t: "Inafanya kazi vizuri hata kwenye internet ndogo.", s: 4 },
+    { n: "Monica", t: "Amazing design and features.", s: 5 },
+    { n: "Saimoni", t: "Nahitaji maelekezo zaidi ya video.", s: 3 },
+    { n: "Fatma", t: "Ni bora zaidi ya nilivyotegemea.", s: 5 },
+    { n: "Jackson", t: "Great customer support team.", s: 4 },
+    { n: "Tausi", t: "Nimefurahishwa na usalama wa data zangu.", s: 5 },
+    { n: "Ismail", t: "Inarahisisha mawasiliano na timu yangu.", s: 4 },
+    { n: "Lucy", t: "Kuna wakati inajizima, sijui kwanini.", s: 3 },
+    { n: "Hassan", t: "Highly recommended for startups.", s: 5 },
+    { n: "Pili", t: "Inapendeza na inafanya kazi.", s: 4 },
+    { n: "Said", t: "Nimependa jinsi inavyojibu maswali ya AI.", s: 5 },
+    { n: "Anita", t: "Huduma ni nzuri japo bei inaweza kupungua.", s: 3 },
+    { n: "Godfrey", t: "Hatua kubwa sana kwa teknolojia yetu.", s: 5 },
+    { n: "Halima", t: "Asante sana, nimevutiwa!", s: 4 }
+];
 
-            // Sogeza picha kwa kutumia GPU Acceleration
-            track.style.transform = `translate3d(${-size * counter}%, 0, 0)`;
+initialReviews.forEach(r => createReview(r.n, r.t, r.s));
 
-            // Logic ya Infinite Loop
-            track.addEventListener('transitionend', () => {
-                // Ikiwa tuko kwenye nakala ya mwisho (picha ya 11)
-                if (slides[counter].src === slides[0].src && counter !== 0) {
-                    track.style.transition = "none"; // Zima mwendo ghafla
-                    counter = 0; // Rudi picha ya kwanza halisi
-                    track.style.transform = `translate3d(0, 0, 0)`;
-                }
+        /**
+         * 12. TILT EFFECT: Inaanzisha madoido ya 3D yanayofuata mouse kwenye kadi
+         */
+        VanillaTilt.init(document.querySelectorAll(".glass-card"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2,
+        });
+
+        /**
+         * 13. SMOOTH SCROLLING: Inarekebisha navigation ili iwe laini wakati wa kusogeza
+         */
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
             });
-        }
+        });
 
-        // Endesha kila sekunde 3 (3000ms)
-        let sliderInterval = setInterval(moveSlider, 3000);
+        /**
+         * 14. WINDOW RESIZE: Inahakikisha background ya 3D inajirekebisha screen inapobadilika
+         */
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
 
-        // BONUS: Sitisha slider mteja akigusa (Pause on Hover)
-        track.parentElement.addEventListener('mouseenter', () => clearInterval(sliderInterval));
-        track.parentElement.addEventListener('mouseleave', () => sliderInterval = setInterval(moveSlider, 3000));
+        /**
+         * 15. MODAL OUTSIDE CLICK: Inafunga fomu ikiwa mteja atabonyeza nje ya box
+         */
+        window.onclick = function (event) {
+            const modal = document.getElementById('uploadModal');
+            if (event.target == modal) closeUploadModal();
+        };
     </script>
 </body>
 
