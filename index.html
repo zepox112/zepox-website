@@ -788,12 +788,11 @@
             <li><a href="#trends">Trends</a></li>
             <li><a href="#ai-class">AI Academy</a></li>
             <li><a href="#reviews">Reviews</a></li>
+            <li><a href="ai.html"><i class="fas fa-comments"></i> CHAT NA AI</a></li>
         </ul>
-        <nav>
-            <div class="logo">ZEPOX <span>CO</span></div>
-            <div class="menu-toggle"><span></span><span></span><span></span></div>
-            <ul class="nav-links">...</ul>
-        </nav>
+        <div class="menu-toggle"><span></span><span></span><span></span></div>
+        <ul class="nav-links">...</ul>
+
     </nav>
 
     <section id="home">
@@ -1187,22 +1186,47 @@
             createReview(name, text, selectedRating);
             document.getElementById('rev-text').value = "";
         }
-
         /**
-         * 10. FLOATING REVIEWS: Inatengeneza kadi zinazoelea za maoni ya wateja
+         * 10. FLOATING REVIEWS: Inatengeneza kadi zinazoelea tatu tatu zilizolingana
          */
+        let reviewColumn = 0; // Inatusaidia kupanga safu (0, 1, 2)
+        let currentReviewIndex = 0; // Inatusaidia kupitisha maoni yote 50 bila kurudia
+
         function createReview(name, text, stars) {
             const container = document.getElementById('review-space');
+            if (!container) return;
+
             const card = document.createElement('div');
             card.className = 'floating-review';
-            card.style.left = Math.random() * 70 + '%';
-            card.style.animationDelay = Math.random() * 5 + 's';
-            card.innerHTML = `<strong>${name}</strong><br>${text}<br>${'★'.repeat(stars)}`;
+
+            // Kupanga nafasi tatu maalum (Columns) ili zilingane vizuri
+            const positions = [15, 45, 75];
+            card.style.left = positions[reviewColumn] + '%';
+
+            // Madoido ya kuchelewa kidogo ili kadi zisigongane zinapopanda
+            card.style.animationDelay = (reviewColumn * 1.5) + 's';
+
+            card.innerHTML = `
+        <div class="glass-inner">
+            <strong>${name}</strong><br>
+            <span style="font-size: 0.85rem; opacity: 0.9;">${text}</span><br>
+            <span style="color: var(--primary-pink);">${'★'.repeat(stars)}</span>
+        </div>
+    `;
+
             container.appendChild(card);
+
+            // MUHIMU: Futa kadi baada ya sekunde 15 ili kulinda RAM ya kompyuta
+            setTimeout(() => {
+                card.remove();
+            }, 15000);
+
+            // Badilisha safu kwa ajili ya kadi inayofuata
+            reviewColumn = (reviewColumn + 1) % 3;
         }
 
         /**
-         * 11. INITIAL DATA: Maoni ya mfano unapoingia kwenye website
+         * 11. INITIAL DATA: Orodha ya maoni 50
          */
         const initialReviews = [
             { n: "Kenedy", t: "Website ni ya moto sana!", s: 5 },
@@ -1257,10 +1281,22 @@
             { n: "Halima", t: "Asante sana, nimevutiwa!", s: 4 }
         ];
 
-        initialReviews.forEach(r => createReview(r.n, r.t, r.s));
+        // Mfumo wa kurusha maoni mapya kila baada ya sekunde 4 bila kurudia yale yale
+        function startReviewFlow() {
+            setInterval(() => {
+                const r = initialReviews[currentReviewIndex];
+                createReview(r.n, r.t, r.s);
+
+                // Sogea kwenye review inayofuata, ikifika mwisho rudi mwanzo
+                currentReviewIndex = (currentReviewIndex + 1) % initialReviews.length;
+            }, 4000);
+        }
+
+        // Anzisha mfumo
+        startReviewFlow();
 
         /**
-         * 12. TILT EFFECT: Inaanzisha madoido ya 3D yanayofuata mouse kwenye kadi
+         * 12. TILT EFFECT
          */
         VanillaTilt.init(document.querySelectorAll(".glass-card"), {
             max: 15,
@@ -1268,7 +1304,6 @@
             glare: true,
             "max-glare": 0.2,
         });
-
         /**
          * 13. SMOOTH SCROLLING: Inarekebisha navigation ili iwe laini wakati wa kusogeza
          */
@@ -1334,31 +1369,6 @@
         }
     </style>
 
-    <script>
-        (function () {
-            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
-                window.chatbase = (...arguments) => {
-                    if (!window.chatbase.q) { window.chatbase.q = [] }
-                    window.chatbase.q.push(arguments)
-                };
-                window.chatbase = new Proxy(window.chatbase, {
-                    get(target, prop) {
-                        if (prop === "q") { return target.q }
-                        return (...args) => target(prop, ...args)
-                    }
-                })
-            }
-            const onLoad = function () {
-                const script = document.createElement("script");
-                script.src = "https://www.chatbase.co/embed.min.js";
-                script.id = "cDzPuc-kHsOBV21J4pLKh";
-                script.domain = "www.chatbase.co";
-                document.body.appendChild(script)
-            };
-            if (document.readyState === "complete") { onLoad() }
-            else { window.addEventListener("load", onLoad) }
-        })();
-    </script>
     <script>
         // Hii itatafuta menu na kitufe chake
         const menuToggle = document.querySelector('.menu-toggle');
