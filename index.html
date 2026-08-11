@@ -55,8 +55,9 @@
             position: fixed;
             inset: 0;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             justify-content: center;
             align-items: center;
             padding: 1rem;
@@ -72,11 +73,22 @@
             transform: scale(0.9) translateY(20px);
             transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal.active .modal-content {
             transform: scale(1) translateY(0);
             opacity: 1;
+        }
+        
+        .backdrop-glass {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
@@ -103,7 +115,7 @@
     <div class="relative z-10">
 
         <!-- Navbar -->
-        <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/15 bg-[#0a0a0a]/60 backdrop-blur-md">
+        <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-transparent backdrop-glass">
             <div class="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-20 flex items-center justify-between">
                 <!-- Logo -->
                 <a href="#" class="flex items-center gap-3 reveal" data-delay="0">
@@ -135,7 +147,7 @@
                 <!-- CTA -->
                 <div class="reveal" data-delay="500">
                     <a href="https://wa.me/255747712469" target="_blank"
-                        class="rounded-md border border-white/20 bg-white/15 backdrop-blur-md px-4 py-2 text-xs sm:px-5 sm:text-sm text-white hover:bg-white/25 transition-all duration-300">
+                        class="rounded-md border border-white/10 backdrop-glass px-4 py-2 text-xs sm:px-5 sm:text-sm text-white hover:bg-white/5 transition-all duration-300">
                         WhatsApp Us
                     </a>
                 </div>
@@ -174,7 +186,7 @@
                 <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between mt-12">
                     <!-- Left: Badge & H1 -->
                     <div>
-                        <div class="inline-block border-l-2 border-white bg-white/15 px-3 py-1.5 backdrop-blur-md font-mono text-[11px] uppercase tracking-[0.15em] text-white mb-5 reveal"
+                        <div class="inline-block border-l-2 border-white/50 backdrop-glass px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-white mb-5 reveal"
                             data-delay="150">
                             Zepox Omni-Tech Enterprise
                         </div>
@@ -185,7 +197,7 @@
                     </div>
 
                     <!-- Right: Glass Contact Card -->
-                    <div class="flex items-center gap-4 rounded-xl bg-white/15 p-3 backdrop-blur-md border border-white/15 max-w-sm reveal cursor-pointer"
+                    <div class="flex items-center gap-4 rounded-xl backdrop-glass p-3 border border-white/5 max-w-sm reveal cursor-pointer"
                         data-delay="420" onclick="openModal('contactModal')">
                         <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260728_050334_5b076e26-0ce7-4898-b432-d764190e448f.png&w=1280&q=85"
                             alt="Zephania Kenedy, founder of Zepox"
@@ -195,7 +207,7 @@
                             <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-white/60">Founder of
                                 Zepox omni tech</span>
                             <a href="https://wa.me/255747712469" target="_blank"
-                                class="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 text-xs font-medium text-black hover:bg-white/85 transition-colors duration-300 w-fit">
+                                class="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white/10 backdrop-glass px-4 py-2 text-xs font-medium text-white hover:bg-white/20 transition-colors duration-300 w-fit">
                                 Chat on WhatsApp <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                             </a>
                         </div>
@@ -211,7 +223,7 @@
                 class="min-h-[100svh] min-h-screen flex flex-col justify-between px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 pb-12 md:pb-16 max-w-7xl mx-auto">
                 <!-- Top Row -->
                 <div class="flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-start">
-                    <div class="inline-block border-l-2 border-white bg-white/15 px-3 py-1.5 backdrop-blur-md font-mono text-[11px] uppercase tracking-[0.15em] text-white reveal"
+                    <div class="inline-block border-l-2 border-white/50 backdrop-glass px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-white reveal"
                         data-delay="120">
                         Huduma Zetu Na Bei
                     </div>
@@ -238,11 +250,11 @@
                         </p>
                         <div class="mt-8 flex flex-wrap gap-3 reveal" data-delay="420">
                             <a href="javascript:void(0)" onclick="openModal('servicesModal')"
-                                class="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-xs sm:text-sm font-medium text-black hover:bg-white/85 transition-colors duration-300">
+                                class="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-glass px-5 py-2.5 text-xs sm:text-sm font-medium text-white hover:bg-white/20 transition-colors duration-300">
                                 Agiza Huduma <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                             </a>
                             <a href="https://wa.me/255747712469" target="_blank"
-                                class="inline-flex items-center rounded-full border border-white/25 bg-white/10 backdrop-blur-md px-5 py-2.5 text-xs sm:text-sm text-white hover:bg-white/20 transition-colors duration-300">
+                                class="inline-flex items-center rounded-full border border-white/5 bg-white/5 backdrop-glass px-5 py-2.5 text-xs sm:text-sm text-white hover:bg-white/10 transition-colors duration-300">
                                 Jiunge na AI Academy
                             </a>
                         </div>
@@ -250,9 +262,9 @@
 
                     <!-- Right Column: Frosted Capability Panel -->
                     <div
-                        class="w-full max-w-md rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md px-5 sm:px-6">
+                        class="w-full max-w-md rounded-2xl border border-white/5 backdrop-glass px-5 sm:px-6">
                         <!-- Row 01 -->
-                        <div class="flex gap-5 py-5 border-b border-white/15 reveal cursor-pointer" data-delay="300"
+                        <div class="flex gap-5 py-5 border-b border-white/5 reveal cursor-pointer" data-delay="300"
                             onclick="openModal('servicesModal')">
                             <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">01</span>
                             <div class="flex-1">
@@ -267,7 +279,7 @@
                         </div>
 
                         <!-- Row 02 -->
-                        <div class="flex gap-5 py-5 border-b border-white/15 reveal cursor-pointer" data-delay="410"
+                        <div class="flex gap-5 py-5 border-b border-white/5 reveal cursor-pointer" data-delay="410"
                             onclick="openModal('servicesModal')">
                             <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">02</span>
                             <div class="flex-1">
@@ -301,16 +313,10 @@
         </main>
 
         <!-- Footer matched with website design -->
-        <!-- Footer ya kisasa yenye Glassmorphism -->
-        <footer class="about-footer mt-20 relative z-10" style="
+        <footer class="about-footer mt-20 relative z-10 backdrop-glass border-t border-white/5" style="
             position: relative;
             width: 100%;
             padding: 40px 20px;
-            background: rgba(0, 0, 0, 0.4); /* background nyeusi kidogo kwa ajili ya usomaji */
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 -10px 30px 0 rgba(0, 0, 0, 0.3);
             color: #ffffff;
             font-family: sans-serif;">
 
@@ -318,8 +324,7 @@
 
                 <!-- Col 1: Brand -->
                 <div class="footer-section flex-1 min-w-[250px]">
-                    <h3 class="text-lg font-bold mb-4 border-b border-white/30 inline-block pb-1 text-white"
-                        style="text-shadow: 0 0 10px rgba(255,255,255,0.5);">ZEPOX OMNI TECH</h3>
+                    <h3 class="text-lg font-bold mb-4 border-b border-white/10 inline-block pb-1 text-white">ZEPOX OMNI TECH</h3>
                     <p class="text-white text-sm leading-6" style="opacity: 0.9;">Tunaleta masuluhisho ya kidijitali,
                         AI, na ubunifu wa kipekee kutoka Arusha, Tanzania.</p>
                 </div>
@@ -327,7 +332,7 @@
                 <!-- Col 2: Quick Links -->
                 <div class="footer-section flex-1 min-w-[200px]">
                     <h3
-                        class="text-sm font-semibold uppercase mb-4 border-b border-white/30 inline-block pb-1 text-white">
+                        class="text-sm font-semibold uppercase mb-4 border-b border-white/10 inline-block pb-1 text-white">
                         Links</h3>
                     <ul class="flex flex-col gap-2 text-sm text-white">
                         <li><a href="#" class="hover:text-white hover:underline" style="opacity: 0.8;">Nyumbani</a></li>
@@ -341,7 +346,7 @@
                 <!-- Col 3: Mawasiliano -->
                 <div class="footer-section flex-1 min-w-[250px]">
                     <h3
-                        class="text-sm font-semibold uppercase mb-4 border-b border-white/30 inline-block pb-1 text-white">
+                        class="text-sm font-semibold uppercase mb-4 border-b border-white/10 inline-block pb-1 text-white">
                         Mawasiliano</h3>
                     <p class="text-white text-sm" style="opacity: 0.9;">+255 747 712 469</p>
                     <p class="text-white text-sm" style="opacity: 0.9;">+255 663 731 247</p>
@@ -352,7 +357,7 @@
             </div>
 
             <!-- Sehemu ya chini kabisa -->
-            <div class="footer-bottom text-center mt-8 pt-5 border-t border-white/10 text-[13px] text-white"
+            <div class="footer-bottom text-center mt-8 pt-5 border-t border-white/5 text-[13px] text-white"
                 style="opacity: 0.7;">
                 <p>&copy; 2026 Zepox Omni-Tech. Haki zote zimehifadhiwa.</p>
             </div>
@@ -361,7 +366,7 @@
 
     <!-- Modals for Services and Contacts -->
     <div id="servicesModal" class="modal" onclick="closeModal('servicesModal')">
-        <div class="modal-content bg-[#141414] border border-white/20 p-6 sm:p-8 rounded-[2.5rem] max-w-lg w-full m-4 shadow-2xl relative"
+        <div class="modal-content p-6 sm:p-8 rounded-[2.5rem] max-w-lg w-full m-4 shadow-2xl relative"
             onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
                 <h3 class="text-xl font-medium tracking-tight text-white">Huduma Zetu na Bei</h3>
@@ -369,29 +374,29 @@
                     class="text-white/60 hover:text-white text-lg font-mono">✕</button>
             </div>
             <div class="space-y-4 text-sm text-white/80 max-h-[60vh] overflow-y-auto pr-2">
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
                     <div class="font-medium text-white">Website Design (Advanced 3D)</div>
                     <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 150,000/=</div>
                 </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
                     <div class="font-medium text-white">Video Editing & Motion Graphics</div>
                     <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 15,000/=</div>
                 </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
                     <div class="font-medium text-white">AI Solutions & Automation</div>
                     <div class="text-xs text-white/60 mt-1">Chatbots na mifumo ya kujiendesha kwa biashara
                     </div>
                 </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
                     <div class="font-medium text-white">Photo Restoration</div>
                     <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 1,000/=</div>
                 </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
                     <div class="font-medium text-white">Book Printing</div>
                     <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 10,000/= (Ikiwa na Delivery BURE)
                     </div>
                 </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
                     <div class="font-medium text-white">Zepox AI Academy</div>
                     <div class="text-xs text-white/60 mt-1">Kozi za wiki 2 (20k), mwezi 1 (39k), miezi 2 (80k), miezi 3
                         (110k)</div>
@@ -399,7 +404,7 @@
             </div>
             <div class="mt-6 flex gap-3">
                 <a href="https://wa.me/255747712469" target="_blank"
-                    class="flex-1 text-center rounded-full bg-white py-2.5 text-xs font-medium text-black hover:bg-white/85 transition-colors">Agiza
+                    class="flex-1 text-center rounded-full bg-white text-black py-2.5 text-xs font-medium hover:bg-white/90 transition-colors">Agiza
                     Kupitia WhatsApp</a>
                 <button onclick="closeModal('servicesModal')"
                     class="rounded-full border border-white/20 px-5 py-2.5 text-xs text-white hover:bg-white/10 transition-colors">Funga</button>
@@ -408,7 +413,7 @@
     </div>
 
     <div id="contactModal" class="modal" onclick="closeModal('contactModal')">
-        <div class="modal-content bg-[#141414] border border-white/20 p-6 sm:p-8 rounded-[2.5rem] max-w-md w-full m-4 shadow-2xl relative"
+        <div class="modal-content p-6 sm:p-8 rounded-[2.5rem] max-w-md w-full m-4 shadow-2xl relative"
             onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
                 <h3 class="text-xl font-medium tracking-tight text-white">Mawasiliano</h3>
@@ -424,7 +429,7 @@
             </div>
             <div class="mt-6 flex gap-3">
                 <a href="https://wa.me/255747712469" target="_blank"
-                    class="flex-1 text-center rounded-full bg-white py-2.5 text-xs font-medium text-black hover:bg-white/85 transition-colors">Fungua
+                    class="flex-1 text-center rounded-full bg-white text-black py-2.5 text-xs font-medium hover:bg-white/90 transition-colors">Fungua
                     WhatsApp</a>
                 <button onclick="closeModal('contactModal')"
                     class="rounded-full border border-white/20 px-5 py-2.5 text-xs text-white hover:bg-white/10 transition-colors">Funga</button>
