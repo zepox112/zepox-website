@@ -83,7 +83,7 @@
             transform: scale(1) translateY(0);
             opacity: 1;
         }
-        
+
         .backdrop-glass {
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -102,7 +102,7 @@
             alt="Poster" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10" />
         <video id="bg-video"
             class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-0" muted
-            playsinline preload="auto">
+            playsinline autoplay loop webkit-playsinline preload="auto">
             <source
                 src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260729_102822_0e6c87e8-c141-4744-bf32-ad30db296371.mp4"
                 type="video/mp4">
@@ -144,12 +144,37 @@
                         data-delay="400">Contact</a>
                 </nav>
 
-                <!-- CTA -->
-                <div class="reveal" data-delay="500">
+                <!-- CTA & Mobile Menu Button -->
+                <div class="flex items-center gap-3">
+                    <div class="reveal hidden sm:block" data-delay="500">
+                        <a href="https://wa.me/255747712469" target="_blank"
+                            class="rounded-md border border-white/10 backdrop-glass px-4 py-2 text-xs sm:px-5 sm:text-sm text-white hover:bg-white/5 transition-all duration-300">
+                            WhatsApp Us
+                        </a>
+                    </div>
+                    <!-- Hamburger Icon (Mistari Mitatu) ya Simu -->
+                    <button onclick="toggleMobileMenu()"
+                        class="md:hidden text-white p-2 focus:outline-none backdrop-glass rounded-lg border border-white/10">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobileMenu" class="hidden md:hidden backdrop-glass border-b border-white/10 px-6 py-5 space-y-4">
+                <a href="javascript:void(0)" onclick="openModal('servicesModal'); toggleMobileMenu();"
+                    class="block text-sm text-white/85 hover:text-white">Projects (5)</a>
+                <a href="https://wa.me/255747712469" target="_blank"
+                    class="block text-sm text-white/85 hover:text-white">Academy</a>
+                <a href="ai.html" class="block text-sm text-white/85 hover:text-white">Chat with AI</a>
+                <a href="javascript:void(0)" onclick="openModal('servicesModal'); toggleMobileMenu();"
+                    class="block text-sm text-white/85 hover:text-white">Trends</a>
+                <a href="javascript:void(0)" onclick="openModal('contactModal'); toggleMobileMenu();"
+                    class="block text-sm text-white/85 hover:text-white">Contact</a>
+                <div class="pt-2">
                     <a href="https://wa.me/255747712469" target="_blank"
-                        class="rounded-md border border-white/10 backdrop-glass px-4 py-2 text-xs sm:px-5 sm:text-sm text-white hover:bg-white/5 transition-all duration-300">
-                        WhatsApp Us
-                    </a>
+                        class="block text-center rounded-md border border-white/10 bg-white/10 px-4 py-2 text-xs text-white">WhatsApp
+                        Us</a>
                 </div>
             </div>
         </header>
@@ -261,8 +286,7 @@
                     </div>
 
                     <!-- Right Column: Frosted Capability Panel -->
-                    <div
-                        class="w-full max-w-md rounded-2xl border border-white/5 backdrop-glass px-5 sm:px-6">
+                    <div class="w-full max-w-md rounded-2xl border border-white/5 backdrop-glass px-5 sm:px-6">
                         <!-- Row 01 -->
                         <div class="flex gap-5 py-5 border-b border-white/5 reveal cursor-pointer" data-delay="300"
                             onclick="openModal('servicesModal')">
@@ -324,7 +348,8 @@
 
                 <!-- Col 1: Brand -->
                 <div class="footer-section flex-1 min-w-[250px]">
-                    <h3 class="text-lg font-bold mb-4 border-b border-white/10 inline-block pb-1 text-white">ZEPOX OMNI TECH</h3>
+                    <h3 class="text-lg font-bold mb-4 border-b border-white/10 inline-block pb-1 text-white">ZEPOX OMNI
+                        TECH</h3>
                     <p class="text-white text-sm leading-6" style="opacity: 0.9;">Tunaleta masuluhisho ya kidijitali,
                         AI, na ubunifu wa kipekee kutoka Arusha, Tanzania.</p>
                 </div>
@@ -350,8 +375,8 @@
                         Mawasiliano</h3>
                     <p class="text-white text-sm" style="opacity: 0.9;">+255 747 712 469</p>
                     <p class="text-white text-sm" style="opacity: 0.9;">+255 663 731 247</p>
-                     <p class="text-white text-sm" style="opacity: 0.9;">zepoxomnitech@gmail.com</p>
-                      <p class="text-white text-sm" style="opacity: 0.9;">www.bit.ly/zepoxco</p>
+                    <p class="text-white text-sm" style="opacity: 0.9;">zepoxomnitech@gmail.com</p>
+                    <p class="text-white text-sm" style="opacity: 0.9;">www.bit.ly/zepoxco</p>
                     <p class="text-white text-sm" style="opacity: 0.9;">Arusha, Tanzania</p>
                 </div>
             </div>
@@ -447,6 +472,11 @@
 
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
         }
 
         // Reveal Animation Observer
