@@ -1,597 +1,210 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="sw">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZEPOX OMNI-TECH — Today AI Aligns With Bold Dreams</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+    <title>AI Assistant | Zepox Co</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --bg-grey: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: #0a0a0a;
+            background-color: var(--bg-grey);
             color: #ffffff;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        ::selection {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(2rem);
-            transition: opacity 700ms ease-out, transform 700ms ease-out;
-            will-change: transform, opacity;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .modal {
+            height: 100vh;
+            overflow: hidden;
+            /* Kuzuia scroll kumpoteza mtumiaji */
             display: flex;
-            opacity: 0;
-            pointer-events: none;
+            flex-direction: column;
+        }
+
+        /* Background ya 3D */
+        #threed-bg {
             position: fixed;
-            inset: 0;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Navigation Bar */
+        nav {
+            padding: 15px 5%;
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .back-btn:hover {
+            color: #cccccc;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo span {
+            color: #ffffff;
+            font-weight: 800;
+            opacity: 0.7;
+        }
+
+        /* Container ya AI */
+        .ai-container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
-            transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .modal.active {
-            opacity: 1;
-            pointer-events: auto;
+        .glass-chat-box {
+            width: 100%;
+            max-width: 1000px;
+            height: 80vh;
+            background: var(--glass);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
         }
 
-        .modal-content {
-            transform: scale(0.9) translateY(20px);
-            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
-            opacity: 0;
+        .chat-header {
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .modal.active .modal-content {
-            transform: scale(1) translateY(0);
-            opacity: 1;
+        .ai-status {
+            width: 10px;
+            height: 10px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+        }
+
+        /* Iframe ya Chatbase */
+        iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            .glass-chat-box {
+                height: 85vh;
+                border-radius: 20px;
+            }
         }
     </style>
 </head>
 
-<body class="bg-[#0a0a0a] text-white selection:bg-white/20">
+<body>
 
-    <!-- Scroll Video Background Layer -->
-    <div class="fixed inset-0 z-0 bg-[#0a0a0a] overflow-hidden pointer-events-none">
-        <img id="video-poster"
-            src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260728_050334_5b076e26-0ce7-4898-b432-d764190e448f.png&w=1280&q=85"
-            alt="Poster" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10" />
-        <video id="bg-video"
-            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-0" muted
-            playsinline preload="auto">
-            <source
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260729_102822_0e6c87e8-c141-4744-bf32-ad30db296371.mp4"
-                type="video/mp4">
-        </video>
-        <canvas id="video-canvas"
-            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-20"></canvas>
-    </div>
+    <div id="threed-bg"></div>
 
-    <!-- Main Relative Wrapper -->
-    <div class="relative z-10">
+    <nav>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Rudi Nyumbani
+        </a>
+        <div class="logo">ZEPOX <span>AI</span></div>
+        <div style="width: 100px;"></div>
+    </nav>
 
-        <!-- Navbar -->
-        <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/15 bg-[#0a0a0a]/60 backdrop-blur-md">
-            <div class="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-20 flex items-center justify-between">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 reveal" data-delay="0">
-                    <i data-lucide="hexagon" class="w-6 h-6 stroke-[1.5] text-white"></i>
-                    <span class="text-lg sm:text-xl font-medium tracking-tight text-white">ZEPOX OMNI TECH</span>
-                </a>
-
-                <!-- Desktop Nav Links -->
-                <nav class="hidden md:flex items-center gap-8 lg:gap-10">
-                    <a href="javascript:void(0)" onclick="openModal('servicesModal')"
-                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal flex items-center gap-1"
-                        data-delay="100">
-                        Projects <span class="font-mono text-[10px] text-white/60">5</span>
-                    </a>
-                    <a href="https://wa.me/255747712469" target="_blank"
-                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
-                        data-delay="200">Academy</a>
-                    <a href="ai.html"
-                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
-                        data-delay="250">Chat with AI</a>
-                    <a href="javascript:void(0)" onclick="openModal('servicesModal')"
-                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
-                        data-delay="300">Trends</a>
-                    <a href="javascript:void(0)" onclick="openModal('contactModal')"
-                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
-                        data-delay="400">Contact</a>
-                </nav>
-
-                <!-- CTA -->
-                <div class="reveal" data-delay="500">
-                    <a href="https://wa.me/255747712469" target="_blank"
-                        class="rounded-md border border-white/20 bg-white/15 backdrop-blur-md px-4 py-2 text-xs sm:px-5 sm:text-sm text-white hover:bg-white/25 transition-all duration-300">
-                        WhatsApp Us
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <!-- Section One — Hero -->
-            <section
-                class="min-h-[100svh] min-h-screen flex flex-col justify-between px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 pb-12 md:pb-16 max-w-7xl mx-auto">
-                <!-- Top Row -->
-                <div class="flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-start">
-                    <!-- Service List -->
-                    <div class="flex flex-col gap-2">
-                        <div onclick="openModal('servicesModal')"
-                            class="font-mono text-xs uppercase tracking-[0.15em] text-white/95 drop-shadow-md reveal cursor-pointer hover:text-white"
-                            data-delay="150">/ ADVANCED 3D WEBSITES</div>
-                        <div onclick="openModal('servicesModal')"
-                            class="font-mono text-xs uppercase tracking-[0.15em] text-white/95 drop-shadow-md reveal cursor-pointer hover:text-white"
-                            data-delay="270">/ AI SOLUTIONS & AUTOMATION</div>
-                        <div onclick="window.open('https://wa.me/255747712469', '_blank')"
-                            class="font-mono text-xs uppercase tracking-[0.15em] text-white/95 drop-shadow-md reveal cursor-pointer hover:text-white"
-                            data-delay="390">/ ZEPOX AI ACADEMY</div>
-                    </div>
-
-                    <!-- Intro Text -->
-                    <div class="max-w-xs sm:text-right reveal" data-delay="300">
-                        <p class="text-lg sm:text-xl leading-relaxed text-white drop-shadow-md">
-                            Tunaleta masuluhisho ya kidijitali, AI, na ubunifu wa kipekee kutoka Arusha, Tanzania kwenda
-                            duniani.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Bottom Row -->
-                <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between mt-12">
-                    <!-- Left: Badge & H1 -->
-                    <div>
-                        <div class="inline-block border-l-2 border-white bg-white/15 px-3 py-1.5 backdrop-blur-md font-mono text-[11px] uppercase tracking-[0.15em] text-white mb-5 reveal"
-                            data-delay="150">
-                            Zepox Omni-Tech Enterprise
-                        </div>
-                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-white drop-shadow-lg reveal"
-                            data-delay="280">
-                            Advanced. 3D.<br>Automated.
-                        </h1>
-                    </div>
-
-                    <!-- Right: Glass Contact Card -->
-                    <div class="flex items-center gap-4 rounded-xl bg-white/15 p-3 backdrop-blur-md border border-white/15 max-w-sm reveal cursor-pointer"
-                        data-delay="420" onclick="openModal('contactModal')">
-                        <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260728_050334_5b076e26-0ce7-4898-b432-d764190e448f.png&w=1280&q=85"
-                            alt="Zephania Kenedy, founder of Zepox"
-                            class="h-24 w-20 rounded-lg object-cover shrink-0" />
-                        <div class="flex flex-col gap-1.5 pr-2">
-                            <span class="text-sm font-medium text-white">Zephania Kenedy</span>
-                            <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-white/60">Founder of
-                                Zepox omni tech</span>
-                            <a href="https://wa.me/255747712469" target="_blank"
-                                class="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 text-xs font-medium text-black hover:bg-white/85 transition-colors duration-300 w-fit">
-                                Chat on WhatsApp <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Mid Spacer -->
-            <div class="h-[80vh]" aria-hidden="true"></div>
-
-            <!-- Section Two — Capability -->
-            <section
-                class="min-h-[100svh] min-h-screen flex flex-col justify-between px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 pb-12 md:pb-16 max-w-7xl mx-auto">
-                <!-- Top Row -->
-                <div class="flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-start">
-                    <div class="inline-block border-l-2 border-white bg-white/15 px-3 py-1.5 backdrop-blur-md font-mono text-[11px] uppercase tracking-[0.15em] text-white reveal"
-                        data-delay="120">
-                        Huduma Zetu Na Bei
-                    </div>
-                    <div class="max-w-sm sm:text-right reveal" data-delay="220">
-                        <p class="text-lg sm:text-xl leading-relaxed text-white drop-shadow-md">
-                            Tunatoa huduma za kitaalamu kuanzia website za kisasa, AI solutions, hadi uchapishaji wa
-                            vitabu.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Bottom Area -->
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-16 mt-12 flex-1 justify-end">
-                    <!-- Left Column -->
-                    <div class="max-w-xl">
-                        <h2 class="text-5xl sm:text-6xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-white drop-shadow-lg reveal"
-                            data-delay="180">
-                            Ubunifu wa<br>Kiwango cha Juu.
-                        </h2>
-                        <p class="mt-6 max-w-md text-sm sm:text-base text-white/80 drop-shadow-md reveal"
-                            data-delay="320">
-                            Zepox Omni-Tech inakupa huduma za Video Editing, Motion Graphics, AI Chatbots, Photo
-                            Restoration, na Zepox AI Academy kwa bei nafuu kabisa.
-                        </p>
-                        <div class="mt-8 flex flex-wrap gap-3 reveal" data-delay="420">
-                            <a href="javascript:void(0)" onclick="openModal('servicesModal')"
-                                class="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-xs sm:text-sm font-medium text-black hover:bg-white/85 transition-colors duration-300">
-                                Agiza Huduma <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                            </a>
-                            <a href="https://wa.me/255747712469" target="_blank"
-                                class="inline-flex items-center rounded-full border border-white/25 bg-white/10 backdrop-blur-md px-5 py-2.5 text-xs sm:text-sm text-white hover:bg-white/20 transition-colors duration-300">
-                                Jiunge na AI Academy
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Frosted Capability Panel -->
-                    <div
-                        class="w-full max-w-md rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md px-5 sm:px-6">
-                        <!-- Row 01 -->
-                        <div class="flex gap-5 py-5 border-b border-white/15 reveal cursor-pointer" data-delay="300"
-                            onclick="openModal('servicesModal')">
-                            <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">01</span>
-                            <div class="flex-1">
-                                <div
-                                    class="flex items-center justify-between text-base sm:text-lg font-medium text-white group">
-                                    <span>Website Design (3D)</span>
-                                    <span class="font-mono text-xs text-white/60">TZS 150k+</span>
-                                </div>
-                                <p class="mt-1.5 text-sm leading-relaxed text-white/70">Advanced, 3D, na responsive
-                                    websites za kisasa</p>
-                            </div>
-                        </div>
-
-                        <!-- Row 02 -->
-                        <div class="flex gap-5 py-5 border-b border-white/15 reveal cursor-pointer" data-delay="410"
-                            onclick="openModal('servicesModal')">
-                            <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">02</span>
-                            <div class="flex-1">
-                                <div
-                                    class="flex items-center justify-between text-base sm:text-lg font-medium text-white group">
-                                    <span>Video Editing & Motion</span>
-                                    <span class="font-mono text-xs text-white/60">TZS 15k+</span>
-                                </div>
-                                <p class="mt-1.5 text-sm leading-relaxed text-white/70">Editing ya kitaalamu na motion
-                                    graphics kwa ajili ya kukuza brand yako.</p>
-                            </div>
-                        </div>
-
-                        <!-- Row 03 -->
-                        <div class="flex gap-5 py-5 reveal cursor-pointer" data-delay="520"
-                            onclick="openModal('servicesModal')">
-                            <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">03</span>
-                            <div class="flex-1">
-                                <div
-                                    class="flex items-center justify-between text-base sm:text-lg font-medium text-white group">
-                                    <span>Book Printing & AI</span>
-                                    <span class="font-mono text-xs text-white/60">Bure Delivery</span>
-                                </div>
-                                <p class="mt-1.5 text-sm leading-relaxed text-white/70">Uchapishaji wa vitabu, photo
-                                    restoration kuanzia TZS 1k, na kozi za AI Academy.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer matched with website design -->
-        <!-- Footer ya kisasa yenye Glassmorphism -->
-        <footer class="about-footer mt-20 relative z-10" style="
-            position: relative;
-            width: 100%;
-            padding: 40px 20px;
-            background: rgba(0, 0, 0, 0.4); /* background nyeusi kidogo kwa ajili ya usomaji */
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 -10px 30px 0 rgba(0, 0, 0, 0.3);
-            color: #ffffff;
-            font-family: sans-serif;">
-
-            <div class="footer-container max-w-7xl mx-auto flex flex-wrap justify-between gap-8">
-
-                <!-- Col 1: Brand -->
-                <div class="footer-section flex-1 min-w-[250px]">
-                    <h3 class="text-lg font-bold mb-4 border-b border-white/30 inline-block pb-1 text-white"
-                        style="text-shadow: 0 0 10px rgba(255,255,255,0.5);">ZEPOX OMNI TECH</h3>
-                    <p class="text-white text-sm leading-6" style="opacity: 0.9;">Tunaleta masuluhisho ya kidijitali,
-                        AI, na ubunifu wa kipekee kutoka Arusha, Tanzania.</p>
-                </div>
-
-                <!-- Col 2: Quick Links -->
-                <div class="footer-section flex-1 min-w-[200px]">
-                    <h3
-                        class="text-sm font-semibold uppercase mb-4 border-b border-white/30 inline-block pb-1 text-white">
-                        Links</h3>
-                    <ul class="flex flex-col gap-2 text-sm text-white">
-                        <li><a href="#" class="hover:text-white hover:underline" style="opacity: 0.8;">Nyumbani</a></li>
-                        <li><a href="javascript:void(0)" onclick="openModal('servicesModal')"
-                                class="hover:text-white hover:underline" style="opacity: 0.8;">Huduma</a></li>
-                        <li><a href="https://wa.me/255747712469" target="_blank"
-                                class="hover:text-white hover:underline" style="opacity: 0.8;">WhatsApp</a></li>
-                    </ul>
-                </div>
-
-                <!-- Col 3: Mawasiliano -->
-                <div class="footer-section flex-1 min-w-[250px]">
-                    <h3
-                        class="text-sm font-semibold uppercase mb-4 border-b border-white/30 inline-block pb-1 text-white">
-                        Mawasiliano</h3>
-                    <p class="text-white text-sm" style="opacity: 0.9;">+255 747 712 469</p>
-                    <p class="text-white text-sm" style="opacity: 0.9;">+255 663 731 247</p>
-                     <p class="text-white text-sm" style="opacity: 0.9;">zepoxomnitech@gmail.com</p>
-                      <p class="text-white text-sm" style="opacity: 0.9;">www.bit.ly/zepoxco</p>
-                    <p class="text-white text-sm" style="opacity: 0.9;">Arusha, Tanzania</p>
-                </div>
+    <main class="ai-container">
+        <div class="glass-chat-box">
+            <div class="chat-header">
+                <div class="ai-status"></div>
+                <span>Zepox Smart Assistant Online</span>
             </div>
 
-            <!-- Sehemu ya chini kabisa -->
-            <div class="footer-bottom text-center mt-8 pt-5 border-t border-white/10 text-[13px] text-white"
-                style="opacity: 0.7;">
-                <p>&copy; 2026 Zepox Omni-Tech. Haki zote zimehifadhiwa.</p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Modals for Services and Contacts -->
-    <div id="servicesModal" class="modal" onclick="closeModal('servicesModal')">
-        <div class="modal-content bg-[#141414] border border-white/20 p-6 sm:p-8 rounded-[2.5rem] max-w-lg w-full m-4 shadow-2xl relative"
-            onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-                <h3 class="text-xl font-medium tracking-tight text-white">Huduma Zetu na Bei</h3>
-                <button onclick="closeModal('servicesModal')"
-                    class="text-white/60 hover:text-white text-lg font-mono">✕</button>
-            </div>
-            <div class="space-y-4 text-sm text-white/80 max-h-[60vh] overflow-y-auto pr-2">
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
-                    <div class="font-medium text-white">Website Design (Advanced 3D)</div>
-                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 150,000/=</div>
-                </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
-                    <div class="font-medium text-white">Video Editing & Motion Graphics</div>
-                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 15,000/=</div>
-                </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
-                    <div class="font-medium text-white">AI Solutions & Automation</div>
-                    <div class="text-xs text-white/60 mt-1">Chatbots na mifumo ya kujiendesha kwa biashara
-                    </div>
-                </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
-                    <div class="font-medium text-white">Photo Restoration</div>
-                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 1,000/=</div>
-                </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
-                    <div class="font-medium text-white">Book Printing</div>
-                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 10,000/= (Ikiwa na Delivery BURE)
-                    </div>
-                </div>
-                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
-                    <div class="font-medium text-white">Zepox AI Academy</div>
-                    <div class="text-xs text-white/60 mt-1">Kozi za wiki 2 (20k), mwezi 1 (39k), miezi 2 (80k), miezi 3
-                        (110k)</div>
-                </div>
-            </div>
-            <div class="mt-6 flex gap-3">
-                <a href="https://wa.me/255747712469" target="_blank"
-                    class="flex-1 text-center rounded-full bg-white py-2.5 text-xs font-medium text-black hover:bg-white/85 transition-colors">Agiza
-                    Kupitia WhatsApp</a>
-                <button onclick="closeModal('servicesModal')"
-                    class="rounded-full border border-white/20 px-5 py-2.5 text-xs text-white hover:bg-white/10 transition-colors">Funga</button>
-            </div>
+            <iframe src="https://www.chatbase.co/chatbot-iframe/cDzPuc-kHsOBV21J4pLKh" title="Zepox AI"></iframe>
         </div>
-    </div>
+    </main>
 
-    <div id="contactModal" class="modal" onclick="closeModal('contactModal')">
-        <div class="modal-content bg-[#141414] border border-white/20 p-6 sm:p-8 rounded-[2.5rem] max-w-md w-full m-4 shadow-2xl relative"
-            onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-                <h3 class="text-xl font-medium tracking-tight text-white">Mawasiliano</h3>
-                <button onclick="closeModal('contactModal')"
-                    class="text-white/60 hover:text-white text-lg font-mono">✕</button>
-            </div>
-            <div class="space-y-3 text-sm text-white/80">
-                <p><strong class="text-white">Muasisi:</strong> Zephania Kenedy</p>
-                <p><strong class="text-white">Phone:</strong> +255 790 431 247 / +255 663 731247</p>
-                <p><strong class="text-white">Email:</strong> zepoxomnitech@gmail.com</p>
-                <p><strong class="text-white">Website:</strong> www.bit.ly/zepoxco</p>
-                <p><strong class="text-white">ARUSHA, TANZANIA</strong></p>
-            </div>
-            <div class="mt-6 flex gap-3">
-                <a href="https://wa.me/255747712469" target="_blank"
-                    class="flex-1 text-center rounded-full bg-white py-2.5 text-xs font-medium text-black hover:bg-white/85 transition-colors">Fungua
-                    WhatsApp</a>
-                <button onclick="closeModal('contactModal')"
-                    class="rounded-full border border-white/20 px-5 py-2.5 text-xs text-white hover:bg-white/10 transition-colors">Funga</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Initialize Lucide Icons & Scroll/Video Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        lucide.createIcons();
+        let scene, camera, renderer, particles;
+        function initThree() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('threed-bg').appendChild(renderer.domElement);
 
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
+            const geo = new THREE.BufferGeometry();
+            const count = 800; // Idadi ya vichembechembe
+            const posArr = new Float32Array(count * 3);
+            for (let i = 0; i < count * 3; i++) posArr[i] = (Math.random() - 0.5) * 10;
+            geo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
+            const mat = new THREE.PointsMaterial({ size: 0.005, color: 0xffffff });
+            particles = new THREE.Points(geo, mat);
+            scene.add(particles);
+            camera.position.z = 3;
         }
 
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
+        function animate() {
+            requestAnimationFrame(animate);
+            particles.rotation.y += 0.001;
+            renderer.render(scene, camera);
         }
 
-        // Reveal Animation Observer
-        const observerOptions = {
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const delay = entry.target.getAttribute('data-delay') || 0;
-                    setTimeout(() => {
-                        entry.target.classList.add('active');
-                    }, parseInt(delay));
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Scroll Scrubbed Video Logic
-        const video = document.getElementById('bg-video');
-        const poster = document.getElementById('video-poster');
-        const canvas = document.getElementById('video-canvas');
-        const ctx = canvas.getContext('2d');
-
-        let duration = 0;
-        let smoothedProgress = 0;
-        let frames = [];
-        let framesReady = false;
-
-        video.addEventListener('loadedmetadata', () => {
-            duration = video.duration;
-            initFrames();
-        });
-
-        // Fallback if already loaded
-        if (video.readyState >= 1) {
-            duration = video.duration;
-            initFrames();
-        }
-
-        async function initFrames() {
-            if (!duration) return;
-            const totalFrames = Math.min(Math.floor(duration * 12), 90);
-            const interval = duration / totalFrames;
-
-            video.currentTime = 0;
-
-            let currentT = 0;
-            const captureFrame = () => {
-                if (currentT <= duration && frames.length < totalFrames) {
-                    video.currentTime = currentT;
-                } else {
-                    if (frames.length > 0) {
-                        framesReady = true;
-                        poster.style.opacity = '0';
-                        canvas.style.opacity = '1';
-                        requestAnimationFrame(renderLoop);
-                    }
-                }
-            };
-
-            video.onseeked = () => {
-                try {
-                    canvas.width = video.videoWidth || 1920;
-                    canvas.height = video.videoHeight || 1080;
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    createImageBitmap(canvas).then(bitmap => {
-                        frames.push(bitmap);
-                        currentT += interval;
-                        captureFrame();
-                    }).catch(() => {
-                        framesReady = false;
-                        poster.style.opacity = '0';
-                        video.style.opacity = '1';
-                        requestAnimationFrame(renderLoopFallback);
-                    });
-                } catch (e) {
-                    framesReady = false;
-                    poster.style.opacity = '0';
-                    video.style.opacity = '1';
-                    requestAnimationFrame(renderLoopFallback);
-                }
-            };
-
-            setTimeout(() => {
-                captureFrame();
-            }, 300);
-        }
-
-        function renderLoop() {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const rawProgress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
-            const targetProgress = Math.max(0, Math.min(1, rawProgress));
-
-            smoothedProgress += (targetProgress - smoothedProgress) * 0.12;
-
-            if (frames.length > 0) {
-                const frameIndex = Math.min(Math.floor(smoothedProgress * (frames.length - 1)), frames.length - 1);
-                const frame = frames[frameIndex];
-                if (frame) {
-                    if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
-                        canvas.width = window.innerWidth;
-                        canvas.height = window.innerHeight;
-                    }
-                    const hRatio = canvas.width / frame.width;
-                    const vRatio = canvas.height / frame.height;
-                    const ratio = Math.max(hRatio, vRatio);
-                    const centerShiftX = (canvas.width - frame.width * ratio) / 2;
-                    const centerShiftY = (canvas.height - frame.height * ratio) / 2;
-
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(frame, 0, 0, frame.width, frame.height, centerShiftX, centerShiftY, frame.width * ratio, frame.height * ratio);
-                }
-            }
-            requestAnimationFrame(renderLoop);
-        }
-
-        let lastSeek = 0;
-        function renderLoopFallback() {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const rawProgress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
-            const targetProgress = Math.max(0, Math.min(1, rawProgress));
-
-            smoothedProgress += (targetProgress - smoothedProgress) * 0.12;
-
-            if (duration) {
-                const targetTime = smoothedProgress * (duration - 0.05);
-                if (Math.abs(targetTime - lastSeek) > 0.04) {
-                    video.currentTime = targetTime;
-                    lastSeek = targetTime;
-                }
-            }
-            requestAnimationFrame(renderLoopFallback);
-        }
+        initThree();
+        animate();
 
         window.addEventListener('resize', () => {
-            const dpr = Math.min(window.devicePixelRatio || 1, 2);
-            if (canvas) {
-                canvas.width = window.innerWidth * dpr;
-                canvas.height = window.innerHeight * dpr;
-                ctx.scale(dpr, dpr);
-            }
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
-        window.dispatchEvent(new Event('resize'));
     </script>
 </body>
 
 </html>
+```[cite: 4]
