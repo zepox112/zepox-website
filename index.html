@@ -1,1394 +1,597 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zepox Co | Advanced 3D Liquid Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ZEPOX OMNI-TECH — Today AI Aligns With Bold Dreams</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            /* RANGI MPYA: Pink na Grey */
-            --primary-pink: #ff007f;
-            --deep-pink: #ff0055;
-            --bg-grey: #1a1a1a;
-            --card-grey: #2d2d2d;
-            --text-white: #ffffff;
-            --text-grey: #b0b0b0;
-
-            /* Liquid Glass Madoido */
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --liquid-blur: blur(20px);
-
-            /* Additional Neon Colors */
-            --pink-neon: #ff2e7e;
-            --pink-glow: rgba(255, 46, 126, 0.3);
-            --dark-bg: #0d0d0d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-
         body {
-            background-color: var(--bg-grey);
-            color: var(--text-white);
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
             overflow-x: hidden;
-            perspective: 1000px;
-            /* 1. MAREKEBISHO: Muhimu kwa Sticky Positioning kufanya kazi */
-            height: 100%;
-            position: relative;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- SNEAKERS ANIMATION (Kushoto na Kulia) --- */
-        .sneaker-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10;
+        ::selection {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .sneaker {
-            position: absolute;
-            width: 150px;
-            /* Ukubwa wa kiatu */
-            filter: drop-shadow(0 0 20px var(--primary-pink));
-            opacity: 0.7;
-        }
-
-        .sneaker-left {
-            top: 20%;
-            left: 5%;
-            animation: rotateLeft 12s linear infinite;
-        }
-
-        .sneaker-right {
-            bottom: 20%;
-            right: 5%;
-            animation: rotateRight 12s linear infinite;
-        }
-
-        @keyframes rotateLeft {
-            from {
-                transform: rotate(0deg) translateY(0);
-            }
-
-            50% {
-                transform: rotate(180deg) translateY(-30px);
-            }
-
-            to {
-                transform: rotate(360deg) translateY(0);
-            }
-        }
-
-        @keyframes rotateRight {
-            from {
-                transform: rotate(360deg) translateY(0);
-            }
-
-            50% {
-                transform: rotate(180deg) translateY(30px);
-            }
-
-            to {
-                transform: rotate(0deg) translateY(0);
-            }
-        }
-
-        /* --- BACKGROUND 3D ANIMATION --- */
-        #threed-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.5;
-        }
-
-        /* --- CUSTOM SCROLLBAR --- */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-grey);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--primary-pink), var(--deep-pink));
-            border-radius: 10px;
-        }
-
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(26, 26, 26, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            cursor: pointer;
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: var(--primary-pink);
-            text-shadow: 0 0 15px var(--primary-pink);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            list-style: none;
-        }
-
-        .nav-links li a {
-            color: var(--text-white);
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 8px 18px;
-            border-radius: 50px;
-            transition: 0.4s;
-            border: 1px solid transparent;
-        }
-
-        .nav-links li a:hover,
-        .nav-links li a.active {
-            background: rgba(255, 0, 127, 0.1);
-            border-color: rgba(255, 0, 127, 0.3);
-            color: var(--primary-pink);
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
-        }
-
-        /* --- SECTIONS --- */
-        section {
-            min-height: 100vh;
-            padding: 120px 5% 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        h2.section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 60px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, var(--text-white), var(--primary-pink), var(--text-white));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-        }
-
-        h2.section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--primary-pink);
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--primary-pink);
-        }
-
-        /* --- GLASS CARDS --- */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: var(--liquid-blur) saturate(200%);
-            -webkit-backdrop-filter: var(--liquid-blur) saturate(200%);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transform-style: preserve-3d;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card:hover {
-            box-shadow: 0 35px 80px -12px rgba(255, 0, 127, 0.2);
-        }
-
-        .pop-out {
-            transform: translateZ(50px);
-            display: block;
-        }
-
-        /* --- HERO SECTION --- */
-        .home-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            width: 100%;
-        }
-
-        .home-text {
-            flex: 1;
-            text-align: left;
-        }
-
-        #home h1 {
-            font-size: 4.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-
-        #home h1 span {
-            color: var(--primary-pink);
-        }
-
-        #home p {
-            font-size: 1.2rem;
-            color: var(--text-grey);
-            max-width: 700px;
-            margin-bottom: 40px;
-        }
-
-        .home-slider {
-            flex: 1;
-            position: relative;
-            height: 450px;
-            border-radius: 30px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 0 30px rgba(255, 0, 127, 0.2);
-        }
-
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .reveal {
             opacity: 0;
-            transition: opacity 1s ease-in-out, transform 1.5s ease;
-            transform: scale(1.1);
+            transform: translateY(2rem);
+            transition: opacity 700ms ease-out, transform 700ms ease-out;
+            will-change: transform, opacity;
         }
 
-        .slide.active {
+        .reveal.active {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
         }
 
-        .slider-dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-        }
-
-        .dot.active {
-            background: var(--primary-pink);
-            box-shadow: 0 0 10px var(--primary-pink);
-        }
-
-        /* --- SERVICES --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .service-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.5));
-        }
-
-        .price-tag {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--text-white);
-            margin-top: 10px;
-        }
-
-        /* --- FORM STYLES --- */
-        label {
-            color: #e0e0e0;
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.07) !important;
-            border: 1px solid var(--glass-border) !important;
-            border-radius: 12px !important;
-            padding: 12px 15px !important;
-            color: white !important;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            outline: none;
-            margin-bottom: 10px;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: var(--pink-neon) !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 0 10px var(--pink-glow);
-        }
-
-        .btn {
-            background: linear-gradient(45deg, var(--deep-pink), var(--primary-pink));
-            color: var(--text-white);
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .btn:hover {
-            box-shadow: 0 15px 30px rgba(255, 0, 127, 0.5);
-            transform: translateY(-3px);
-        }
-
-        /* --- REVIEWS --- */
-        .review-container {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-        }
-
-        .floating-review {
-            position: absolute;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--text-grey);
-            width: 250px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: float3D 15s linear infinite;
-        }
-
-        @keyframes float3D {
-            0% {
-                transform: translateZ(-500px) translateY(100vh) rotateX(0deg);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateZ(200px) translateY(-100px) rotateX(20deg);
-                opacity: 0;
-            }
-        }
-
-        .star-rating .star {
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #444;
-            transition: 0.3s;
-        }
-
-        /* --- RESPONSIVE & MOBILE OPTIMIZATIONS --- */
-
-        @media (max-width: 768px) {
-
-            /* 1. Kurekebisha Ukubwa wa Maandishi na Padding */
-            section {
-                padding: 100px 4% 40px;
-                min-height: auto;
-            }
-
-            h2.section-title {
-                font-size: 2rem;
-                margin-bottom: 40px;
-            }
-
-            #home h1 {
-                font-size: 2.2rem;
-                line-height: 1.2;
-            }
-
-            /* 2. Sneakers (Zifiche au zipunguze ukubwa usisumbue user) */
-            .sneaker {
-                width: 80px;
-                opacity: 0.4;
-            }
-
-            /* 3. MENU YA SIMU (HAMBURGER STYLE) */
-            nav {
-                padding: 10px 5%;
-            }
-
-            /* Tunatengeneza Menu iwe inashuka chini ikibonyezwa */
-            .nav-links {
-                display: none;
-                /* Inafichwa kwanza */
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                flex-direction: column;
-                background: rgba(20, 20, 20, 0.95);
-                backdrop-filter: blur(15px);
-                padding: 20px 0;
-                border-bottom: 1px solid var(--glass-border);
-                gap: 10px;
-                text-align: center;
-            }
-
-            /* Hii class itatumika na JavaScript kuruhusu menu ionekane ikibonyezwa */
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links li a {
-                display: block;
-                width: 90%;
-                margin: 0 auto;
-                padding: 12px;
-            }
-
-            /* 4. GRID ZA HUDUMA (Zikae moja moja) */
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .glass-card {
-                padding: 25px 20px;
-            }
-
-            /* 5. SLIDER (Iwe fupi kidogo kuzuia scroll ndefu sana) */
-            .home-slider {
-                height: 250px;
-                margin-top: 20px;
-            }
-
-            /* 6. FORM (Zikae vizuri kwenye kioo kidogo) */
-            #ai-class .glass-card form div {
-                grid-template-columns: 1fr !important;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 30px;
-            }
-
-            .footer-col h4::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            /* 7. REVIEWS (Zisiwe fixed sana kuzuia kuingiliana) */
-            .review-container {
-                height: 300px;
-            }
-
-            .floating-review {
-                width: 200px;
-                animation: float3D-mobile 12s linear infinite;
-            }
-        }
-
-        /* Animation ya Reviews kwa Simu pekee */
-        @keyframes float3D-mobile {
-            0% {
-                transform: translateY(300px);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 1;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-        }
-
-        /* --- ADDING A MENU BUTTON ICON (CSS ONLY) --- */
-        /* Ongeza hii kama unataka kutengeneza kitufe cha menu bila kutumia picha */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-pink);
-            border-radius: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-        }
-
-        .star-rating .star.active {
-            color: gold;
-            text-shadow: 0 0 10px gold;
-        }
-
-        /* --- TRENDS --- */
-        .news-item {
-            border-bottom: 1px solid var(--glass-border);
-            padding: 25px 0;
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 20px;
-            align-items: center;
-            transition: 0.3s;
-        }
-
-        .date-box {
-            background: var(--card-grey);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .day {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-pink);
-        }
-
-        .month {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--text-grey);
-        }
-
-        /* --- FOOTER --- */
-        .main-footer {
-            background: linear-gradient(to bottom, transparent, #0a0a0a);
-            padding: 80px 5% 30px;
-            border-top: 1px solid var(--glass-border);
-            position: relative;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--text-grey);
-        }
-
-        .footer-links a {
-            color: var(--text-grey);
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-pink);
-            padding-left: 8px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .social-icons a {
-            width: 40px;
-            height: 40px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-white);
-            transition: 0.4s;
-        }
-
-        .social-icons a:hover {
-            background: var(--primary-pink);
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px var(--primary-pink);
-        }
-
-        .footer-bottom {
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid var(--glass-border);
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-grey);
-        }
-
-        /* MODAL STYLES */
         .modal {
-            display: none;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
             position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
+            padding: 1rem;
+            transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .modal-content {
-            width: 90%;
-            max-width: 500px;
-            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
         }
 
-        .close-btn {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            font-size: 30px;
-            cursor: pointer;
-            color: var(--text-grey);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .home-container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .home-text {
-                text-align: center;
-            }
-
-            .home-slider {
-                width: 100%;
-                height: 300px;
-            }
-
-            #home h1 {
-                font-size: 2.5rem;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .social-icons {
-                justify-content: center;
-            }
-
-            .nav-links {
-                display: none;
-            }
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
         }
     </style>
 </head>
 
-<body>
+<body class="bg-[#0a0a0a] text-white selection:bg-white/20">
 
-    <div id="threed-bg"></div>
+    <!-- Scroll Video Background Layer -->
+    <div class="fixed inset-0 z-0 bg-[#0a0a0a] overflow-hidden pointer-events-none">
+        <img id="video-poster"
+            src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260728_050334_5b076e26-0ce7-4898-b432-d764190e448f.png&w=1280&q=85"
+            alt="Poster" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10" />
+        <video id="bg-video"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-0" muted
+            playsinline preload="auto">
+            <source
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260729_102822_0e6c87e8-c141-4744-bf32-ad30db296371.mp4"
+                type="video/mp4">
+        </video>
+        <canvas id="video-canvas"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-20"></canvas>
+    </div>
 
-    <nav>
-        <div class="logo" onclick="window.scrollTo(0,0)">ZEPOX <span>CO</span></div>
-        <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#services">Huduma</a></li>
-            <li><a href="#trends">Trends</a></li>
-            <li><a href="#ai-class">AI Academy</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="ai.html"><i class="fas fa-comments"></i> CHAT NA AI</a></li>
-        </ul>
-        <div class="menu-toggle"><span></span><span></span><span></span></div>
-        <ul class="nav-links">...</ul>
+    <!-- Main Relative Wrapper -->
+    <div class="relative z-10">
 
-    </nav>
+        <!-- Navbar -->
+        <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/15 bg-[#0a0a0a]/60 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-20 flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 reveal" data-delay="0">
+                    <i data-lucide="hexagon" class="w-6 h-6 stroke-[1.5] text-white"></i>
+                    <span class="text-lg sm:text-xl font-medium tracking-tight text-white">ZEPOX OMNI TECH</span>
+                </a>
 
-    <section id="home">
-        <div class="home-container">
-            <div class="home-text">
-                <div class="glass-card" data-tilt>
-                    <h1 class="pop-out">Karibu <span>Zepox Co.</span></h1>
-                    <p class="pop-out">Ubora wa Kidijitali katika uhalisia wa 3D. Tunajenga Website, Media, na Mifumo ya
-                        AI ya kesho.</p>
-                    <div class="pop-out">
-                        <a href="#services" class="btn">Anza Safari Sasa</a>
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8 lg:gap-10">
+                    <a href="javascript:void(0)" onclick="openModal('servicesModal')"
+                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal flex items-center gap-1"
+                        data-delay="100">
+                        Projects <span class="font-mono text-[10px] text-white/60">5</span>
+                    </a>
+                    <a href="https://wa.me/255747712469" target="_blank"
+                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
+                        data-delay="200">Academy</a>
+                    <a href="ai.html"
+                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
+                        data-delay="250">Chat with AI</a>
+                    <a href="javascript:void(0)" onclick="openModal('servicesModal')"
+                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
+                        data-delay="300">Trends</a>
+                    <a href="javascript:void(0)" onclick="openModal('contactModal')"
+                        class="text-sm text-white/85 hover:text-white transition-colors duration-300 reveal"
+                        data-delay="400">Contact</a>
+                </nav>
+
+                <!-- CTA -->
+                <div class="reveal" data-delay="500">
+                    <a href="https://wa.me/255747712469" target="_blank"
+                        class="rounded-md border border-white/20 bg-white/15 backdrop-blur-md px-4 py-2 text-xs sm:px-5 sm:text-sm text-white hover:bg-white/25 transition-all duration-300">
+                        WhatsApp Us
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Section One — Hero -->
+            <section
+                class="min-h-[100svh] min-h-screen flex flex-col justify-between px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 pb-12 md:pb-16 max-w-7xl mx-auto">
+                <!-- Top Row -->
+                <div class="flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-start">
+                    <!-- Service List -->
+                    <div class="flex flex-col gap-2">
+                        <div onclick="openModal('servicesModal')"
+                            class="font-mono text-xs uppercase tracking-[0.15em] text-white/95 drop-shadow-md reveal cursor-pointer hover:text-white"
+                            data-delay="150">/ ADVANCED 3D WEBSITES</div>
+                        <div onclick="openModal('servicesModal')"
+                            class="font-mono text-xs uppercase tracking-[0.15em] text-white/95 drop-shadow-md reveal cursor-pointer hover:text-white"
+                            data-delay="270">/ AI SOLUTIONS & AUTOMATION</div>
+                        <div onclick="window.open('https://wa.me/255747712469', '_blank')"
+                            class="font-mono text-xs uppercase tracking-[0.15em] text-white/95 drop-shadow-md reveal cursor-pointer hover:text-white"
+                            data-delay="390">/ ZEPOX AI ACADEMY</div>
+                    </div>
+
+                    <!-- Intro Text -->
+                    <div class="max-w-xs sm:text-right reveal" data-delay="300">
+                        <p class="text-lg sm:text-xl leading-relaxed text-white drop-shadow-md">
+                            Tunaleta masuluhisho ya kidijitali, AI, na ubunifu wa kipekee kutoka Arusha, Tanzania kwenda
+                            duniani.
+                        </p>
                     </div>
                 </div>
-            </div>
 
-            <div class="home-slider">
-                <div class="slider-wrapper" id="slider">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800"
-                        class="slide active" alt="Tech 1">
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800"
-                        class="slide" alt="Tech 2">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800"
-                        class="slide" alt="Tech 3">
-                    <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800"
-                        class="slide" alt="Tech 4">
-                    <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=800"
-                        class="slide" alt="Tech 5">
+                <!-- Bottom Row -->
+                <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between mt-12">
+                    <!-- Left: Badge & H1 -->
+                    <div>
+                        <div class="inline-block border-l-2 border-white bg-white/15 px-3 py-1.5 backdrop-blur-md font-mono text-[11px] uppercase tracking-[0.15em] text-white mb-5 reveal"
+                            data-delay="150">
+                            Zepox Omni-Tech Enterprise
+                        </div>
+                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-white drop-shadow-lg reveal"
+                            data-delay="280">
+                            Advanced. 3D.<br>Automated.
+                        </h1>
+                    </div>
+
+                    <!-- Right: Glass Contact Card -->
+                    <div class="flex items-center gap-4 rounded-xl bg-white/15 p-3 backdrop-blur-md border border-white/15 max-w-sm reveal cursor-pointer"
+                        data-delay="420" onclick="openModal('contactModal')">
+                        <img src="https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260728_050334_5b076e26-0ce7-4898-b432-d764190e448f.png&w=1280&q=85"
+                            alt="Zephania Kenedy, founder of Zepox"
+                            class="h-24 w-20 rounded-lg object-cover shrink-0" />
+                        <div class="flex flex-col gap-1.5 pr-2">
+                            <span class="text-sm font-medium text-white">Zephania Kenedy</span>
+                            <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-white/60">Founder of
+                                Zepox omni tech</span>
+                            <a href="https://wa.me/255747712469" target="_blank"
+                                class="mt-1.5 inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 text-xs font-medium text-black hover:bg-white/85 transition-colors duration-300 w-fit">
+                                Chat on WhatsApp <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="slider-dots" id="dots"></div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section id="services">
-        <h2 class="section-title">Chagua Huduma</h2>
+            <!-- Mid Spacer -->
+            <div class="h-[80vh]" aria-hidden="true"></div>
 
-        <div class="services-grid">
-            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
-                onclick="openOrderForm('Website Design')">
-                <div class="service-icon pop-out">🌐</div>
-                <h3 class="pop-out">Website Design</h3>
-                <p class="pop-out">Advanced, 3D, na Responsive websites zenye kuitikia mouse.</p>
-                <div class="price-tag pop-out">TZS 150,000/= +</div>
-            </div>
-
-            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
-                onclick="openOrderForm('Video Editing')">
-                <div class="service-icon pop-out">🎬</div>
-                <h3 class="pop-out">Video Editing</h3>
-                <p class="pop-out">Editing ya kitaalamu na Motion Graphics kwa ajili ya Brand yako.</p>
-                <div class="price-tag pop-out">TZS 15,000/= +</div>
-            </div>
-
-            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
-                onclick="openOrderForm('AI Solutions')">
-                <div class="service-icon pop-out">🤖</div>
-                <h3 class="pop-out">AI Solutions</h3>
-                <p class="pop-out">Mifumo ya AI, Chatbots, na Automation kwa biashara.</p>
-                <div class="price-tag pop-out">Anza Leo</div>
-            </div>
-
-            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
-                onclick="openOrderForm('Photo Restoration')">
-                <div class="service-icon pop-out">📸</div>
-                <h3 class="pop-out">Photo Restoration</h3>
-                <p class="pop-out">Rudisha ubora wa picha za zamani au zilizofifia.</p>
-                <div class="price-tag pop-out">TZS 1,000/= +</div>
-            </div>
-
-            <div class="glass-card service-card" data-tilt data-tilt-scale="1.05"
-                onclick="openOrderForm('Book Printing')">
-                <div class="service-icon pop-out">📚</div>
-                <h3 class="pop-out">Book Printing</h3>
-                <p class="pop-out">Tunachapa vitabu vyako kwa ubora wa juu kabisa.</p>
-                <div class="price-tag pop-out">TZS 10,000/= +</div>
-            </div>
-        </div>
-    </section>
-
-    <div id="uploadModal" class="modal">
-        <div class="modal-content glass-card">
-            <span class="close-btn" onclick="closeUploadModal()">&times;</span>
-            <h2 id="formTitle" style="color: var(--primary-pink); margin-bottom: 10px;">Tuma Kazi Yako</h2>
-            <p style="font-size: 0.8rem; margin-bottom: 20px; opacity: 0.7;">
-                Taarifa zako zitatumwa moja kwa moja WhatsApp kwa ajili ya kuanza kazi.
-            </p>
-
-            <form onsubmit="sendToWhatsApp(event)">
-                <input type="text" id="wa_name" placeholder="Jina Lako Kamili" required>
-                <input type="tel" id="wa_phone" placeholder="Namba yako ya WhatsApp" required>
-
-                <select id="serviceType" onchange="checkService()">
-                    <option value="Website Design">Website Design</option>
-                    <option value="Video Editing">Video Editing</option>
-                    <option value="AI Solutions">AI Solutions</option>
-                    <option value="Photo Restoration">Photo Restoration</option>
-                    <option value="Book Printing">Book Printing</option>
-                </select>
-
-                <div id="addressBox" style="display: none;">
-                    <input type="text" id="wa_address" placeholder="Mahali unapoishi (Kwa ajili ya Delivery)">
+            <!-- Section Two — Capability -->
+            <section
+                class="min-h-[100svh] min-h-screen flex flex-col justify-between px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 pb-12 md:pb-16 max-w-7xl mx-auto">
+                <!-- Top Row -->
+                <div class="flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-start">
+                    <div class="inline-block border-l-2 border-white bg-white/15 px-3 py-1.5 backdrop-blur-md font-mono text-[11px] uppercase tracking-[0.15em] text-white reveal"
+                        data-delay="120">
+                        Huduma Zetu Na Bei
+                    </div>
+                    <div class="max-w-sm sm:text-right reveal" data-delay="220">
+                        <p class="text-lg sm:text-xl leading-relaxed text-white drop-shadow-md">
+                            Tunatoa huduma za kitaalamu kuanzia website za kisasa, AI solutions, hadi uchapishaji wa
+                            vitabu.
+                        </p>
+                    </div>
                 </div>
 
-                <textarea id="wa_desc" placeholder="Elezea kwa ufupi unachotaka kifanyike..." required></textarea>
+                <!-- Bottom Area -->
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-16 mt-12 flex-1 justify-end">
+                    <!-- Left Column -->
+                    <div class="max-w-xl">
+                        <h2 class="text-5xl sm:text-6xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-white drop-shadow-lg reveal"
+                            data-delay="180">
+                            Ubunifu wa<br>Kiwango cha Juu.
+                        </h2>
+                        <p class="mt-6 max-w-md text-sm sm:text-base text-white/80 drop-shadow-md reveal"
+                            data-delay="320">
+                            Zepox Omni-Tech inakupa huduma za Video Editing, Motion Graphics, AI Chatbots, Photo
+                            Restoration, na Zepox AI Academy kwa bei nafuu kabisa.
+                        </p>
+                        <div class="mt-8 flex flex-wrap gap-3 reveal" data-delay="420">
+                            <a href="javascript:void(0)" onclick="openModal('servicesModal')"
+                                class="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-xs sm:text-sm font-medium text-black hover:bg-white/85 transition-colors duration-300">
+                                Agiza Huduma <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                            </a>
+                            <a href="https://wa.me/255747712469" target="_blank"
+                                class="inline-flex items-center rounded-full border border-white/25 bg-white/10 backdrop-blur-md px-5 py-2.5 text-xs sm:text-sm text-white hover:bg-white/20 transition-colors duration-300">
+                                Jiunge na AI Academy
+                            </a>
+                        </div>
+                    </div>
 
-                <div
-                    style="border: 2px dashed rgba(255,255,255,0.1); padding: 15px; text-align: center; border-radius: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.02);">
-                    <p style="font-size: 0.8rem; color: #ff4d4d;">
-                        Kumbuka: Uta-attach picha/video kama unayo ndani ya WhatsApp baada ya kubonyeza kitufe hapa
-                        chini.
-                    </p>
+                    <!-- Right Column: Frosted Capability Panel -->
+                    <div
+                        class="w-full max-w-md rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md px-5 sm:px-6">
+                        <!-- Row 01 -->
+                        <div class="flex gap-5 py-5 border-b border-white/15 reveal cursor-pointer" data-delay="300"
+                            onclick="openModal('servicesModal')">
+                            <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">01</span>
+                            <div class="flex-1">
+                                <div
+                                    class="flex items-center justify-between text-base sm:text-lg font-medium text-white group">
+                                    <span>Website Design (3D)</span>
+                                    <span class="font-mono text-xs text-white/60">TZS 150k+</span>
+                                </div>
+                                <p class="mt-1.5 text-sm leading-relaxed text-white/70">Advanced, 3D, na responsive
+                                    websites za kisasa</p>
+                            </div>
+                        </div>
+
+                        <!-- Row 02 -->
+                        <div class="flex gap-5 py-5 border-b border-white/15 reveal cursor-pointer" data-delay="410"
+                            onclick="openModal('servicesModal')">
+                            <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">02</span>
+                            <div class="flex-1">
+                                <div
+                                    class="flex items-center justify-between text-base sm:text-lg font-medium text-white group">
+                                    <span>Video Editing & Motion</span>
+                                    <span class="font-mono text-xs text-white/60">TZS 15k+</span>
+                                </div>
+                                <p class="mt-1.5 text-sm leading-relaxed text-white/70">Editing ya kitaalamu na motion
+                                    graphics kwa ajili ya kukuza brand yako.</p>
+                            </div>
+                        </div>
+
+                        <!-- Row 03 -->
+                        <div class="flex gap-5 py-5 reveal cursor-pointer" data-delay="520"
+                            onclick="openModal('servicesModal')">
+                            <span class="font-mono text-[11px] tracking-[0.15em] text-white/55 pt-0.5">03</span>
+                            <div class="flex-1">
+                                <div
+                                    class="flex items-center justify-between text-base sm:text-lg font-medium text-white group">
+                                    <span>Book Printing & AI</span>
+                                    <span class="font-mono text-xs text-white/60">Bure Delivery</span>
+                                </div>
+                                <p class="mt-1.5 text-sm leading-relaxed text-white/70">Uchapishaji wa vitabu, photo
+                                    restoration kuanzia TZS 1k, na kozi za AI Academy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer matched with website design -->
+        <!-- Footer ya kisasa yenye Glassmorphism -->
+        <footer class="about-footer mt-20 relative z-10" style="
+            position: relative;
+            width: 100%;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.4); /* background nyeusi kidogo kwa ajili ya usomaji */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -10px 30px 0 rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            font-family: sans-serif;">
+
+            <div class="footer-container max-w-7xl mx-auto flex flex-wrap justify-between gap-8">
+
+                <!-- Col 1: Brand -->
+                <div class="footer-section flex-1 min-w-[250px]">
+                    <h3 class="text-lg font-bold mb-4 border-b border-white/30 inline-block pb-1 text-white"
+                        style="text-shadow: 0 0 10px rgba(255,255,255,0.5);">ZEPOX OMNI TECH</h3>
+                    <p class="text-white text-sm leading-6" style="opacity: 0.9;">Tunaleta masuluhisho ya kidijitali,
+                        AI, na ubunifu wa kipekee kutoka Arusha, Tanzania.</p>
                 </div>
 
-                <div id="deliveryNote"
-                    style="display: none; background: rgba(0, 123, 255, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; border-left: 4px solid var(--primary-pink);">
-                    ✅ <b>Delivery:</b> BURE kwa Printing!
+                <!-- Col 2: Quick Links -->
+                <div class="footer-section flex-1 min-w-[200px]">
+                    <h3
+                        class="text-sm font-semibold uppercase mb-4 border-b border-white/30 inline-block pb-1 text-white">
+                        Links</h3>
+                    <ul class="flex flex-col gap-2 text-sm text-white">
+                        <li><a href="#" class="hover:text-white hover:underline" style="opacity: 0.8;">Nyumbani</a></li>
+                        <li><a href="javascript:void(0)" onclick="openModal('servicesModal')"
+                                class="hover:text-white hover:underline" style="opacity: 0.8;">Huduma</a></li>
+                        <li><a href="https://wa.me/255747712469" target="_blank"
+                                class="hover:text-white hover:underline" style="opacity: 0.8;">WhatsApp</a></li>
+                    </ul>
                 </div>
 
-                <button type="submit" class="btn"
-                    style="width: 100%; background: #25D366; border: none; font-weight: bold; cursor: pointer;">
-                    TUMA WHATSAPP 🚀
-                </button>
-            </form>
+                <!-- Col 3: Mawasiliano -->
+                <div class="footer-section flex-1 min-w-[250px]">
+                    <h3
+                        class="text-sm font-semibold uppercase mb-4 border-b border-white/30 inline-block pb-1 text-white">
+                        Mawasiliano</h3>
+                    <p class="text-white text-sm" style="opacity: 0.9;">+255 747 712 469</p>
+                    <p class="text-white text-sm" style="opacity: 0.9;">+255 663 731 247</p>
+                     <p class="text-white text-sm" style="opacity: 0.9;">zepoxomnitech@gmail.com</p>
+                      <p class="text-white text-sm" style="opacity: 0.9;">www.bit.ly/zepoxco</p>
+                    <p class="text-white text-sm" style="opacity: 0.9;">Arusha, Tanzania</p>
+                </div>
+            </div>
+
+            <!-- Sehemu ya chini kabisa -->
+            <div class="footer-bottom text-center mt-8 pt-5 border-t border-white/10 text-[13px] text-white"
+                style="opacity: 0.7;">
+                <p>&copy; 2026 Zepox Omni-Tech. Haki zote zimehifadhiwa.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals for Services and Contacts -->
+    <div id="servicesModal" class="modal" onclick="closeModal('servicesModal')">
+        <div class="modal-content bg-[#141414] border border-white/20 p-6 sm:p-8 rounded-[2.5rem] max-w-lg w-full m-4 shadow-2xl relative"
+            onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                <h3 class="text-xl font-medium tracking-tight text-white">Huduma Zetu na Bei</h3>
+                <button onclick="closeModal('servicesModal')"
+                    class="text-white/60 hover:text-white text-lg font-mono">✕</button>
+            </div>
+            <div class="space-y-4 text-sm text-white/80 max-h-[60vh] overflow-y-auto pr-2">
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <div class="font-medium text-white">Website Design (Advanced 3D)</div>
+                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 150,000/=</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <div class="font-medium text-white">Video Editing & Motion Graphics</div>
+                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 15,000/=</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <div class="font-medium text-white">AI Solutions & Automation</div>
+                    <div class="text-xs text-white/60 mt-1">Chatbots na mifumo ya kujiendesha kwa biashara
+                    </div>
+                </div>
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <div class="font-medium text-white">Photo Restoration</div>
+                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 1,000/=</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <div class="font-medium text-white">Book Printing</div>
+                    <div class="text-xs text-white/60 mt-1">Bei kuanzia: TZS 10,000/= (Ikiwa na Delivery BURE)
+                    </div>
+                </div>
+                <div class="p-3 rounded-2xl bg-white/5 border border-white/10">
+                    <div class="font-medium text-white">Zepox AI Academy</div>
+                    <div class="text-xs text-white/60 mt-1">Kozi za wiki 2 (20k), mwezi 1 (39k), miezi 2 (80k), miezi 3
+                        (110k)</div>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <a href="https://wa.me/255747712469" target="_blank"
+                    class="flex-1 text-center rounded-full bg-white py-2.5 text-xs font-medium text-black hover:bg-white/85 transition-colors">Agiza
+                    Kupitia WhatsApp</a>
+                <button onclick="closeModal('servicesModal')"
+                    class="rounded-full border border-white/20 px-5 py-2.5 text-xs text-white hover:bg-white/10 transition-colors">Funga</button>
+            </div>
         </div>
     </div>
 
-    <section id="trends">
-        <h2 class="section-title">Tech Trends 🔥</h2>
-        <div class="glass-card">
-            <div class="news-item">
-                <div class="date-box">
-                    <div class="day">15</div>
-                    <div class="month">Mei</div>
-                </div>
-                <div>
-                    <h3 style="color:var(--primary-pink)">Deepseek-V3 vs ChatGPT-5</h3>
-                    <p style="color:var(--text-grey); font-size:0.9rem">Vita vya AI vyaingia hatua mpya. Zepox Co yaanza
-                        kutumia Deepseek kwa coding ya haraka.</p>
-                </div>
+    <div id="contactModal" class="modal" onclick="closeModal('contactModal')">
+        <div class="modal-content bg-[#141414] border border-white/20 p-6 sm:p-8 rounded-[2.5rem] max-w-md w-full m-4 shadow-2xl relative"
+            onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                <h3 class="text-xl font-medium tracking-tight text-white">Mawasiliano</h3>
+                <button onclick="closeModal('contactModal')"
+                    class="text-white/60 hover:text-white text-lg font-mono">✕</button>
             </div>
-            <div class="news-item">
-                <div class="date-box">
-                    <div class="day">10</div>
-                    <div class="month">Mei</div>
-                </div>
-                <div>
-                    <h3 style="color:var(--primary-pink)">Web 3D is taking over</h3>
-                    <p style="color:var(--text-grey); font-size:0.9rem">Website zisizo na 3D sasa zinaonekana za
-                        kizamani. Jifunze jinsi ya kuboresha.</p>
-                </div>
+            <div class="space-y-3 text-sm text-white/80">
+                <p><strong class="text-white">Muasisi:</strong> Zephania Kenedy</p>
+                <p><strong class="text-white">Phone:</strong> +255 790 431 247 / +255 663 731247</p>
+                <p><strong class="text-white">Email:</strong> zepoxomnitech@gmail.com</p>
+                <p><strong class="text-white">Website:</strong> www.bit.ly/zepoxco</p>
+                <p><strong class="text-white">ARUSHA, TANZANIA</strong></p>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <a href="https://wa.me/255747712469" target="_blank"
+                    class="flex-1 text-center rounded-full bg-white py-2.5 text-xs font-medium text-black hover:bg-white/85 transition-colors">Fungua
+                    WhatsApp</a>
+                <button onclick="closeModal('contactModal')"
+                    class="rounded-full border border-white/20 px-5 py-2.5 text-xs text-white hover:bg-white/10 transition-colors">Funga</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="ai-class">
-        <h2 class="section-title">AI Academy</h2>
-        <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
-            <form onsubmit="sendAcademyToWhatsApp(event)">
-                <h3 style="margin-bottom: 20px; color: var(--pink-neon);">Fomu ya Usajili</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                    <div>
-                        <label>Majina Yako Kamili:</label>
-                        <input type="text" id="ac_name" placeholder="Mf. Zephania Kenedy" required>
-                    </div>
-                    <div>
-                        <label>Umri Wako:</label>
-                        <input type="number" id="ac_age" placeholder="Mf. 20" required>
-                    </div>
-                </div>
-                <label>Kiwango chako cha ujuzi wa sasa:</label>
-                <select id="ac_skill" required>
-                    <option value="Sina Ujuzi Kabisa">Sina Ujuzi Kabisa (Beginner)</option>
-                    <option value="Nina Ujuzi Kidogo">Nina Ujuzi Kidogo (Intermediate)</option>
-                    <option value="Nina Ujuzi wa Kutosha">Nina Ujuzi wa Kutosha (Advanced)</option>
-                </select>
-                <label>Chagua kozi unayotaka:</label>
-                <select id="ac_course" required>
-                    <option value="AI Prompt Engineering">AI Prompt Engineering 🔥</option>
-                    <option value="AI in Graphic Design">AI kwenye Graphics & Picha</option>
-                    <option value="AI in Video Editing">AI kwenye Video Editing</option>
-                    <option value="AI in Coding/Web">AI kwenye Coding & Website</option>
-                    <option value="AI in Business Automation">AI kwenye Biashara (Automation)</option>
-                </select>
-                <label>Muda wa Masomo & Gharama:</label>
-                <select id="ac_plan" required>
-                    <option value="Wiki Mbili - TZS 20,000">Wiki Mbili — TZS 20,000/=</option>
-                    <option value="Mwezi Mmoja - TZS 39,000">Mwezi Mmoja — TZS 39,000/=</option>
-                    <option value="Miezi Miwili - TZS 80,000">Miezi Miwili — TZS 80,000/=</option>
-                    <option value="Miezi Mitatu - TZS 110,000">Miezi Mitatu (Full Course) — TZS 110,000/=</option>
-                </select>
-                <label>Namba yako ya WhatsApp:</label>
-                <input type="tel" id="ac_whatsapp" placeholder="255 XXX XXX XXX" required>
-                <label>Malengo Yako:</label>
-                <textarea id="ac_goals" placeholder="Elezea malengo yako..."></textarea>
-                <button type="submit" class="btn" style="width: 100%; margin-top: 10px; background: #25D366;">
-                    JIUNGE NA WANAFUNZI 🚀
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <section id="reviews">
-        <h2 class="section-title">Wateja Wanasemaje</h2>
-        <div class="glass-card" style="max-width: 500px; margin: 0 auto 40px; text-align: center;">
-            <h3 style="color: var(--primary-pink); margin-bottom: 15px;">Acha Maoni Yako</h3>
-            <input type="text" id="rev-name" placeholder="Jina lako" style="margin-bottom: 10px;">
-            <textarea id="rev-text" placeholder="Andika maoni hapa..." rows="2"></textarea>
-            <div class="star-rating" id="star-input" style="margin-bottom: 15px;">
-                <span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star"
-                    data-value="3">★</span><span class="star" data-value="4">★</span><span class="star"
-                    data-value="5">★</span>
-            </div>
-            <button class="btn" onclick="submitReview()" style="padding: 10px 25px;">Tuma</button>
-        </div>
-        <div class="review-container" id="review-space"></div>
-    </section>
-
-    <footer class="main-footer">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div class="logo" style="margin-bottom: 20px;">ZEPOX <span>CO</span></div>
-                <p>Sisi ni kampuni ya teknolojia inayopatikana Arusha, Tanzania. Tunajikita katika uvumbuzi wa
-                    kidijitali.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="#home">Nyumbani</a></li>
-                    <li><a href="#services">Huduma</a></li>
-                    <li><a href="#trends">Teknolojia</a></li>
-                    <li><a href="#ai-class">AI Academy</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Wasiliana Nasi</h4>
-                <ul class="footer-links">
-                    <li><i class="fas fa-phone" style="color:var(--primary-pink); margin-right: 10px;"></i> +255 747 712
-                        469</li>
-                    <li><i class="fas fa-envelope" style="color:var(--primary-pink); margin-right: 10px;"></i>
-                        info@zepox.co.tz</li>
-                    <li><i class="fas fa-map-marker-alt" style="color:var(--primary-pink); margin-right: 10px;"></i>
-                        Arusha, Tanzania</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Zepox Omni-Tech. Haki zote zimehifadhiwa. Imetengenezwa na Zephania Kenedy.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-
+    <!-- Initialize Lucide Icons & Scroll/Video Scripts -->
     <script>
-        /**
-         * 1. INICIALIAZATION: Huandaa mandhari ya 3D kutumia Three.js
-         */
-        let scene, camera, renderer, particles;
-        function initThree() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('threed-bg').appendChild(renderer.domElement);
+        lucide.createIcons();
 
-            const geo = new THREE.BufferGeometry();
-            const count = 1500;
-            const posArr = new Float32Array(count * 3);
-            for (let i = 0; i < count * 3; i++) posArr[i] = (Math.random() - 0.5) * 10;
-            geo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
-            const mat = new THREE.PointsMaterial({ size: 0.005, color: 0xff007f });
-            particles = new THREE.Points(geo, mat);
-            scene.add(particles);
-            camera.position.z = 3;
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
         }
 
-        /**
-         * 2. ANIMATION LOOP: Huendesha mzunguko wa chembechembe za 3D
-         */
-        function animate() {
-            requestAnimationFrame(animate);
-            particles.rotation.y += 0.001;
-            renderer.render(scene, camera);
-        }
-        initThree();
-        animate();
-
-        /**
-         * 3. HERO SLIDER: Inasimamia ubadilishaji wa picha kwenye Hero Section
-         */
-        const slides = document.querySelectorAll('.slide');
-        const dotsContainer = document.getElementById('dots');
-        let currentSlide = 0;
-
-        slides.forEach((_, i) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        });
-
-        function goToSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
-            currentSlide = n;
-            slides[currentSlide].classList.add('active');
-            document.querySelectorAll('.dot')[currentSlide].classList.add('active');
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
         }
 
-        setInterval(() => {
-            let next = (currentSlide + 1) % slides.length;
-            goToSlide(next);
-        }, 5000);
-
-        /**
-         * 4. ORDER MODAL CONTROL: Inafungua fomu ya agizo na kuandaa huduma iliyochaguliwa
-         */
-        function openOrderForm(serviceName) {
-            document.getElementById('uploadModal').style.display = 'flex';
-            const select = document.getElementById('serviceType');
-            select.value = serviceName;
-            checkService();
-        }
-
-        function closeUploadModal() {
-            document.getElementById('uploadModal').style.display = 'none';
-        }
-
-        /**
-         * 5. DYNAMIC FORM LOGIC: Inaonyesha sanduku la anwani kwa huduma za Printing tu
-         */
-        function checkService() {
-            const service = document.getElementById('serviceType').value;
-            const addressBox = document.getElementById('addressBox');
-            const deliveryNote = document.getElementById('deliveryNote');
-            const isPrinting = service === "Book Printing";
-            addressBox.style.display = isPrinting ? "block" : "none";
-            deliveryNote.style.display = isPrinting ? "block" : "none";
-        }
-
-        /**
-         * 6. WHATSAPP INTEGRATION: Inachukua data za fomu na kuziweka kwenye link ya WhatsApp
-         */
-        function sendToWhatsApp(event) {
-            event.preventDefault();
-            const name = document.getElementById('wa_name').value;
-            const service = document.getElementById('serviceType').value;
-            const desc = document.getElementById('wa_desc').value;
-            const msg = `Agizo Jipya: ${service}\nMteja: ${name}\nMaelezo: ${desc}`;
-            window.open(`https://wa.me/255747712469?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        /**
-         * 7. ACADEMY REGISTRATION: Inasimamia usajili wa wanafunzi wa AI
-         */
-        function sendAcademyToWhatsApp(event) {
-            event.preventDefault();
-            const name = document.getElementById('ac_name').value;
-            const course = document.getElementById('ac_course').value;
-            const msg = `Usajili AI Academy:\nJina: ${name}\nKozi: ${course}`;
-            window.open(`https://wa.me/255747712469?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        /**
-         * 8. RATING SYSTEM: Inaruhusu wateja kubonyeza nyota kutoa alama
-         */
-        let selectedRating = 0;
-        document.querySelectorAll('#star-input .star').forEach(star => {
-            star.addEventListener('click', (e) => {
-                selectedRating = e.target.dataset.value;
-                document.querySelectorAll('#star-input .star').forEach(s => {
-                    s.classList.toggle('active', s.dataset.value <= selectedRating);
-                });
-            });
-        });
-
-        /**
-         * 9. REVIEW SUBMISSION: Inahifadhi na kuonyesha maoni mapya ya wateja
-         */
-        function submitReview() {
-            const name = document.getElementById('rev-name').value || "Mteja";
-            const text = document.getElementById('rev-text').value;
-            if (!text) return alert("Andika maoni kwanza!");
-            createReview(name, text, selectedRating);
-            document.getElementById('rev-text').value = "";
-        }
-        /**
-         * 10. FLOATING REVIEWS: Inatengeneza kadi zinazoelea tatu tatu zilizolingana
-         */
-        let reviewColumn = 0; // Inatusaidia kupanga safu (0, 1, 2)
-        let currentReviewIndex = 0; // Inatusaidia kupitisha maoni yote 50 bila kurudia
-
-        function createReview(name, text, stars) {
-            const container = document.getElementById('review-space');
-            if (!container) return;
-
-            const card = document.createElement('div');
-            card.className = 'floating-review';
-
-            // Kupanga nafasi tatu maalum (Columns) ili zilingane vizuri
-            const positions = [15, 45, 75];
-            card.style.left = positions[reviewColumn] + '%';
-
-            // Madoido ya kuchelewa kidogo ili kadi zisigongane zinapopanda
-            card.style.animationDelay = (reviewColumn * 1.5) + 's';
-
-            card.innerHTML = `
-        <div class="glass-inner">
-            <strong>${name}</strong><br>
-            <span style="font-size: 0.85rem; opacity: 0.9;">${text}</span><br>
-            <span style="color: var(--primary-pink);">${'★'.repeat(stars)}</span>
-        </div>
-    `;
-
-            container.appendChild(card);
-
-            // MUHIMU: Futa kadi baada ya sekunde 15 ili kulinda RAM ya kompyuta
-            setTimeout(() => {
-                card.remove();
-            }, 15000);
-
-            // Badilisha safu kwa ajili ya kadi inayofuata
-            reviewColumn = (reviewColumn + 1) % 3;
-        }
-
-        /**
-         * 11. INITIAL DATA: Orodha ya maoni 50
-         */
-        const initialReviews = [
-            { n: "Kenedy", t: "Website ni ya moto sana!", s: 5 },
-            { n: "Anna", t: "Huduma ya AI imetusaidia sana.", s: 4 },
-            { n: "Juma", t: "Inafanya kazi vizuri, napenda UI yake.", s: 5 },
-            { n: "Sarah", t: "Sijajua jinsi ya kutumia feature fulani, ila ni nzuri.", s: 3 },
-            { n: "Musa", t: "Best tech solution in town!", s: 5 },
-            { n: "Neema", t: "Inarahisisha kazi zangu za kila siku.", s: 4 },
-            { n: "David", t: "Excellent work, very professional.", s: 5 },
-            { n: "Grace", t: "Kuna sehemu inachelewa kidogo kuload, ila iko sawa.", s: 3 },
-            { n: "Peter", t: "Hii ndio future ya web apps.", s: 5 },
-            { n: "Zahara", t: "Nimevutiwa na jinsi inavyojibu haraka.", s: 4 },
-            { n: "Kelvin", t: "Iko vizuri sana, naipendekeza kwa wote.", s: 5 },
-            { n: "Aisha", t: "Graphics ni nzuri sana.", s: 4 },
-            { n: "Emmanuel", t: "Nimepata changamoto kidogo kwenye simu yangu.", s: 3 },
-            { n: "Loveness", t: "Ni rahisi kutumia hata kwa mgeni.", s: 5 },
-            { n: "Baraka", t: "I'm impressed with the AI integration.", s: 5 },
-            { n: "Rehema", t: "Huduma kwa wateja ni nzuri.", s: 4 },
-            { n: "Thomas", t: "Safi sana, endeleeni hivi hivi.", s: 5 },
-            { n: "Catherine", t: "Ina kila kitu ninachohitaji kwa sasa.", s: 4 },
-            { n: "Frank", t: "Naisubiri update nyingine nione mapya.", s: 3 },
-            { n: "Happiness", t: "Super fast and reliable.", s: 5 },
-            { n: "Iddi", t: "Ubunifu wa hali ya juu.", s: 5 },
-            { n: "Zainabu", t: "Inasaidia sana kwenye usimamizi wa biashara.", s: 4 },
-            { n: "Oscar", t: "Professional service, well done!", s: 5 },
-            { n: "Maria", t: "Naona kama kuna vitu vingi sana kwenye screen moja.", s: 3 },
-            { n: "George", t: "The best experience so far.", s: 5 },
-            { n: "Doreen", t: "Nimependa sana rangi na muonekano.", s: 4 },
-            { n: "Erick", t: "Hii imekuja muda sahihi.", s: 5 },
-            { n: "Irene", t: "Kuna baadhi ya maneno sijaelewa vizuri.", s: 3 },
-            { n: "Salum", t: "Ni kiboko ya website zote nilizowahi tumia.", s: 5 },
-            { n: "Rose", t: "Very user-friendly and intuitive.", s: 4 },
-            { n: "Ally", t: "Nimeanza kuitumia leo na nimeielewa.", s: 4 },
-            { n: "Vanessa", t: "Perfect tool for modern entrepreneurs.", s: 5 },
-            { n: "Rajabu", t: "Sijaona makosa yoyote makubwa.", s: 4 },
-            { n: "Sophia", t: "Mchakato wa kujisajili ni mrefu kidogo.", s: 3 },
-            { n: "Brian", t: "Top notch quality!", s: 5 },
-            { n: "Linda", t: "Imenisaidia kuokoa muda mwingi.", s: 5 },
-            { n: "Yusuph", t: "Inafanya kazi vizuri hata kwenye internet ndogo.", s: 4 },
-            { n: "Monica", t: "Amazing design and features.", s: 5 },
-            { n: "Saimoni", t: "Nahitaji maelekezo zaidi ya video.", s: 3 },
-            { n: "Fatma", t: "Ni bora zaidi ya nilivyotegemea.", s: 5 },
-            { n: "Jackson", t: "Great customer support team.", s: 4 },
-            { n: "Tausi", t: "Nimefurahishwa na usalama wa data zangu.", s: 5 },
-            { n: "Ismail", t: "Inarahisisha mawasiliano na timu yangu.", s: 4 },
-            { n: "Lucy", t: "Kuna wakati inajizima, sijui kwanini.", s: 3 },
-            { n: "Hassan", t: "Highly recommended for startups.", s: 5 },
-            { n: "Pili", t: "Inapendeza na inafanya kazi.", s: 4 },
-            { n: "Said", t: "Nimependa jinsi inavyojibu maswali ya AI.", s: 5 },
-            { n: "Anita", t: "Huduma ni nzuri japo bei inaweza kupungua.", s: 3 },
-            { n: "Godfrey", t: "Hatua kubwa sana kwa teknolojia yetu.", s: 5 },
-            { n: "Halima", t: "Asante sana, nimevutiwa!", s: 4 }
-        ];
-
-        // Mfumo wa kurusha maoni mapya kila baada ya sekunde 4 bila kurudia yale yale
-        function startReviewFlow() {
-            setInterval(() => {
-                const r = initialReviews[currentReviewIndex];
-                createReview(r.n, r.t, r.s);
-
-                // Sogea kwenye review inayofuata, ikifika mwisho rudi mwanzo
-                currentReviewIndex = (currentReviewIndex + 1) % initialReviews.length;
-            }, 4000);
-        }
-
-        // Anzisha mfumo
-        startReviewFlow();
-
-        /**
-         * 12. TILT EFFECT
-         */
-        VanillaTilt.init(document.querySelectorAll(".glass-card"), {
-            max: 15,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.2,
-        });
-        /**
-         * 13. SMOOTH SCROLLING: Inarekebisha navigation ili iwe laini wakati wa kusogeza
-         */
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        /**
-         * 14. WINDOW RESIZE: Inahakikisha background ya 3D inajirekebisha screen inapobadilika
-         */
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        /**
-         * 15. MODAL OUTSIDE CLICK: Inafunga fomu ikiwa mteja atabonyeza nje ya box
-         */
-        window.onclick = function (event) {
-            const modal = document.getElementById('uploadModal');
-            if (event.target == modal) closeUploadModal();
+        // Reveal Animation Observer
+        const observerOptions = {
+            threshold: 0.15
         };
-    </script>
-    <style>
-        /* 1. MAREKEBISHO YA CSS: Tunafanya Chatbase iwe Sticky */
-        #chatbase-bubble-button {
-            /* Hapa tunatumia 'sticky' badala ya 'fixed' ili ionekane kama 'ina-flow' */
-            position: sticky !important;
-            bottom: 25px !important;
-            /* Huu ni ufunguo: Lazima right iwe kubwa ili ijibonyeze kando */
-            margin-right: 25px !important;
-            margin-bottom: 25px !important;
-            /* Tunaiambia Chatbase ianze mwanzo kabisa na iendele mpaka mwisho */
-            float: right !important;
-            z-index: 2147483647 !important;
 
-            /* Sijaondoa chochote cha asili, nimeongeza tu sticky logic hapo juu */
-            width: 65px !important;
-            height: 65px !important;
-            background: transparent !important;
-            border: none !important;
-            filter: drop-shadow(0 0 15px rgba(255, 0, 127, 0.6)) !important;
-            cursor: pointer !important;
-            display: flex !important;
-        }
-
-        #chatbase-bubble-button img {
-            width: 100% !important;
-            height: 100% !important;
-            border-radius: 15px !important;
-        }
-
-        /* Dirisha la chati likifunguka lazima libaki fixed ili lisipotee */
-        #chatbase-bubble-window {
-            position: fixed !important;
-            z-index: 2147483647 !important;
-            bottom: 100px !important;
-            right: 25px !important;
-        }
-    </style>
-
-    <script>
-        // Hii itatafuta menu na kitufe chake
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        // Ikibonyezwa, inaongeza au inaondoa class ya 'active'
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, parseInt(delay));
+                    observer.unobserve(entry.target);
+                }
             });
-        }
+        }, observerOptions);
 
-        // Ikibonyeza link yoyote, menu ifunge yenyewe
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
         });
-    </script>
 
+        // Scroll Scrubbed Video Logic
+        const video = document.getElementById('bg-video');
+        const poster = document.getElementById('video-poster');
+        const canvas = document.getElementById('video-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let duration = 0;
+        let smoothedProgress = 0;
+        let frames = [];
+        let framesReady = false;
+
+        video.addEventListener('loadedmetadata', () => {
+            duration = video.duration;
+            initFrames();
+        });
+
+        // Fallback if already loaded
+        if (video.readyState >= 1) {
+            duration = video.duration;
+            initFrames();
+        }
+
+        async function initFrames() {
+            if (!duration) return;
+            const totalFrames = Math.min(Math.floor(duration * 12), 90);
+            const interval = duration / totalFrames;
+
+            video.currentTime = 0;
+
+            let currentT = 0;
+            const captureFrame = () => {
+                if (currentT <= duration && frames.length < totalFrames) {
+                    video.currentTime = currentT;
+                } else {
+                    if (frames.length > 0) {
+                        framesReady = true;
+                        poster.style.opacity = '0';
+                        canvas.style.opacity = '1';
+                        requestAnimationFrame(renderLoop);
+                    }
+                }
+            };
+
+            video.onseeked = () => {
+                try {
+                    canvas.width = video.videoWidth || 1920;
+                    canvas.height = video.videoHeight || 1080;
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    createImageBitmap(canvas).then(bitmap => {
+                        frames.push(bitmap);
+                        currentT += interval;
+                        captureFrame();
+                    }).catch(() => {
+                        framesReady = false;
+                        poster.style.opacity = '0';
+                        video.style.opacity = '1';
+                        requestAnimationFrame(renderLoopFallback);
+                    });
+                } catch (e) {
+                    framesReady = false;
+                    poster.style.opacity = '0';
+                    video.style.opacity = '1';
+                    requestAnimationFrame(renderLoopFallback);
+                }
+            };
+
+            setTimeout(() => {
+                captureFrame();
+            }, 300);
+        }
+
+        function renderLoop() {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const rawProgress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+            const targetProgress = Math.max(0, Math.min(1, rawProgress));
+
+            smoothedProgress += (targetProgress - smoothedProgress) * 0.12;
+
+            if (frames.length > 0) {
+                const frameIndex = Math.min(Math.floor(smoothedProgress * (frames.length - 1)), frames.length - 1);
+                const frame = frames[frameIndex];
+                if (frame) {
+                    if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                    }
+                    const hRatio = canvas.width / frame.width;
+                    const vRatio = canvas.height / frame.height;
+                    const ratio = Math.max(hRatio, vRatio);
+                    const centerShiftX = (canvas.width - frame.width * ratio) / 2;
+                    const centerShiftY = (canvas.height - frame.height * ratio) / 2;
+
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(frame, 0, 0, frame.width, frame.height, centerShiftX, centerShiftY, frame.width * ratio, frame.height * ratio);
+                }
+            }
+            requestAnimationFrame(renderLoop);
+        }
+
+        let lastSeek = 0;
+        function renderLoopFallback() {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const rawProgress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+            const targetProgress = Math.max(0, Math.min(1, rawProgress));
+
+            smoothedProgress += (targetProgress - smoothedProgress) * 0.12;
+
+            if (duration) {
+                const targetTime = smoothedProgress * (duration - 0.05);
+                if (Math.abs(targetTime - lastSeek) > 0.04) {
+                    video.currentTime = targetTime;
+                    lastSeek = targetTime;
+                }
+            }
+            requestAnimationFrame(renderLoopFallback);
+        }
+
+        window.addEventListener('resize', () => {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            if (canvas) {
+                canvas.width = window.innerWidth * dpr;
+                canvas.height = window.innerHeight * dpr;
+                ctx.scale(dpr, dpr);
+            }
+        });
+        window.dispatchEvent(new Event('resize'));
+    </script>
 </body>
 
 </html>
